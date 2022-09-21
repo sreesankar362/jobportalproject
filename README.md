@@ -11,7 +11,7 @@ link : https://www.freecodecamp.org/news/how-to-use-git-and-github-in-a-team-lik
 1.open a new folder in pycharm
 
 2.to get repository
-  >git clone https://github.com/sreesankar362/jobportalproject
+  >git clone https://github.com/sreesankar362/jobportalproject.git
 
 3.change directory to repository
   >cd jobportalproject
