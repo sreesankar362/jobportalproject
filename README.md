@@ -22,3 +22,10 @@ link : https://www.freecodecamp.org/news/how-to-use-git-and-github-in-a-team-lik
   >pip install -r requirements.txt
   
 5.start working
+
+6. git branch   #list all branches
+
+7. git checkout -b <newbranchname>       #create a new branch and switch to it
+8. git add -A
+9. git commit -m 'message about commit'
+10. git push 
