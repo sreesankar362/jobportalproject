@@ -1,0 +1,126 @@
+/* navbar start */
+{% load static %}
+.navbar{
+
+    background-color: #6c8eff;
+    height: 100px;
+}
+
+.nav-item a{
+    font-size:18px;
+    color: white;
+    background-color: #6c8eff;
+}
+.nav-item{
+    display: block;
+
+}
+.nav-link{
+    width: 120px;
+}
+
+
+#leftrightspace{
+    margin-left: 10%;
+    margin-right:10%;
+}
+#leftrightspace h2{
+    color: white;
+    font-size:xx-large;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.second{
+
+    background-color: rgb(230, 230, 230);
+    padding-top: 3%;
+}
+
+.buttons-navbar{
+    display: flex;
+    gap: 15px;
+}
+
+
+.buttons-navbar button{
+    width: 140px;
+    color:rgb(0, 101, 184);
+    background: rgb(255, 255, 255);
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    font-size:16px;
+}
+
+.buttons-navbar button:hover{
+    width: 140px;
+    color:rgb(255, 255, 255);
+    background: rgb(32, 125, 248);
+    border: none;
+    height: 40px;
+    font-size:16px;
+
+}
+/* navbar end */
+
+
+/* main bg start*/
+.search-div{
+    background-repeat: no-repeat;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    height: auto;
+    width: 100%;
+}
+
+.hero__caption h1{
+    margin-top: 10%;
+    font-size: 5.5vw;
+    font-weight: 900;
+    margin-bottom: 78px;
+    color: #3e5cbe;
+    line-height: 1.2;
+}
+
+.searchbar{
+    display: flex;
+    height: 70px;
+
+}
+.searchbar-2 {
+    display: flex;
+    height: 70px;
+    margin-bottom: 70%;
+
+}
+/* main bg end*/
+.viewbtn{
+    width: 120px;
+    height: 40px;
+    background-color:#6c8eff;
+    border: none;
+
+}
+/* recent jobs */
+.recentjobs{
+    margin: 1%;
+}
+.recentjobs h4 {
+    color:#3e5cbe ;
+}
+/* recent jobs end */
+
+
+
+
+
+/* footer */
+.footer{
+    /* position:fixed; */
+    bottom:0;
+    width:100%;
+    background-color: #6c8eff;
+    color: white;
+}
+
+
