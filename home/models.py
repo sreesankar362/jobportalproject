@@ -10,5 +10,9 @@ class ModelDemo(models.Model):
 
     
 class ModelDemosecond(models.Model):
-print("hi")
-print("seconf hi")
+    print("hi")
+    print("seconf hi")
+
+class ModelDemoThird(models.Model):
+    print("hi")
+    print("seconf hi")
