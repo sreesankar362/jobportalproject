@@ -1,0 +1,5 @@
+# Django ignoring these files from going to git #
+*.log
+*.pot
+*.pyc
+__pycache__
