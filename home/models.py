@@ -6,3 +6,4 @@ class DemoModel(models.Model):
 
 class ModelDemo(models.Model):
     print("hi")
+    print("seconf hi")
