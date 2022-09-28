@@ -16,7 +16,7 @@
     (to push merged work to remote repository(main))
     7.git add -A
     8.git commit -m 'commit message'
-    9.git push origin main workingbranchname
+    9.git push -u origin main workingbranchname
     
     10.come to github repository(browser) 'createpull request'
     11.create.
