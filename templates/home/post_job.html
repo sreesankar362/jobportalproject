@@ -1,0 +1,42 @@
+{% extends 'common_html/base.html' %}
+
+{% block content %}
+
+<style>
+    textarea{
+    height:150px;
+    }
+</style>
+
+<div class="container p-5">
+    <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6" style="">
+                <h3>Post A Job:</h3>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ job_form.as_p }}
+                    <div class="row">
+                        <label for="">Position</label>
+                        {{job_form.position}}
+                        <label for="">Job Description</label>
+                        {{job_form.job_description}}
+                        <label for="">Job Skills</label>
+                        {{job_form.skills}}
+                    </div>
+                    <input type="submit" class="btn btn-primary form-control">
+                </form>
+            </div>
+            <div class="col-3"></div>
+    </div>
+
+</div>
+
+<script>
+    $("input").addClass("form-control")
+    $("select").addClass("form-control")
+    $("textarea").addClass("form-control")
+    $("#id_application_end_date").attr("type","date");
+</script>
+
+{% endblock %}
