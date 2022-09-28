@@ -1,11 +1,36 @@
 # jobportalproject
 -----------------------------------------------------------------------------------
+
+### Main branch Merging with Working branch and pushing Steps:
+    (from working branch)
+    1.git add -A
+    2.git commit -m 'message'
+    3.git checkout main
+    4.git pull 
+    5.git checkout workingbranchname
+    6.git merge main
+    6.git status (to see changes) 
+    %% Now main and your working branch is merged solve conflicts manually by
+    editing conflicted files(removing == symbols and keep only the neededcode)
+    
+    (to push merged work to remote repository(main))
+    7.git add -A
+    8.git commit -m 'commit message'
+    9.git push origin main workingbranchname
+    
+    10.come to github repository(browser) 'createpull request'
+    11.create.
+    12.Done
+
+
+
 Postgresql setting on django project
 link : https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-20-04
 
 Git using for Team
 link : https://www.freecodecamp.org/news/how-to-use-git-and-github-in-a-team-like-a-pro/
 ------------------------------------------------------------------------------------
+
 
 
 1.open a new folder in pycharm
@@ -28,7 +53,3 @@ link : https://www.freecodecamp.org/news/how-to-use-git-and-github-in-a-team-lik
 7. git checkout -b <newbranchname>       #create a new branch and switch to it
 
 **make changes
-
-8. git add -A
-9. git commit -m 'message about commit'
-10. git push 
