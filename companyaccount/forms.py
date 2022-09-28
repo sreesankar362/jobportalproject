@@ -26,5 +26,12 @@ class CompanyUserForm(forms.ModelForm):
         widgets = {
             "username": forms.TextInput(attrs={"class":"form-control"})
         }
+    def clean(self):
+        cleaned_data = super(CompanyUserForm,self).clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+        if password1 != password2:
+            raise forms.ValidationError("passwords does not match")
+
 
 
