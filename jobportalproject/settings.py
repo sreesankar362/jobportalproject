@@ -57,7 +57,7 @@ ROOT_URLCONF = 'jobportalproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['templates','templates/profile','templates/common_html','templates/home','templates/company'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

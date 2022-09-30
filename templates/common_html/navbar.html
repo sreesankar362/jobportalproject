@@ -1,0 +1,37 @@
+{% load static %}
+
+ <!-- navbar -->
+ <nav class="navbar navbar-dark navbar-expand-lg ">
+    <div id="leftrightspace" class="container-fluid ">
+        <!-- <img class="img-fluid" height="70" width="200" src="./images/bloom.png" alt=""> -->
+        <h2>JOB HUB</h2>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto  mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link "  href="{% url 'home' %}">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'jobs' %}">JOBS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">ABOUT US</a>
+          </li>
+
+
+        </ul>
+        <ul class="ms-auto buttons-navbar mt-auto mb-auto" >
+            <li class="nav-item">
+              <button > <a class="nav-link" href="{% url 'company-login' %}">LOGIN</a> </button>
+            </li>
+            <li class="nav-item">
+                <button>REGISTER</button>
+            </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+<!-- navbar end -->

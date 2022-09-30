@@ -1,8 +1,23 @@
-{% extends 'home.html' %}
-{%block contents%}
+{% extends 'company_base.html' %} 
+
+{%block content%}
 
 
-<h1>{{request.user.users.company_name}}</h1>
+{{request.company.user}}
+{{request.company.company_address}}
+{{request.company.company_name}}
+{{request.company.user}}
+{{request.company.company_description}}
+{{request.Company.category}} 
+{{request.user.company.company_logo}}
+{{request.user.company.industry}}
+{{request.user.company.founded}}
+{{request.user.company.team_size}}
+{{request.user.company.company_email}}
+{{request.user.company.phone}}
+{{request.user.company.location}}
+{{request.user.company.company_address}}
+{{request.user.company.country_code}} 
 
 
-{% endblock %}
+{%endblock%}
