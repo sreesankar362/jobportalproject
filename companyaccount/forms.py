@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from dataclasses import fields
 import imp
 from xml.etree.ElementInclude import include
@@ -68,3 +69,36 @@ class PasswordResetForm(forms.Form):
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField( widget = forms.PasswordInput())
+
+
+class CompanyRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = ["company_name", "company_email"]
+        widgets = {
+            "company_name": forms.TextInput(attrs={"class":"form-control"}),
+            "company_email": forms.EmailInput(attrs={"class": "form-control"})
+        }
+
+class CompanyUserForm(forms.ModelForm):
+    password1 = forms.CharField(
+        label="Password",
+        widget= forms.TextInput(attrs={"class":"form-control"})
+    )
+    password2 = forms.CharField(
+        label="Confirm Password",
+        widget= forms.PasswordInput(attrs={"class":"form-control"})
+    )
+    class Meta:
+        model = User
+        fields = ["username", "password1", "password2"]
+        widgets = {
+            "username": forms.TextInput(attrs={"class":"form-control"})
+        }
+    def clean(self):
+        cleaned_data = super(CompanyUserForm,self).clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+        if password1 != password2:
+            raise forms.ValidationError("passwords does not match")
+

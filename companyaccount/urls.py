@@ -14,7 +14,8 @@ urlpatterns = [
     path('profile/view',views.CompanyProfileView.as_view(),name = 'view-profile'),
     path('reset-password',views.PasswordResetView.as_view(), name = 'reset-pass'),
     path('profile/update/<int:user_id>',views.CompanyProfileUpdateView.as_view(), name = 'profile-update'),
-
+    path("register", views.CompanyRegistrationView.as_view(),name="register"),
 
 
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

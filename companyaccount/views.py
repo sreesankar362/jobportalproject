@@ -1,8 +1,6 @@
-
-from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.shortcuts import render,redirect
 from django.views.generic import View
-from .forms import CompanyProfileForm, PasswordResetForm, LoginForm, SocialProfileForm
+from .forms import *
 from .models import Company, SocialProfile
 from django.views.generic import CreateView, FormView, RedirectView,DetailView, UpdateView,TemplateView
 from django.urls import reverse_lazy
@@ -69,7 +67,6 @@ class CompanyProfileUpdateView(UpdateView):
         messages.success(self.request, "Your Company Profile has been successfully updated.")
         self.object = form.save()
         return  super().form_valid(form)
-
 
 
 class PasswordResetView(FormView):
@@ -139,6 +136,33 @@ def logout_company(request):
 class CompanyDashView(TemplateView):
     template_name = 'profile/company-dashboard.html'
     
+class CompanyRegistrationView(View):
+    def get(self, request, *args, **kwargs):
+        company_form = CompanyRegistrationForm()
+        company_user_form = CompanyUserForm()
+        context = {
+            "company_form": company_form,
+            "company_user_form": company_user_form
+        }
+        return render(request, "company/company_registration.html", context)
+
+    def post(self, request, *args,**kwargs):
+        company_form = CompanyRegistrationForm(request.POST)
+        company_user_form = CompanyUserForm(request.POST)
+        if company_form.is_valid() and company_user_form.is_valid():
+            company_obj = company_form.save()
+            user_obj = company_user_form.save()
+            company_obj.users.add(user_obj)
+            messages.success(request, "Your account has been created")
+            return redirect("jobs")
+        else:
+            messages.error(request, "Registration failed")
+            context = {
+                "company_form": company_form,
+                "company_user_form": company_user_form
+            }
+            return render(request, "company/company_registration.html", context)
+    
     
     
     
@@ -199,3 +223,4 @@ class CompanyDashView(TemplateView):
 #     def form_invalid(self, form):
 #         """If the form is invalid, render the invalid form."""
 #         return self.render_to_response(self.get_context_data(form=form))
+
