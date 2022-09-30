@@ -1,0 +1,35 @@
+{% extends 'common_html/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<!-- Form displays the fileds for LOGIN and a  Button -->
+<div class="row mt-5 mb-5">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card text-center mt-3 mb-3">JOB SEEKER LOGIN</h2>
+            </div>
+            <div class="card-body">
+
+                <form action="" class="mt-3" method="post">
+                    {%csrf_token%}
+                    {{form.as_p}}
+                    <div class="card mb-5 mt-5   ">
+                        <button type="submit" class="btn btn-info btn-outline-dark ">login</button>
+
+                    </div>
+                </form>
+                <a href="http://" class="card-link">Forgot Password?</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+
+
+{% endblock %}
