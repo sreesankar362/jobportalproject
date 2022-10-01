@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from accounts.models import User
 from django.core.validators import FileExtensionValidator
 
 
@@ -12,36 +12,31 @@ class SocialProfile(models.Model):
     linkedin = models.URLField(default="", null=True)
 
 
-class Company(models.Model):
-    users = models. ManyToManyField(User)
+class CompanyProfile(models.Model):
+    user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE)
     company_name = models.CharField(max_length=100, blank=False)
-    company_logo = models.ImageField(upload_to="companyimages",
-                                     validators=[FileExtensionValidator(allowed_extensions=["jpg", "png", "jpeg"])])
-    company_description = models.CharField(max_length=500, null=True)
-    industry = models.CharField(max_length=100, null=True)
-    category = models.CharField(max_length=100, null=True)
-    choice1 = (
-        ("full-time", "full-time"),
-        ("part-time", "part-time"),
-        ("intern", "intern")
+    company_logo = models.ImageField(
+        upload_to="company_images",
+        validators=[FileExtensionValidator(allowed_extensions=["jpg", "png", "jpeg"])],
+        null=True
     )
-    type = models.CharField(max_length=100, choices=choice1)
-    founded = models.PositiveIntegerField(null=True)
-    choice2 = (
+    company_description = models.CharField(max_length=500, null=True, blank=True)
+    location = models.CharField(max_length=100, null=True, blank=True)
+    industry = models.CharField(max_length=100, null=True, blank=True)
+    category = models.CharField(max_length=100, null=True, blank=True)
+    choice = (
         ("0-100", "0-100"),
         ("100-500", "100-500"),
         ("500-1000", "500-1000"),
         ("1000+", "1000+")
     )
-    team_size = models.CharField(max_length=10, choices=choice2)
-    company_email = models.EmailField(unique=True, blank=False,
-                                      error_messages={"unique": "A user with this email already exist"})
-    is_mail_verified = models.BooleanField(default=False)
-    phone = models.PositiveIntegerField(null=True)
-    location = models.CharField(max_length=100)
-    company_address = models.CharField(max_length=250, null=True)
-    country_code = models.PositiveIntegerField(null=True)
-    social_profile = models.ForeignKey(SocialProfile, on_delete=models.CASCADE, null=True, blank=True,related_name= "social")
+    team_size = models.CharField(max_length=10, choices=choice, null=True, blank=True)
+    founded = models.PositiveIntegerField(null=True, blank=True)
+    company_address = models.CharField(max_length=250, null=True, blank=True)
+    country_code = models.PositiveIntegerField(null=True, blank=True)
+    social_profile = models.ForeignKey(SocialProfile, on_delete=models.CASCADE, null=True, blank=True)
+
+    is_approved = models.BooleanField(default=False)
 
     def __str__(self):
         return self.company_name

@@ -1,14 +1,7 @@
 from django.contrib import admin
+from companyaccount.models import *
 
-from companyaccount.models import Company
+from companyaccount.models import CompanyProfile
 
 # Register your models here.
-
-
-
-
-class CompanyAdmin(admin.ModelAdmin):
-    exclude = ('social_profile',)
-
-
-admin.site.register(Company,CompanyAdmin)
+admin.site.register(CompanyProfile)

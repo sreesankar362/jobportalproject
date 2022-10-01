@@ -16,14 +16,7 @@
                 <form action="" method="post">
                     {% csrf_token %}
                     {{ job_form.as_p }}
-                    <div class="row">
-                        <label for="">Position</label>
-                        {{job_form.position}}
-                        <label for="">Job Description</label>
-                        {{job_form.job_description}}
-                        <label for="">Job Skills</label>
-                        {{job_form.skills}}
-                    </div>
+
                     <input type="submit" class="btn btn-primary form-control">
                 </form>
             </div>

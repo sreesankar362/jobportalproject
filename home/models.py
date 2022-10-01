@@ -1,13 +1,13 @@
 from django.db import models
 
-from companyaccount.models import Company
+from companyaccount.models import CompanyProfile
 
 
 class JobModel(models.Model):
     position = models.CharField(max_length=100)
     job_description = models.TextField(max_length=800)
     skills = models.TextField(max_length=200)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='employer')
+    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, related_name='employer')
     job_type = (
         ("full-time", "full time"),
         ("part-time", 'Part Time'),
