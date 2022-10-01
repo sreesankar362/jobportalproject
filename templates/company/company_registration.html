@@ -1,11 +1,13 @@
 {% extends 'common_html/base.html' %}
 {% block content %}
 {% load static %}
+<div style="background-color:#F1F1F1;" >
 
+</div>
 <div class="container">
     <div class="row">
         <div class="col-3"></div>
-        <div class="col-6">
+        <div class="col-6 card">
             {%if messages%}
                 {%for m in messages%}
                     {% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
@@ -27,7 +29,7 @@
     </div>
     <div class="row">
         <div class="col-3"></div>
-        <div class="col-5">
+        <div class="col-4">
             <h2 class="mt-3" style="text-align: center;" >REGISTER</h2>
             <form action="" method="post">
                 {%csrf_token%}
@@ -41,7 +43,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-4"></div>
+        <div class="col-3"></div>
     </div>
 </div>
 

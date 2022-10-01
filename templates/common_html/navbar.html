@@ -22,14 +22,46 @@
 
 
         </ul>
-        <ul class="ms-auto buttons-navbar mt-auto mb-auto" >
-            <li class="nav-item">
-                <button>LOGIN</button>
-            </li>
-            <li class="nav-item">
-                <a type="submit" class="btn btn-light" href="{% url 'register' %}">REGISTER</a>
-            </li>
-        </ul>
+          {% if user.is_authenticated %}
+                <ul class="buttons-navbar mt-auto mb-auto" >
+                    <li class="nav-item">
+                        <button class="btn btn-danger" onclick="location.href='{% url 'logout' %}'" >LOGOUT</button>
+                    </li>
+                    {% if user.role == 2 %}
+                        <li class="nav-item">
+                            <button onclick="location.href='{% url 'myaccount' %}'" > My Account</button>
+                        </li>
+                    {% elif user.role == 1 %}
+                        <li class="nav-item">
+                            <button onclick="location.href='{% url 'company-dashboard' %}'" > DASHBOARD</button>
+                        </li>
+                    {% endif %}
+                </ul>
+          {% else %}
+              <ul class="buttons-navbar mt-auto mb-auto" >
+                <li class="nav-item">
+                    <button  onclick="location.href='{% url 'login' %}'" >LOGIN</button>
+                </li>
+                <li class="nav-item">
+                    <button  onclick="location.href='{% url 'userregister' %}'">REGISTER</button>
+                </li>
+                <div class="ms-3 vr" style="color:orange;width:5px;"></div>
+                      <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Employer
+                              </a>
+                              <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="{% url 'company-login' %}">Login</a></li>
+                                <li><a class="dropdown-item" href="{% url 'company-register' %}">Register</a></li>
+                              </ul>
+                            </li>
+                      </ul>
+
+                </ul>
+          {% endif %}
+
+
 
       </div>
     </div>

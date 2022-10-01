@@ -1,0 +1,22 @@
+{% extends 'common_html/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <div class="col-6 border">
+            <h2>Login</h2>
+            <form action="" class="mt-5" method="post">
+                {%csrf_token%}
+                {{form.as_p}}
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-info">login</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+{% endblock %}
+

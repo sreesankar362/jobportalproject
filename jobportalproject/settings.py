@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'home',
     'user',
     'companyaccount',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'jobportalproject.wsgi.application'
 
+AUTH_USER_MODEL = 'accounts.User'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
