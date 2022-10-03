@@ -1,0 +1,48 @@
+{% extends 'common_html/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            {%if messages%}
+                {%for m in messages%}
+                    {% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{m}}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                    {% if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{m}}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                {%endfor%}
+            {%endif%}
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-5">
+            <h2 class="mt-3" style="text-align: center;" >REGISTER</h2>
+            <form action="" method="post">
+                {%csrf_token%}
+                {{company_form.as_p}}
+                {{company_user_form.as_p}}
+                <div class="mb-3" style="text-align: center;">
+                    <button type="submit" class="btn btn-info">Register</button>
+                    <div>Already have an account?
+                        <a href=""> Login</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+{% endblock %}

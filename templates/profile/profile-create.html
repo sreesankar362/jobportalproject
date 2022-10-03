@@ -1,6 +1,6 @@
-{%extends 'base.html'%}
+{% extends 'company_base.html' %} 
 
-{%block body_block%}
+{%block content%}
 
 <div class="row mt-lg-5">
     <div class="col-4"></div>
@@ -8,6 +8,7 @@
         <form action="" method="post" enctype="multipart/form-data">
             {%csrf_token%}
              {{form.as_p}}
+             {% comment %} {{social_form.as_p}} {% endcomment %}
             <input type="submit">
         </form>
     </div>
@@ -15,3 +16,4 @@
 </div>
 
 {%endblock%}
+

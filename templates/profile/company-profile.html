@@ -1,8 +1,10 @@
-{% extends 'home.html' %}
-{%block contents%}
+{% extends 'company_base.html' %} 
+
+{%block content%}
 
 
-<h1>{{request.user.users.company_nameS}}</h1>
+{{form.as_p}}
 
 
-{% endblock %}
+{%endblock%}
+

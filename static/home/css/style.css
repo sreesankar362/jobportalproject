@@ -1,0 +1,176 @@
+/* navbar start */
+
+.navbar{
+
+    background-color: #6c8eff;
+    height: 100px;
+}
+
+.nav-item a{
+    font-size:18px;
+    color: white;
+    background-color: #6c8eff;
+}
+.nav-item{
+    display: block;
+
+}
+.nav-link{
+    width: 120px;
+}
+
+
+#leftrightspace{
+    margin-left: 10%;
+    margin-right:10%;
+}
+#leftrightspace h2{
+    color: white;
+    font-size:xx-large;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.second{
+
+    background-color: rgb(230, 230, 230);
+    padding-top: 3%;
+}
+
+.buttons-navbar{
+    display: flex;
+    gap: 15px;
+}
+
+
+.buttons-navbar button{
+    width: 140px;
+    color:rgb(0, 101, 184);
+    background: rgb(255, 255, 255);
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    font-size:16px;
+}
+
+.buttons-navbar button:hover{
+    width: 140px;
+    color:rgb(255, 255, 255);
+    background: rgb(32, 125, 248);
+    border: none;
+    height: 40px;
+    font-size:16px;
+
+}
+/* navbar end */
+
+
+/* main bg start*/
+.search-div{
+    background-image: url(./images/h1_hero.jpg);
+    background-repeat: no-repeat;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    height: auto;
+    width: 100%;
+}
+
+.hero__caption h1{
+    margin-top: 10%;
+    font-size: 5.5vw;
+    font-weight: 900;
+    margin-bottom: 78px;
+    color: #6c8eff;
+    line-height: 1.2;
+    text-shadow:  2px  2px 1px 14px rgba(0, 0, 0, 0.3);
+}
+
+.searchbar{
+    display: flex;
+    height: 70px;
+
+}
+.searchbar-2 {
+    display: flex;
+    height: 70px;
+    margin-bottom: 70%;
+
+}
+/* main bg end*/
+.viewbtn{
+    width: 130px;
+    height: 40px;
+    background-color:#0275d8;
+    border: none;
+    border-radius:25px;
+    color: white;
+    margin-top: 40px;
+    margin-left: 30px;
+
+}
+.viewbtn:hover{
+    width: 130px;
+    height: 40px;
+    background-color:#ffffff;
+    border: 2px solid #356feb;
+    border-radius:25px;
+    color: #3596eb;
+
+}
+/* recent jobs */
+.recentjobs{
+    margin: 1%;
+}
+.job-card{
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  }
+
+.job-card:hover {
+box-shadow: 0 1px 5px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.22);
+}
+
+.recentjobs h4 {
+    color:#3e5cbe ;
+}
+
+.company_logo{
+    border: .5px solid #6c8eff;
+}
+.right-details,card-left{
+    line-height: 1em;
+}
+
+
+.viewall{
+    width: 150px;
+    height: 40px;
+    background-color:#0275d8;
+    border: none;
+    color: white;
+}
+.viewall:hover{
+    width: 150px;
+    height: 40px;
+    background-color:#ffffff;
+    border: none;
+    color: #0275d8;
+    border: 2px solid #356feb;
+
+}
+
+/* recent jobs end */
+
+
+
+
+
+/* footer */
+.footer{
+    /* position:fixed; */
+    bottom:0;
+    width:100%;
+    background-color: #6c8eff;
+    color: white;
+}
+
+
