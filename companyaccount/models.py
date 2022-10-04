@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
+from accounts.models import User
 
 
 class SocialProfile(models.Model):
@@ -32,7 +33,7 @@ class CompanyProfile(models.Model):
     founded = models.PositiveIntegerField(null=True, blank=True)
     company_address = models.CharField(max_length=250, null=True, blank=True)
     country_code = models.PositiveIntegerField(null=True, blank=True)
-    social_profile = models.ForeignKey(SocialProfile, on_delete=models.CASCADE, null=True, blank=True)
+    # social_profile = models.ForeignKey(SocialProfile, on_delete=models.CASCADE, null=True, blank=True)
 
     is_approved = models.BooleanField(default=False)
 

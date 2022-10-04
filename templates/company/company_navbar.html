@@ -18,12 +18,12 @@
               Manage Profile
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                {%if request.user.user. %}
+                {% comment %} {%if request.user.user. %} {% endcomment %}
                        <li><a class="dropdown-item active" href="{%url 'profile-update'%}">Update Profile</a></li>
-                       <li><a class="dropdown-item active" href="{%url 'view-profile'%}">View Profile</a></li>
-                {%else%}
-                      <li><a class="dropdown-item active" href="{%url 'add-profile'%}">Add Profile</a></li>
-                {%endif%}
+                       {% comment %} <li><a class="dropdown-item active" href="{%url 'view-profile'%}">View Profile</a></li> {% endcomment %}
+                {% comment %} {%else%}{%endif%}{% endcomment %}
+                      {% comment %} <li><a class="dropdown-item active" href="{%url 'add-profile'%}">Add Profile</a></li> {% endcomment %}
+                 
   
   <!--            <li><hr class="dropdown-divider"></li>-->
               <li><a class="dropdown-item active" href="{%url 'reset-pass'%}">Change Password</a></li>

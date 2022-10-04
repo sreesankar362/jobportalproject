@@ -15,11 +15,14 @@ from user.forms import RegistrationForm, LoginForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
+from accounts.models import User
+from django.http import HttpResponseRedirect
 
 
 class CreateCompanyProfileView(CreateView):
+    model = CompanyProfile
     template_name = 'profile/profile-create.html'
-    form_class = CompanyProfileMultiForm
+    form_class = CompanyProfileForm
     success_url = reverse_lazy('company-dash')    
         
         
@@ -31,11 +34,11 @@ class CompanyProfileView(TemplateView):
 class CompanyProfileUpdateView(UpdateView):
     
     model = CompanyProfile
-    form_class = CompanyProfileMultiForm
+    form_class = CompanyProfileForm
     template_name = 'profile/profile-create.html'  
     success_url = reverse_lazy('company-dash') 
     pk_url_kwarg = 'user_id'
-    # slug_url_kwarg = 'user_id'
+    slug_url_kwarg = 'user_id'
 
     def form_valid(self, form):
         messages.success(self.request, "Your Company Profile has been successfully updated.")
@@ -69,35 +72,28 @@ class PasswordResetView(FormView):
                 return render(request, self.template_name, {'form':form})
             
 
+class LogInView(View):
+    
+    def get(self,request,*args,**kwargs):
+        form = LoginForm()
+        return render(request,"profile/login.html",context={"form":form})
 
-
-
-class LogInView(FormView):
-
-    form_class = LoginForm
-    template_name = 'profile/login.html'
-    model = CompanyProfile
-    def get(self,request,*args, **kwargs):
-        form = self.form_class()
-        return render(request, self.template_name, {'form':form})
-
-    def post(self, request, *args, **kwargs ):
-        form = self. form_class(request.POST)
+    def post(self,request,*args,**kwargs):
+        form =LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username = username, password = password)
-            if user:
-                print('success')
-                login(request,user)
-                return redirect('company-dash')
+            email = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request,email=email, password=password)
+            if user is not None:
+                if user.role == 1:
+                    login(request, user)
+                    messages.success(request, "Your are logged in")
+                    return redirect('company-dash')
             else:
-                return render(request, self.template_name, {'form':form})
-
-        print(request.POST.get("u_name"))
-        print(request.POST.get("pwd"))
-        return render(request, 'profile/login.html')
-
+                messages.error(request, "Invalid credentials")
+                return render(request,"profile/login.html",context={"form":form})
+        return render(request,"company/company_registration.html")
+            
 
 def logout_company(request):
     auth.logout(request)
@@ -156,84 +152,9 @@ class CompanyRegistrationView(View):
 
 
 
+# class LogInView(FormView):
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-# class LoginView(FormView):
-
-#     form_class = LoginForm
-#     template_name = 'profile/login.html'
-#     model = User
-#     def get(self,request,*args, **kwargs):
-#         form = self.form_class()
-#         return render(request, self.template_name, {'form':form})
-
-#     def post(self, request, *args, **kwargs ):
-#         form = self. form_class(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password')
-#             user = authenticate(request, username = username, password = password)
-#             if user:
-#                 print('success')
-#                 login(request,user)
-#                 return redirect('home')
-#             else:
-#                 return render(request, self.template_name, {'form':form})
-
-#         print(request.POST.get("u_name"))
-#         print(request.POST.get("pwd"))
-#         return render(request, 'accounts/login.html')
-
-# class LoginView(FormView):
-
-#     success_url = '/'
+#     success_url = 'company-dash'
 #     form_class = LoginForm
 #     template_name = 'profile/login.html'
 
@@ -313,5 +234,4 @@ class CompanyRegistrationView(View):
 #                 print("failure")
 #                 return render(request,"profile/login.html",context={"form":form})
 #         return render(request,"profile/profile-create.html")
-
 

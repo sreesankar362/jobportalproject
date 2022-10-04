@@ -18,32 +18,32 @@ from user.forms import RegistrationForm
 class CompanyProfileForm(ModelForm):
     class Meta:
         model = CompanyProfile
-        exclude = ('users','company_name','is_mail_verified','social_profile')
+        exclude = ('user','is_approved','social_profile')
         
         
-class SocialProfileForm(ModelForm):
-    class Meta:
-        model = SocialProfile
-        fields = "__all__"
+# class SocialProfileForm(ModelForm):
+#     class Meta:
+#         model = SocialProfile
+#         fields = "__all__"
 
         
-class CompanyProfileMultiForm(MultiModelForm):
-    form_classes = {
-        'company': CompanyProfileForm,
-        'social': SocialProfileForm,
-    }
+# class CompanyProfileMultiForm(MultiModelForm):
+#     form_classes = {
+#         'company': CompanyProfileForm,
+#         'social': SocialProfileForm,
+#     }
 
-    def save(self, commit=True):
-        objects = super(CompanyProfileMultiForm, self).save(commit=False)
+#     def save(self, commit=True):
+#         objects = super(CompanyProfileMultiForm, self).save(commit=False)
 
-        if commit:
-            user = objects['company']
-            user.save()
-            profile = objects['social']
-            profile.user = user
-            profile.save()
+#         if commit:
+#             user = objects['company']
+#             user.save()
+#             profile = objects['social']
+#             profile.user = user
+#             profile.save()
 
-        return objects
+#         return objects
 
 
 class PasswordResetForm(forms.Form):
@@ -51,9 +51,9 @@ class PasswordResetForm(forms.Form):
     new_password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField()
         
-class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField( widget = forms.PasswordInput())
+# class LoginForm(forms.Form):
+#     username = forms.CharField()
+#     password = forms.CharField( widget = forms.PasswordInput())
     
 
 
