@@ -1,7 +1,7 @@
 from django.contrib import admin
 from companyaccount.models import *
 
-# Register your models here.
+from companyaccount.models import CompanyProfile
 
-admin.site.register(Company)
-admin.site.register(SocialProfile)
+admin.site.register(CompanyProfile)
+

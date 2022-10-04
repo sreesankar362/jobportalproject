@@ -21,6 +21,12 @@
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/12046219d2.js" crossorigin="anonymous"></script>
 
+    <!--jquery cdn-->
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"></script>
+
 
 
 </head>
@@ -28,8 +34,9 @@
 
 {% include 'common_html/navbar.html' %}
 
-{% block content %}
+{% include 'common_html/messages.html' %}
 
+{% block content %}
 
 {% endblock %}
 

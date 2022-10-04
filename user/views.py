@@ -1,75 +1,63 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from user.models import ApplicantUser
 from user import forms
-from django.contrib.auth.models import User
+from accounts.models import User
 from django.contrib.auth import authenticate,login,logout
+from accounts.utils import detectuser
+
 
 class RegistrationView(View):
     def get(self,request,*args,**kwargs):
         form = forms.RegistrationForm()
-        return render(request,"registration.html",context={"form":form})
+        return render(request,"jobseeker/registration.html",context={"form": form})
+
     def post(self,request,*args,**kwargs):
-        print(request.POST.get("username"))
-        print(request.POST.get("password"))
-        form = forms.RegistrationForm(request.POST,request.FILES)
+
+        form = forms.RegistrationForm(request.POST)
         if form.is_valid():
-            username = request.POST['username']
-            first_name = request.POST['first_name']
-            last_name = request.POST['last_name']
-            password = request.POST['password']
-            email = request.POST['email']
-            mobile = request.POST['mobile']
-            gender = request.POST['gender']
-            profile_pic = request.FILES['profile_pic']
-            #is_mail_verified = request.POST['is_mail_verified']
-            dob = request.POST['dob']
-            #is_phone_verified = request.POST['is_phone_verified']
-            bio = request.POST['bio']
-            location = request.POST['location']
-            user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
-                                            password=password, email=email)
-            applicant = ApplicantUser.objects.create(user=user,mobile=mobile,bio=bio,location=location,
-                                                     gender=gender,dob=dob,profile_pic=profile_pic)
 
-
-            return redirect("home")
+            # create user using form
+            password = form.cleaned_data['password']
+            user = form.save(commit=False)
+            user.set_password(password)
+            user.role = User.JOBSEEKER
+            user.save()
+            return redirect('jobs')
         else:
             print("Error..................................")
-            return render("home.html")
-
-        return render(request, "login.html")
-
+            return render(request, "home/home.html")
 
 
 class LogInView(View):
-    def get(self,request,*args,**kwargs):
+    def get(self, request, *args, **kwargs):
         form = forms.LoginForm()
-        return render(request,"login.html",context={"form":form})
-    def post(self,request,*args,**kwargs):
-        form =forms.LoginForm(request.POST)
+        return render(request, "jobseeker/login.html", context={"form": form})
+
+    def post(self, request, *args, **kwargs):
+        form = forms.LoginForm(request.POST)
         if form.is_valid():
-            username= form.cleaned_data.get("username")
-            password= form.cleaned_data.get("password")
-            user = authenticate(request,username=username,password=password)
-            if user:
-                login(request,user)
-                print("success")
-                return redirect("welcome")
+            email = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                if user.role == 2:
+                    login(request, user)
+                    return redirect('jobs')
             else:
-                print("failure")
-                return render(request,"login.html",context={"form":form})
-        return render(request,"registration.html")
+                return redirect("company-login")
+
+        return render(request, "jobseeker/registration.html")
 
 
 class LogOutView(View):
-    def get(self,request,*args,**kwargs):
+    def get(self, request, *args, **kwargs):
         logout(request)
-        print("loggged out Successfully")
+        print("logged out Successfully")
         return redirect("home")
 
-class WelcomeView(TemplateView):
-    def get(self,request,*args,**kwargs):
-        user = ApplicantUser.objects.get(user=request.user)
-        print(user.profile_pic.url)
-        return render(request,"welcome.html",context={"user":user})
+
+class MyAccountView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        return render(request, "jobseeker/welcome.html")
+
+
