@@ -18,7 +18,6 @@ from django.contrib.auth.hashers import make_password
 from accounts.models import User
 from django.http import HttpResponseRedirect
 
-
 class CreateCompanyProfileView(CreateView):
     model = CompanyProfile
     template_name = 'profile/profile-create.html'
@@ -37,8 +36,6 @@ class CompanyProfileUpdateView(UpdateView):
     form_class = CompanyProfileForm
     template_name = 'profile/profile-create.html'  
     success_url = reverse_lazy('company-dash') 
-    pk_url_kwarg = 'user_id'
-    slug_url_kwarg = 'user_id'
 
     def form_valid(self, form):
         messages.success(self.request, "Your Company Profile has been successfully updated.")
