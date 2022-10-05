@@ -15,8 +15,9 @@
             <form action="" class="mt-5" method="post">
                 {%csrf_token%}
                 {{form.as_p}}
-                <div class="mb-3">
+                <div class="mb-3 mt-3">
                     <button type="submit" class="btn btn-info form-control">login</button>
+                    <a href="{%url 'reset_password' %}" class="btn btn-primary form-control mt-2">Forgot Password</a>
                 </div>
             </form>
             </div>
