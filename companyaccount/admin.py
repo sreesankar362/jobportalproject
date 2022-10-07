@@ -3,5 +3,8 @@ from companyaccount.models import *
 
 from companyaccount.models import CompanyProfile
 
-admin.site.register(CompanyProfile)
+class CompanyProfileAdmin(admin.ModelAdmin):
+    list_display = ['company_name', 'user', 'industry']
 
+
+admin.site.register(CompanyProfile, CompanyProfileAdmin)

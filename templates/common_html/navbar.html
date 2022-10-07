@@ -22,25 +22,6 @@
 
 
         </ul>
-<<<<<<< HEAD
-        <ul class="ms-auto buttons-navbar mt-auto mb-auto" >
-            <li class="nav-item">
-              <button > <a class="nav-link" href="{% url 'company-login' %}">LOGIN</a> </button>
-            </li>
-            <li class="nav-item">
-                <a type="submit" class="btn btn-light" href="{% url 'register' %}">REGISTER</a>
-            </li>
-        </ul>
-||||||| 1613bdc
-        <ul class="ms-auto buttons-navbar mt-auto mb-auto" >
-            <li class="nav-item">
-                <button>LOGIN</button>
-            </li>
-            <li class="nav-item">
-                <a type="submit" class="btn btn-light" href="{% url 'register' %}">REGISTER</a>
-            </li>
-        </ul>
-=======
           {% if user.is_authenticated %}
                 <ul class="buttons-navbar mt-auto mb-auto" >
                     <li class="nav-item">
@@ -52,7 +33,7 @@
                         </li>
                     {% elif user.role == 1 %}
                         <li class="nav-item">
-                            <button onclick="location.href='{% url 'company-dashboard' %}'" > DASHBOARD</button>
+                            <button onclick="location.href='{% url 'company-dash' %}'" > DASHBOARD</button>
                         </li>
                     {% endif %}
                 </ul>
@@ -81,7 +62,6 @@
           {% endif %}
 
 
->>>>>>> f41c6a974fcd56f57609f9cfd08ee6b068f9481a
 
       </div>
     </div>
