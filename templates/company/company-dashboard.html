@@ -1,0 +1,63 @@
+{% extends 'common_html/base.html' %}
+{% block content %}
+<style>
+    .sidebar{
+    height:60px;
+    text-align:center;
+    border-bottom:white 1px solid;
+    border-right:#6c8eff 2px solid;
+    font-size:18px;
+    line-height:60px;
+    background-color: #6c8eff;
+    color:white;
+    text-decoration:none;
+    }
+    .sidebar:hover{
+    background-color:white ;
+    color:#6c8eff;
+    }
+
+</style>
+<div class="">
+    <div class="row">
+        <div class="col-2">
+            {% if profile  %}
+                <div class="row" >
+                    <a id="sidebar-links" class="sidebar" href="{% url 'view-profile' %}">PROFILE</a>
+                </div>
+            {% else %}
+                <div class="row" >
+                    <a id="sidebar-links" class="sidebar" href="">ADD PROFILE</a>
+                </div>
+            {% endif %}
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar" href="">APPLICATIONS</a>
+            </div>
+            <div class="row " >
+                <a id="sidebar-links" class="sidebar" href="">POST JOB</a>
+            </div>
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar" href="">POSTED JOBS</a>
+            </div>
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar" href="{% url 'profile-update' request.user.user.id %}">UPDATE PROFILE</a>
+            </div>
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar" href="{% url 'reset-pass' %}">CHANGE PASSWORD</a>
+            </div>
+
+
+
+        </div>
+        <div class="col-10">
+            <h1>This is Company dashboard</h1>
+            <p>
+            </p>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+
+{% endblock %}

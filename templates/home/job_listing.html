@@ -41,6 +41,10 @@
         </form>
 </div>
 <!-- search area end -->
+
+<div style="background-color:#F1F1F1">
+
+
 <div class="container w-75" >
         <div class="row">
                 <div class="col-3 mt-4 " >
@@ -169,25 +173,25 @@
                     </div>
                 </div>
                 <div class="col-9 mt-4">
-                    <p>234 jobs found</p>
-
-                    <div class="card job-card mb-4 p-2"><!-- one job card -->
+                    <p>{{all_jobs | length}} jobs found</p>
+            {% for job in all_jobs %}
+                    <div class="card job-card mb-4 p-2" ><!-- one job card -->
 
                         <div class="card-body ">
                            <div class="row">
 
                                     <div class="col-lg-4 col-md-12">
                                         <div class="card-left2 mt-1">
-                                            <h5>Full Stack Developer </h5>
-                                            <p>Free Bird Technologies <br>
-                                            <i class="fa-solid fa-location-dot"></i> Kochi,Kerala </p>
+                                            <h5>{{job.position}} </h5>
+                                            <p>{{job.company}} <br>
+                                            <i class="fa-solid fa-location-dot"></i> {{job.company.location}} </p>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-3 col-md-6">
                                              <div class=" right-details2 mt-4 text-secondary">
-                                                    <p><i class=" fa-regular fa-clock"></i> Full Time <br>
-                                                        <i class="ms-1 fa-solid fa-money-bills"></i> 5 lpa <br> </p>
+                                                    <p><i class=" fa-regular fa-clock"></i> {{job.job_type}} <br>
+                                                        <i class="ms-1 fa-solid fa-money-bills"></i> {{job.min_salary}}-{{job.max_salary}} <br> </p>
 
                                             </div>
                                     </div>
@@ -196,17 +200,16 @@
 
 
                                     <div class="col-lg-3 col-md-6 text-secondary mt-4">
-                                        <p> <i class="ms-1 fa-solid fa-briefcase">  </i> 3-4 yrs <br>
-                                        <i class="ms-1 fa-solid fa-building"></i> WF Home</p>
+                                        <p> <i class="ms-1 fa-solid fa-briefcase">  </i> {{ job.experience }} <br>
+                                        <i class="ms-1 fa-solid fa-building"></i> {{job.work_type}}</p>
                                    </div>
                                    <div class="col-lg-2 col-md-6">
-                                           <a href=""> <img class="mt-2 company_logo" width="80" src="{% static 'home/images/company_logo.jpg' %}" alt=""> </a>
+                                           <a href=""> <img class="mt-2 company_logo" width="80" src=" {{ job.company.company_logo.url }} " alt=""> </a>
                                    </div>
 
                            </div>
                             <div class="row p-3">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et ipsa modi perspiciatis porro rerum? Architecto debitis
-                                ex fuga, harum maiores nihil nisi officia placeat, possimus, quam ullam vitae! Assumenda, odit.
+                               {{ job.job_description }}
                             </div>
                             <div style="display:flex;">
                                  <button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button>
@@ -215,186 +218,7 @@
                             </div>
                         </div>
                     </div><!-- one job card end-->
-
-                    <div class="card job-card mb-4 p-2"><!-- one job card -->
-
-                        <div class="card-body ">
-                           <div class="row">
-
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="card-left2 mt-1">
-                                            <h5>Full Stack Developer </h5>
-                                            <p>Free Bird Technologies <br>
-                                            <i class="fa-solid fa-location-dot"></i> Kochi,Kerala </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                             <div class=" right-details2 mt-4 text-secondary">
-                                                    <p><i class=" fa-regular fa-clock"></i> Full Time <br>
-                                                        <i class="ms-1 fa-solid fa-money-bills"></i> 5 lpa <br> </p>
-
-                                            </div>
-                                    </div>
-
-
-
-
-                                    <div class="col-lg-3 col-md-3 text-secondary mt-4">
-                                        <p> <i class="ms-1 fa-solid fa-briefcase">  </i> 3-4 yrs <br>
-                                        <i class="ms-1 fa-solid fa-building"></i> WF Home</p>
-                                   </div>
-                                   <div class="col-lg-2 col-md-6">
-                                           <a href=""> <img class="mt-2 company_logo" width="80" src="{% static 'home/images/company_logo.jpg' %}" alt=""> </a>
-                                   </div>
-
-                           </div>
-                            <div class="row p-3">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et ipsa modi perspiciatis porro rerum? Architecto debitis
-                                ex fuga, harum maiores nihil nisi officia placeat, possimus, quam ullam vitae! Assumenda, odit.
-                            </div>
-                            <div style="display:flex;">
-                                 <button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button>
-                                 <button class="side-btn2 "> View <i class="fa-solid fa-angle-right"> </i> </button>
-
-                            </div>
-                        </div>
-                    </div><!-- one job card end-->
-
-                    <div class="card job-card mb-4 p-2"><!-- one job card -->
-
-                        <div class="card-body ">
-                           <div class="row">
-
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="card-left2 mt-1">
-                                            <h5>Full Stack Developer </h5>
-                                            <p>Free Bird Technologies <br>
-                                            <i class="fa-solid fa-location-dot"></i> Kochi,Kerala </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                             <div class=" right-details2 mt-4 text-secondary">
-                                                    <p><i class=" fa-regular fa-clock"></i> Full Time <br>
-                                                        <i class="ms-1 fa-solid fa-money-bills"></i> 5 lpa <br> </p>
-
-                                            </div>
-                                    </div>
-
-
-
-
-                                    <div class="col-lg-3 col-md-3 text-secondary mt-4">
-                                        <p> <i class="ms-1 fa-solid fa-briefcase">  </i> 3-4 yrs <br>
-                                        <i class="ms-1 fa-solid fa-building"></i> WF Home</p>
-                                   </div>
-                                   <div class="col-lg-2 col-md-6">
-                                           <a href=""> <img class="mt-2 company_logo" width="80" src="{% static 'home/images/company_logo.jpg' %}" alt=""> </a>
-                                   </div>
-
-                           </div>
-                            <div class="row p-3">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et ipsa modi perspiciatis porro rerum? Architecto debitis
-                                ex fuga, harum maiores nihil nisi officia placeat, possimus, quam ullam vitae! Assumenda, odit.
-                            </div>
-                            <div style="display:flex;">
-                                 <button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button>
-                                 <button class="side-btn2 "> View <i class="fa-solid fa-angle-right"> </i> </button>
-
-                            </div>
-                        </div>
-                    </div><!-- one job card end-->
-
-                    <div class="card job-card mb-4 p-2"><!-- one job card -->
-
-                        <div class="card-body ">
-                           <div class="row">
-
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="card-left2 mt-1">
-                                            <h5>Full Stack Developer </h5>
-                                            <p>Free Bird Technologies <br>
-                                            <i class="fa-solid fa-location-dot"></i> Kochi,Kerala </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                             <div class=" right-details2 mt-4 text-secondary">
-                                                    <p><i class=" fa-regular fa-clock"></i> Full Time <br>
-                                                        <i class="ms-1 fa-solid fa-money-bills"></i> 5 lpa <br> </p>
-
-                                            </div>
-                                    </div>
-
-
-
-
-                                    <div class="col-lg-3 col-md-3 text-secondary mt-4">
-                                        <p> <i class="ms-1 fa-solid fa-briefcase">  </i> 3-4 yrs <br>
-                                        <i class="ms-1 fa-solid fa-building"></i> WF Home</p>
-                                   </div>
-                                   <div class="col-lg-2 col-md-6">
-                                           <a href=""> <img class="mt-2 company_logo" width="80" src="{% static 'home/images/company_logo.jpg' %}" alt=""> </a>
-                                   </div>
-
-                           </div>
-                            <div class="row p-3">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et ipsa modi perspiciatis porro rerum? Architecto debitis
-                                ex fuga, harum maiores nihil nisi officia placeat, possimus, quam ullam vitae! Assumenda, odit.
-                            </div>
-                            <div style="display:flex;">
-                                 <button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button>
-                                 <button class="side-btn2 "> View <i class="fa-solid fa-angle-right"> </i> </button>
-
-                            </div>
-                        </div>
-                    </div><!-- one job card end-->
-
-                    <div class="card job-card mb-4 p-2"><!-- one job card -->
-
-                        <div class="card-body ">
-                           <div class="row">
-
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="card-left2 mt-1">
-                                            <h5>Full Stack Developer </h5>
-                                            <p>Free Bird Technologies <br>
-                                            <i class="fa-solid fa-location-dot"></i> Kochi,Kerala </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                             <div class=" right-details2 mt-4 text-secondary">
-                                                    <p><i class=" fa-regular fa-clock"></i> Full Time <br>
-                                                        <i class="ms-1 fa-solid fa-money-bills"></i> 5 lpa <br> </p>
-
-                                            </div>
-                                    </div>
-
-
-
-
-                                    <div class="col-lg-3 col-md-3 text-secondary mt-4">
-                                        <p> <i class="ms-1 fa-solid fa-briefcase">  </i> 3-4 yrs <br>
-                                        <i class="ms-1 fa-solid fa-building"></i> WF Home</p>
-                                   </div>
-                                   <div class="col-lg-2 col-md-6">
-                                           <a href=""> <img class="mt-2 company_logo" width="80" src="{% static 'home/images/company_logo.jpg' %}" alt=""> </a>
-                                   </div>
-
-                           </div>
-                            <div class="row p-3">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et ipsa modi perspiciatis porro rerum? Architecto debitis
-                                ex fuga, harum maiores nihil nisi officia placeat, possimus, quam ullam vitae! Assumenda, odit.
-                            </div>
-                            <div style="display:flex;">
-                                 <button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button>
-                                 <button class="side-btn2 "> View <i class="fa-solid fa-angle-right"> </i> </button>
-
-                            </div>
-                        </div>
-                    </div><!-- one job card end-->
+            {% endfor %}
 
 
 
@@ -405,5 +229,6 @@
         </div>
 </div>
 
+</div>
 
 {% endblock %}

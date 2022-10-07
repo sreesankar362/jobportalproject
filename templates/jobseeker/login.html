@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 {% extends 'common_html/base.html' %}
@@ -28,3 +29,37 @@
 </div>
 
 {% endblock %}
+||||||| 96fd03d
+=======
+
+
+{% extends 'common_html/base.html' %}
+
+{% block content %}
+<div style="background-color:#F1F1F1" >
+
+
+<div class="container" style="padding:100px;">
+    <div class="row ">
+        <div class="col-3"></div>
+        <div class="col-6 card border">
+            <div class="card-body">
+                <h2>Login</h2>
+            <form action="" class="mt-5" method="post">
+                {%csrf_token%}
+                {{form.as_p}}
+                <div class="mb-3 mt-3">
+                    <button type="submit" class="btn btn-info form-control">login</button>
+                    <a href="{%url 'reset_password' %}" class="btn btn-primary form-control mt-2">Forgot Password</a>
+                </div>
+            </form>
+            </div>
+
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+>>>>>>> main

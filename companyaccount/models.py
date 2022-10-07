@@ -1,7 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.core.validators import FileExtensionValidator
 from accounts.models import User
+from django.core.validators import FileExtensionValidator
 
 
 class SocialProfile(models.Model):
@@ -17,7 +16,7 @@ class CompanyProfile(models.Model):
     company_logo = models.ImageField(
         upload_to="company_images",
         validators=[FileExtensionValidator(allowed_extensions=["jpg", "png", "jpeg"])],
-        null=True
+        null=True,blank=True
     )
     company_description = models.CharField(max_length=500, null=True, blank=True)
     location = models.CharField(max_length=100, null=True, blank=True)
@@ -36,6 +35,7 @@ class CompanyProfile(models.Model):
     # social_profile = models.ForeignKey(SocialProfile, on_delete=models.CASCADE, null=True, blank=True)
 
     is_approved = models.BooleanField(default=False)
+    is_mail_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.company_name
