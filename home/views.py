@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import View,FormView
 
-from home.forms import JobPostForm
 from home.models import JobModel
-
+from .forms import JobModelForm
+from django.contrib import messages
 
 class HomeView(View):
     def get(self,request):
@@ -19,10 +19,22 @@ class JobListingView(View):
         return render(request, "home/job_listing.html", context)
 
 
-class JobPostingView(View):
-    def get(self, request, *args, **kwargs):
-        job_form = JobPostForm
+
+class JobModelView(FormView):
+    template_name = 'post_job.html'
+    form_class = JobModelForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+
+            Job=form.save(commit=False)
+            Job.company=request.user.user
+            Job.save()
         context = {
-            "job_form": job_form
+            'form':form
         }
-        return render(request, "home/post_job.html", context)
+        print("success")
+        messages.success(request,"Job Posted Successfully")
+        return render(request,"company/company-dashboard.html", {'form': form})
+

@@ -13,7 +13,7 @@ class JobModel(models.Model):
         ("part-time", 'Part Time'),
         ("temporary", 'Temporary'),
         ("contract", 'Contract'),
-        ("feelance", 'Freelance')
+        ("freelance", 'Freelance')
     )
     job_type = models.CharField(max_length=50, choices=job_type)
     published_date = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -22,6 +22,7 @@ class JobModel(models.Model):
     experience = models.CharField(max_length=20, null=True, blank=True)
     min_salary = models.IntegerField(null=True, blank=True)
     max_salary = models.IntegerField(null=True, blank=True)
+    No_of_openings = models.IntegerField(null=True, blank=True)
     min_qualification = models.CharField(max_length=100, null=True, blank=True)
     categories = models.CharField(max_length=100)
     work_type = (
