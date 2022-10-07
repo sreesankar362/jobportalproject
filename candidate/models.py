@@ -34,7 +34,7 @@ class Experience(models.Model):
     exp_description = models.TextField(max_length=300, null=True, blank = True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(default=datetime.date.today())
-    exp_duration = models.IntegerField(default=0,editable= False)
+    exp_duration = models.IntegerField(default=0, editable= False)
     
     def save(self, *args, **kwargs):
         if self.start_date >= datetime.date.today() or self.end_date >= datetime.date.today():
