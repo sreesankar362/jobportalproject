@@ -43,7 +43,7 @@ class Experience(models.Model):
         
     def get_exp(self):
         
-        self.exp_duration = int(self.start_date.year)-int(self.end_date.year)
+        self.exp_duration = int(self.start_date.year-self.end_date.year)
     
 class CandidateProfile(models.Model):
     
