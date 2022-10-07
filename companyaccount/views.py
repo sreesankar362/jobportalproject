@@ -44,7 +44,7 @@ class CompanyRegistrationView(View):
             company_name = company_form.cleaned_data["company_name"]
             password = company_user_form.cleaned_data['password']
             user_obj = company_user_form.save(commit=False)
-            user_obj.is_active = True
+            user_obj.is_active = False
             user_obj.set_password(password)
             user_obj.role = User.EMPLOYER
             user_obj.save()
@@ -60,16 +60,10 @@ class CompanyRegistrationView(View):
                 'uid': urlsafe_base64_encode(force_bytes(user_obj.pk)),
                 'token': account_activation_token.make_token(user_obj),
             })
-            # message = 'Dear User,\n' \
-            #           'Thank you for registering with JOBHUB. Please Verifiy .\n' \
-            #           'We are excited to have you on board and looking forward to help you.\n' \
-            #           'Thanks and Regards,\n' \
-            #           'Team JOBHUB'
             recipient = company_user_form.cleaned_data.get('email')
             send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
 
-            messages.success(request, "An email has been send to you for account activation."
-                                      "Activate your Account to login")
+            messages.success(request, "An email has been send to you for account activation.")
             return redirect("company-login")
         else:
             messages.error(request, "Invalid credentials")
@@ -91,9 +85,9 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         print("token check")
-
         user.save()
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        messages.info(request, 'Thank you for your email confirmation. Now you can login your account.')
+        return redirect('company-login')
     else:
         pass
 
@@ -108,14 +102,18 @@ class LogInView(View):
         if form.is_valid():
             email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password")
-            user = authenticate(request,email=email, password=password)
+            user = authenticate(request, email=email, password=password)
+
             if user is not None:
-                if user.role == 1:
+                if user.role == 1 and user.is_active:
                     login(request, user)
-                    messages.success(request, "Your are logged in")
+                    messages.info(request, "Your are logged in")
                     return redirect('company-dash')
             else:
-                messages.error(request, "Invalid credentials")
+                if User.objects.filter(email=email).exists():
+                    messages.info(request, "Activate your account via mail to login")
+                else:
+                    messages.error(request, "Invalid credentials/Account not Activated")
                 return render(request,"company/login.html",context={"form":form})
         return render(request,"registration.html")
 

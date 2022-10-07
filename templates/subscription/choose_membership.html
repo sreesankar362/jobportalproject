@@ -1,0 +1,27 @@
+{% extends 'common_html/base.html' %}
+
+{% block content %}
+<div class="container">
+        <div class="row ">
+
+            {% for membership in mem %}
+                    <div class="col-4 " >
+                        <div class="card"  style="width=100px;height:450px">
+                            <div class="card-body m-3">
+                                <h1 class="text-center">{{membership.id}}</h1>
+                                <h3 class="text-center">{{membership.membership_days}} Days</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi blanditiis consectetur cum distinctio,
+                                    minus natus neque non optio quibusdam quidem quos reprehenderit, repudiandae tempore tenetur veniam?
+                                </p>
+                                <h2 class="text-center">{{membership.price}}Rs</h2>
+                                <button  onclick="location.href='{% url 'payment' membership.id %}';" class= "btn btn-warning form-control">Subscribe</button>
+                            </div>
+                        </div>
+
+                    </div>
+            {% endfor %}
+
+        </div>
+</div>
+{% endblock %}
