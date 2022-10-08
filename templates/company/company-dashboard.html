@@ -21,20 +21,11 @@
 </style>
 <div class="">
     <div class="row">
-        <div class="col-2">
+        <div class="col-2" style="height:500px;background-color:#6c8eff" >
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar" href="{% url 'view-profile' %}">PROFILE</a>
+            </div>
 
-            {% for msg in messages %}
-                {{msg}}
-            {% endfor %}
-            {% if profile  %}
-                <div class="row" >
-                    <a id="sidebar-links" class="sidebar" href="{% url 'view-profile' %}">PROFILE</a>
-                </div>
-            {% else %}
-                <div class="row" >
-                    <a id="sidebar-links" class="sidebar" href="">ADD PROFILE</a>
-                </div>
-            {% endif %}
             <div class="row" >
                 <a id="sidebar-links" class="sidebar" href="">APPLICATIONS</a>
             </div>
@@ -48,6 +39,13 @@
                 <a id="sidebar-links" class="sidebar" href="{% url 'profile-update' request.user.user.id %}">UPDATE PROFILE</a>
             </div>
             <div class="row" >
+                <a id="sidebar-links" class="sidebar" href="{% url 'subscription' %}">SUBSCRIPTION</a>
+            </div>
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar" href="{% url 'history' %}">PAYMENTS</a>
+            </div>
+
+            <div class="row" >
                 <a id="sidebar-links" class="sidebar" href="{% url 'reset-pass' %}">CHANGE PASSWORD</a>
             </div>
 
@@ -55,7 +53,50 @@
 
         </div>
         <div class="col-10">
-            <h1>This is Company dashboard</h1>
+            <div class="row">
+                    <div class="col-6 p-5">
+                        <div class="card">
+                            <div class="card-body ">
+                                <h5>STATUS</h5>
+                                <hr>
+                               <h6> Total Jobs Posted: 5</h6>
+                                <h6>Total Applications Received : 21</h6>
+                                <h6>Pending Applications for Review : 6</h6>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 p-5">
+                        <div class="card">
+                            <div class="card-body ">
+                                <h5>SUBSCRIPTION</h5>
+                                {% if active_sub %}
+                                    <h5 class="text-success">ACTIVE</h5>
+                                    <hr>
+                                    <h6>Days Remaining : {{ remaining }}</h6>
+                                    <h6>Current Membership Duration :{{ active_sub.membership }} Days</h6>
+                                    <h6> Start Date:{{ active_sub.start_date }} </h6>
+                                    <h6>End Date : {{ active_sub.end_date }}</h6>
+                                {% else %}
+                                    <h5 class="text-danger">NOT SUBSCRIBED</h5>
+                                    <hr>
+                                    <p>Your company is not subscribed to JobHub.</p>
+                                    <p>Choose one subscription plan to continue using JobHub</p>
+                                    <button onclick="location.href='{% url 'subscription' %}';" class="btn btn-warning" style="border-radius:0%"> Choose Plan</button>
+                                {% endif %}
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+
+
             <p>
             </p>
         </div>

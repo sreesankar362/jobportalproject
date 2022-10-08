@@ -16,10 +16,10 @@
                             </div>
                         </div>
                     <!-- Search Box -->
-                        <form action="">
+                        <form action="{% url 'search' %}">
                             <div class="search row d-flex justify-content-center">
                                 <div class="inpt col-lg-8 col-md-12 col-sm-12">
-                                    <input type="text" class="searchbar form-control col-6" placeholder="Job Tittle or keyword ">
+                                    <input type="text" class="searchbar form-control col-6" name="keyword" placeholder="Job Tittle or keyword ">
                                 </div>
                                 <div class="inpt col-lg-3 col-md-12 col-sm-12">
                                     <button type="submit" class="searchbar-2 form-control btn btn-primary">Search
