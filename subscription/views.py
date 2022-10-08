@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .utils import *
 from datetime import date, timedelta
 from django.utils import timezone
-from django.views.generic import View
+from django.views.generic import View,TemplateView
 from.models import Membership, Payment, CompanySubscription
 
 
@@ -68,3 +68,13 @@ class PaymentView(View):
 
         return render(request, 'subscription/payment_status.html', context)
 
+
+class PaymentHistory(TemplateView):
+    template_name = "subscription/payment-history.html"
+    # extra_context = { "payments":Payment.objects.filter(company=request.user.user)}
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PaymentHistory, self).get_context_data(*args, **kwargs)
+        company = self.request.user.user
+        context['payments'] = Payment.objects.filter(company=company)
+        return context
