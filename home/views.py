@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import View,FormView
+from django.views.generic import View,FormView,DetailView
 
 from home.models import JobModel
 from .forms import JobModelForm
@@ -38,3 +38,7 @@ class JobModelView(FormView):
         messages.success(request,"Job Posted Successfully")
         return render(request,"company/company-dashboard.html", {'form': form})
 
+class JobDetailView(DetailView): #bibin
+    model = JobModel
+    context_object_name = "job"
+    template_name = "home/job_detail.html"

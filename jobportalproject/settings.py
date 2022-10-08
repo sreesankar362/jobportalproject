@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'home',
     'user',
     'companyaccount',
-    'accounts'
-    'candidate'
+    'accounts',
+    'candidate',
 ]
 
 MIDDLEWARE = [

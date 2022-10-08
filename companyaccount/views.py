@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
@@ -149,10 +150,6 @@ class CreateCompanyProfileView(CreateView):
         return super().form_valid(form)
 
 
-class CompanyProfileView(TemplateView):
-    template_name = 'company/company-profile.html'
-
-
 class CompanyProfileUpdateView(UpdateView):
     form_class = CompanyProfileForm
     model = CompanyProfile
@@ -193,3 +190,10 @@ class PasswordResetView(FormView):
 
 class CompanyDashView(TemplateView):
     template_name = 'profile/company-dashboard.html'
+class CompanyProfileView(TemplateView):  # bibin
+    template_name = 'company/company-profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["company_data"] = CompanyProfile.objects.filter(user=self.request.user)
+        return context

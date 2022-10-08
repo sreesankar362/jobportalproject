@@ -23,7 +23,7 @@ class LatEducation(models.Model):
     percent = models.IntegerField(validators=[MinValueValidator(25),
                                        MaxValueValidator(100)])
     grad_year = models.IntegerField(blank=True)
-    qual_country = country = CountryField(null=True, blank=True)
+    qual_country = CountryField(null=True, blank=True)
     
     
 class Experience(models.Model):
