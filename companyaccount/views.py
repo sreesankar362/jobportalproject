@@ -6,6 +6,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
+
+from subscription.models import CompanySubscription
 from .token import account_activation_token
 
 
@@ -45,7 +47,7 @@ class CompanyRegistrationView(View):
             company_name = company_form.cleaned_data["company_name"]
             password = company_user_form.cleaned_data['password']
             user_obj = company_user_form.save(commit=False)
-            user_obj.is_active = True
+            user_obj.is_active = False
             user_obj.set_password(password)
             user_obj.role = User.EMPLOYER
             user_obj.save()
@@ -61,16 +63,10 @@ class CompanyRegistrationView(View):
                 'uid': urlsafe_base64_encode(force_bytes(user_obj.pk)),
                 'token': account_activation_token.make_token(user_obj),
             })
-            # message = 'Dear User,\n' \
-            #           'Thank you for registering with JOBHUB. Please Verifiy .\n' \
-            #           'We are excited to have you on board and looking forward to help you.\n' \
-            #           'Thanks and Regards,\n' \
-            #           'Team JOBHUB'
             recipient = company_user_form.cleaned_data.get('email')
             send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
 
-            messages.success(request, "An email has been send to you for account activation."
-                                      "Activate your Account to login")
+            messages.success(request, "An email has been send to you for account activation.")
             return redirect("company-login")
         else:
             messages.error(request, "Invalid credentials")
@@ -92,9 +88,9 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         print("token check")
-
         user.save()
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        messages.info(request, 'Thank you for your email confirmation. Now you can login your account.')
+        return redirect('company-login')
     else:
         pass
 
@@ -109,27 +105,51 @@ class LogInView(View):
         if form.is_valid():
             email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password")
-            user = authenticate(request,email=email, password=password)
+            user = authenticate(request, email=email, password=password)
+
             if user is not None:
-                if user.role == 1:
+                if user.role == 1 and user.is_active:
                     login(request, user)
-                    messages.success(request, "Your are logged in")
+                    messages.info(request, "Your are logged in")
                     return redirect('company-dash')
             else:
-                messages.error(request, "Invalid credentials")
+                if User.objects.filter(email=email).exists():
+                    messages.info(request, "Activate your account via mail to login")
+                else:
+                    messages.error(request, "Invalid credentials/Account not Activated")
                 return render(request,"company/login.html",context={"form":form})
         return render(request,"registration.html")
 
 
 class CompanyDashboardView(View):
     def get(self, request):
+        active_sub = None
+        print("get")
+        sc_sub = CompanySubscription.objects.filter(company=request.user.user)
+        for sub in sc_sub:
+            if sub.is_active(sub):
+                print("active")
+                sub_id = sub.id
+                active_sub = CompanySubscription.objects.get(id=sub_id)
+            else:
+                print("else")
+                pass
+
         profile = None
         try:
             profile = CompanyProfile.objects.get(user=request.user)
         except:
             pass
+        remaining = 0
+        if active_sub:
+            print(active_sub.start_date)
+            remaining = active_sub.end_date - active_sub.start_date
+
+
         context = {
-            "profile": profile
+            "profile": profile,
+            "active_sub": active_sub,
+            "remaining": remaining
         }
         return render(request, 'company/company-dashboard.html', context)
 
@@ -157,6 +177,7 @@ class CompanyProfileUpdateView(UpdateView):
     success_url = reverse_lazy('company-dash')
     pk_url_kwarg = 'user_id'
     print("user_id")
+
     def form_valid(self, form):
         messages.success(self.request, "Your Company Profile has been successfully updated.")
         self.object = form.save()
@@ -188,8 +209,6 @@ class PasswordResetView(FormView):
                 return render(request, self.template_name, {'form': form})
 
 
-class CompanyDashView(TemplateView):
-    template_name = 'profile/company-dashboard.html'
 class CompanyProfileView(TemplateView):  # bibin
     template_name = 'company/company-profile.html'
 

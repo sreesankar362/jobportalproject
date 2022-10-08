@@ -1,7 +1,7 @@
 from dataclasses import fields
 from email.policy import default
 from tokenize import blank_re
-from unittest.util import _MAX_LENGTH
+# from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -15,16 +15,14 @@ import datetime
 from django.core.exceptions import ValidationError
 
 
-
 class LatEducation(models.Model):
-    qual_name =  models.CharField(max_length=255, null=True, blank=True)
+    qual_name = models.CharField(max_length=255, null=True, blank=True)
     qual_institute = models.CharField(max_length=50, null=True, blank=True)
     qual_university = models.CharField(max_length=50, null=True, blank=True)
-    percent = models.IntegerField(validators=[MinValueValidator(25),
-                                       MaxValueValidator(100)])
+    percent = models.IntegerField(validators=[MinValueValidator(25), MaxValueValidator(100)])
     grad_year = models.IntegerField(blank=True)
     qual_country = CountryField(null=True, blank=True)
-    
+
     
 class Experience(models.Model):
     
@@ -44,12 +42,13 @@ class Experience(models.Model):
     def get_exp(self):
         
         self.exp_duration = int(self.start_date.year-self.end_date.year)
-    
+
+
 class CandidateProfile(models.Model):
     
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True, related_name='profile')
-    dob = models.DateField(max_length=8,null=True, blank= True)
+    dob = models.DateField(max_length=8,null=True, blank=True)
     resume = models.FileField(upload_to='resumes', null=True, blank=True)
     latest_edu = models.ForeignKey(LatEducation, on_delete=models.CASCADE, 
                                    null=True, blank=True)
@@ -95,7 +94,4 @@ class AppliedJobs(models.Model):
 
     def __str__(self):
         return self.job.position
-    
-
-
     

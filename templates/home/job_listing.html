@@ -22,23 +22,22 @@
 <!-- Hero Area End -->
 
 <!-- search area -->
-<div class="search-bg  d-flex justify-content-center">
-    <form action=""></form>
-    <div class="container w-75  ">
-        <div class="row">
-            <div class="col-lg-7 col-md-12 p-2">
-                <input type="text" class="form form-control search-input" placeholder="Job Title/Keyword or Company">
-            </div>
-            <div class="col-lg-3 col-md-6 p-2">
-                <input type="text" class="form form-control  search-input " placeholder="Location">
-            </div>
-            <div class="col-lg-2 col-md-6 p-2">
-                <button type="submit" class="btn btn-primary search-btn-2 form-control"> Search <i
-                        class="fa fa-search "></i></button>
-            </div>
-        </div>
-    </div>
-    </form>
+<div class="search-bg  ">
+                <div class="p-2  ">
+                        <form action="{% url 'search' %}" class="" method="get">
+                                <div class="row d-flex justify-content-center">
+
+                                        <div class="col-6">
+                                              <input style="border-radius:0% ;height:60px;" aria-label="Search" class="form-control form" name="keyword" placeholder="Search JobHub" type="search">
+                                        </div>
+
+                                        <div class="col-1">
+                                            <button style="border-radius:0%;height:60px;width:200px;" class="btn btn-outline-primary" type="submit">Search <i class="fa fa-search "></i> </button>
+                                        </div>
+                                </div>
+                        </form>
+                </div>
+
 </div>
 <!-- search area end -->
 
@@ -171,59 +170,68 @@
                         <!-- Job Category Listing End -->
                     </div>
                 </div>
-            </div>
-            <div class="col-9 mt-4">
-                <p>{{all_jobs | length}} jobs found</p>
-                {% for job in all_jobs %}
-                <div class="card job-card mb-4 p-2"><!-- one job card -->
+                </div>
+                <div class="col-9 mt-4">
+                    <p>{{all_jobs | length}} jobs found</p>
+                        {% if all_jobs %}
+                             {% for job in all_jobs %}
+                                        <div class="card job-card mb-4 p-2" ><!-- one job card -->
 
-                    <div class="card-body ">
-                        <div class="row">
+                                <div class="card-body ">
+                                   <div class="row">
 
-                            <div class="col-lg-4 col-md-12">
-                                <div class="card-left2 mt-1">
-                                    <h5>{{job.position}} </h5>
-                                    <p>{{job.company}} <br>
-                                        <i class="fa-solid fa-location-dot"></i> {{job.company.location}} </p>
-                                </div>
-                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="card-left2 mt-1">
+                                                    <h5>{{job.position}} </h5>
+                                                    <p>{{job.company}} <br>
+                                                    <i class="fa-solid fa-location-dot"></i> {{job.company.location}} </p>
+                                                </div>
+                                            </div>
 
-                            <div class="col-lg-3 col-md-6">
-                                <div class=" right-details2 mt-4 text-secondary">
-                                    <p><i class=" fa-regular fa-clock"></i> {{job.job_type}} <br>
-                                        <i class="ms-1 fa-solid fa-money-bills"></i>
-                                        {{job.min_salary}}-{{job.max_salary}} <br></p>
+                                            <div class="col-lg-3 col-md-6">
+                                                     <div class=" right-details2 mt-4 text-secondary">
+                                                            <p><i class=" fa-regular fa-clock"></i> {{job.job_type}} <br>
+                                                                <i class="ms-1 fa-solid fa-money-bills"></i> {{job.min_salary}}-{{job.max_salary}} <br> </p>
 
-                                </div>
-                            </div>
+                                                    </div>
+                                            </div>
 
 
-                            <div class="col-lg-3 col-md-6 text-secondary mt-4">
-                                <p><i class="ms-1 fa-solid fa-briefcase"> </i> {{ job.experience }} <br>
-                                    <i class="ms-1 fa-solid fa-building"></i> {{job.work_type}}</p>
-                            </div>
-                            <div class="col-lg-2 col-md-6">
-                                <a href=""> <img class="mt-2 company_logo" width="80"
-                                                 src=" {{ job.company.company_logo.url }} " alt=""> </a>
-                            </div>
 
-                        </div>
-                        <div class="row p-3">
-                            {{ job.job_description }}
-                        </div>
-                        <div style="display:flex;">
-                            <button class="ms-auto side-btn2 "> Save <i
-                                    class="fa-regular fa-bookmark bookmark-icon"></i></button>
-                            <button class="side-btn2 " onclick="window.location.href = '{%url 'job_detail' job.id %}';">
+
+                                            <div class="col-lg-3 col-md-6 text-secondary mt-4">
+                                                <p> <i class="ms-1 fa-solid fa-briefcase">  </i> {{ job.experience }} <br>
+                                                <i class="ms-1 fa-solid fa-building"></i> {{job.work_type}}</p>
+                                           </div>
+                                           <div class="col-lg-2 col-md-6">
+                                               {% if job.company.company_logo %}
+                                                    <a href=""> <img class="mt-2 company_logo" width="80" src=" {{ job.company.company_logo.url }} " alt=""> </a>
+                                               {% else %}
+                                               {% endif %}
+
+                                           </div>
+
+                                   </div>
+                                    <div class="row p-3">
+                                       {{ job.job_description }}
+                                    </div>
+                                    <div style="display:flex;">
+                                         <button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button>
+                                         <button class="side-btn2 " onclick="window.location.href = '{%url 'job_detail' job.id %}';">
                                 View <i class="fa-solid fa-angle-right"> </i></button>
-
-                        </div>
-                    </div>
-                </div><!-- one job card end-->
-                {% endfor %}
+                                    </div>
+                                </div>
+                            </div><!-- one job card end-->
+                             {% endfor %}
+                        {% else %}
+                            <div class="text-center">
+                                <h3>No Jobs Found! </h3>
+                            </div>
+                        {% endif %}
 
 
             </div>
+
         </div>
     </div>
 

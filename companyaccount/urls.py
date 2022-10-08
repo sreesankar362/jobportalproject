@@ -8,8 +8,6 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
     path("login", views.LogInView.as_view(), name="company-login"),
     path("dashboard", views.CompanyDashboardView.as_view(), name="company-dash"),
-
-    path('dashboard',views.CompanyDashView.as_view(), name= 'company-dash'),
     path('profile/add/', views.CreateCompanyProfileView.as_view(), name='add-profile'),
     path('profile/view', views.CompanyProfileView.as_view(), name='view-profile'),
     path('reset-password', views.PasswordResetView.as_view(), name='reset-pass'),
