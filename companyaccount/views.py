@@ -5,6 +5,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
+
+from subscription.models import CompanySubscription
 from .token import account_activation_token
 
 
@@ -120,13 +122,33 @@ class LogInView(View):
 
 class CompanyDashboardView(View):
     def get(self, request):
+        active_sub = None
+        print("get")
+        sc_sub = CompanySubscription.objects.filter(company=request.user.user)
+        for sub in sc_sub:
+            if sub.is_active(sub):
+                print("active")
+                sub_id = sub.id
+                active_sub = CompanySubscription.objects.get(id=sub_id)
+            else:
+                print("else")
+                pass
+
         profile = None
         try:
             profile = CompanyProfile.objects.get(user=request.user)
         except:
             pass
+        remaining = 0
+        if active_sub:
+            print(active_sub.start_date)
+            remaining = active_sub.end_date - active_sub.start_date
+
+
         context = {
-            "profile": profile
+            "profile": profile,
+            "active_sub": active_sub,
+            "remaining": remaining
         }
         return render(request, 'company/company-dashboard.html', context)
 
@@ -189,5 +211,3 @@ class PasswordResetView(FormView):
                 return render(request, self.template_name, {'form': form})
 
 
-class CompanyDashView(TemplateView):
-    template_name = 'profile/company-dashboard.html'

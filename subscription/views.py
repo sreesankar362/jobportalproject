@@ -22,6 +22,7 @@ class PaymentView(View):
         start_date = date.today()
         sc_sub = CompanySubscription.objects.filter(company=request.user.user)
         is_subscribed = True if True in (sub.is_active(sub) for sub in sc_sub) else False
+
         last_date = date.today()
         for sc in sc_sub:
             if sc.end_date > last_date:
@@ -31,6 +32,9 @@ class PaymentView(View):
         membership = Membership.objects.get(id=mem_id)
         sub_days = membership.membership_days
         expiry_date = start_date + timedelta(days=sub_days)
+
+
+
         per_month = (membership.price/sub_days)*30
         context = {
             "membership": membership,
@@ -59,9 +63,7 @@ class PaymentView(View):
                                            payment=payment)
         subscription.save()
         context = {
-            "payment_id": payment.payment_id,
-            "status": payment.status,
-            "amount_paid": payment.amount_paid
+            "payment": payment
         }
 
         return render(request, 'subscription/payment_status.html', context)

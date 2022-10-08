@@ -23,25 +23,21 @@
 <!-- Hero Area End -->
 
 <!-- search area -->
-<div class="search-bg  d-flex justify-content-center">
-                <div class="container w-100  ">
-                    <form action="{% url 'search' %}" class="" method="get"
-                                          style="float:center;">
-                        <div class="row">
+<div class="search-bg  ">
+                <div class="p-2  ">
+                        <form action="{% url 'search' %}" class="" method="get">
+                                <div class="row d-flex justify-content-center">
 
-                                <div class="col-9">
-                                      <input style="border-radius:0%  " aria-label="Search" class="form-control form" name="keyword" placeholder="Search JobHub" type="search">
+                                        <div class="col-6">
+                                              <input style="border-radius:0% ;height:60px;" aria-label="Search" class="form-control form" name="keyword" placeholder="Search JobHub" type="search">
+                                        </div>
+
+                                        <div class="col-1">
+                                            <button style="border-radius:0%;height:60px;width:200px;" class="btn btn-outline-primary" type="submit">Search <i class="fa fa-search "></i> </button>
+                                        </div>
                                 </div>
-
-                                <div class="col-3">
-                                    <button style="border-radius:0%" class="btn btn-outline-primary" type="submit">Search <i class="fa fa-search "></i> </button>
-                                </div>
-
-
-                        </div>
-                          </form>
+                        </form>
                 </div>
-        </form>
 </div>
 <!-- search area end -->
 
