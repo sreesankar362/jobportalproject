@@ -1,9 +1,8 @@
-from home.forms import JobSearchForm
+from django.views.generic import View,FormView,DetailView,TemplateView
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from django.views.generic import View, FormView, DetailView
-from home.models import JobModel
-from .forms import JobModelForm
+from .models import JobModel
+from .forms import JobModelForm,JobSearchForm
 from django.contrib import messages
 from subscription.models import CompanySubscription
 from companyaccount.models import CompanyProfile
@@ -81,3 +80,6 @@ class JobDetailView(DetailView): #bibin
     model = JobModel
     context_object_name = "job"
     template_name = "home/job_detail.html"
+
+class AboutUsView(TemplateView):
+    template_name = "about_us.html"
