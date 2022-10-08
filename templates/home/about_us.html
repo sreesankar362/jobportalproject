@@ -1,0 +1,94 @@
+{% extends 'common_html/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row pt-4">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="1500">
+                    <img src="/media/about/about_3.jpeg" class="d-block w-100" alt="..." height="500">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5> #1 job site in the World </h5>
+                        <p>JobHub strives to put job seekers first, giving them free access to search for jobs, post
+                            resumes, and search companies. .</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="/media/about/img.png" class="d-block w-100" alt="..." height="500">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>#1 JobHub Mentorship..!</h5>
+                        <p>You can depend on JobHub throughout your job seeking journey,Resume building,Tech guidance,HR
+                            interview preparations</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="/media/about/img_1.png" class="d-block w-100" alt="..." height="500">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Become a certified skilled labour</h5>
+                        <p>Upload resume to JobHub and sit relax.We do the job search for you.. </p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="row pt-5">
+        <div class="col-7">
+
+            <h2 style="padding" class="pt-5">About JobHub</h2>
+            <p class="pt-3">
+                Welcome to JobHub, the world's largest professional network with more than 850 million members in more
+                than 200 countries and territories worldwide.
+            </p>
+            <h3 class="pt-5">Vision</h3>
+            <p class="pt-3">
+                Create economic opportunity for every member of the global workforce.
+            </p>
+            <h3 class="pt-5">
+                Mission
+            </h3>
+            <p class="pt-3">
+                The mission of JobHub is simple: connect the world’s professionals to make them more productive and
+                successful.
+            </p>
+            <p>
+                At JobHub, our mission is to help people get jobs. We have more than 13,300 global employees
+                passionately pursuing this purpose and improving the recruitment journey through real stories and data.
+                We foster a collaborative workplace that strives to create the best experience for job seekers.
+            </p>
+            <h3 class="pt-5">
+                Who are we?
+            </h3>
+            <p class="pt-3">
+                We are group of 5 enthusiastic developers - Greeshma,Tinu,Nikhil,Sree,Bibin
+            </p>
+            <p class="pb-5">
+                Today, JobHub leads a diversified business with revenues from membership subscriptions, advertising
+                sales and recruitment solutions under the leadership ***
+
+            </p>
+        </div>
+        <div class="col-5 pt-5">
+            <img src="/media/about/hub.jpg" class="w-100 rounded mx-auto d-block" alt="..." height="500">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

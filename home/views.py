@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import View,FormView,DetailView
+from django.views.generic import View,FormView,DetailView,TemplateView
 
 from home.models import JobModel
 from .forms import JobModelForm
@@ -42,3 +42,6 @@ class JobDetailView(DetailView): #bibin
     model = JobModel
     context_object_name = "job"
     template_name = "home/job_detail.html"
+
+class AboutUsView(TemplateView):
+    template_name = "about_us.html"
