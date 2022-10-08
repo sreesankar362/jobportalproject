@@ -18,8 +18,9 @@ class JobListingView(View):
     def get(self,request):
         search_form = JobSearchForm
         if request.user.is_authenticated:
-            sc_sub = CompanySubscription.objects.filter(company=request.user.user)
-            is_subscribed = True if True in (sub.is_active(sub) for sub in sc_sub) else False
+            if request.user.role == 1:
+                sc_sub = CompanySubscription.objects.filter(company=request.user.user)
+                is_subscribed = True if True in (sub.is_active(sub) for sub in sc_sub) else False
         all_jobs = JobModel.objects.filter().order_by("-published_date")
         context = {
             "all_jobs": all_jobs,
