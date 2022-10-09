@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import HomeView, JobListingView, JobModelView,JobDetailView,AboutUsView
+from .views import HomeView, JobListingView, JobModelView,JobDetailView,AboutUsView,search
 
 urlpatterns = [
                   path('', HomeView.as_view(), name="home"),

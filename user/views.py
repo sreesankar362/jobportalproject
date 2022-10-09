@@ -21,7 +21,7 @@ class RegistrationView(View):
             user.role = User.JOBSEEKER
             user.save()
             messages.success(self.request, "Registered as a Job Seeker")
-            return redirect('jobs')
+            return redirect('login')
         else:
             print("Error..................................")
             messages.error(self.request, "Error in Registration")
@@ -44,7 +44,7 @@ class LogInView(View):
                 if user.role == 2:
                     login(request, user)
                     messages.success(request,"Welcome to your Dashboard")
-                    return redirect('jobs')
+                    return redirect('myaccount')
                 else:
                     return redirect("company-login")
             else:

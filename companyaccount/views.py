@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
 
+
 from subscription.models import CompanySubscription
 from .token import account_activation_token
 
