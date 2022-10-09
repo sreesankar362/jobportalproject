@@ -6,14 +6,15 @@ from .forms import JobModelForm, JobSearchForm
 from django.contrib import messages
 from subscription.models import CompanySubscription
 from companyaccount.models import CompanyProfile
+from accounts.verified_access import login_required,login_company_required #decorator
+from django.utils.decorators import method_decorator
 
-
-class HomeView(View):
+class HomeView(View):  # Home Button Click
     def get(self, request):
         return render(request, "home/home.html")
 
-
-class JobListingView(View):
+@method_decorator(login_required,name="dispatch")
+class JobListingView(View):  # Jobseeker list jobs
     def get(self, request):
         search_form = JobSearchForm
         if request.user.is_authenticated:
@@ -27,8 +28,8 @@ class JobListingView(View):
         }
         return render(request, "home/job_listing.html", context)
 
-
-def search(request):
+@method_decorator(login_required,name="dispatch")
+def search(request):  #Job seeker search jobs
     if "keyword" in request.GET:
         keyword = request.GET['keyword']
         print("keyword")
@@ -44,8 +45,8 @@ def search(request):
     }
     return render(request, "home/job_listing.html", context)
 
-
-class JobModelView(FormView):
+@method_decorator(login_company_required,name="dispatch")
+class JobModelView(FormView):   # Company post job
     template_name = 'post_job.html'
     form_class = JobModelForm
 
@@ -74,15 +75,15 @@ class JobModelView(FormView):
         messages.success(request, "Job Posted Successfully")
         return render(request, "company/company-dashboard.html", {'form': form})
 
-
-class JobDetailView(DetailView):  # bibin
+@method_decorator(login_required,name="dispatch")
+class JobDetailView(DetailView):  # Job seeker click view on job
     model = JobModel
     context_object_name = "job"
     template_name = "home/job_detail.html"
 
 
-class AboutUsView(TemplateView):
+class AboutUsView(TemplateView):  # click button About Us
     template_name = "about_us.html"
-
+@method_decorator(login_required,name="dispatch")  # Job seeker apply job
 class JobApplyView(TemplateView):
     template_name = "about_us.html"  # need to overwrite

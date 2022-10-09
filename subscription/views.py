@@ -4,8 +4,11 @@ from datetime import date, timedelta
 from django.utils import timezone
 from django.views.generic import View,TemplateView
 from.models import Membership, Payment, CompanySubscription
+from accounts.verified_access import login_company_required #decorator
+from django.utils.decorators import method_decorator
 
 
+@method_decorator(login_company_required,name="dispatch")
 class Subscription(View):
 
     def get(self, request, *args, **kwargs):
@@ -15,7 +18,7 @@ class Subscription(View):
         }
         return render(request, 'subscription/choose_membership.html', context)
 
-
+@method_decorator(login_company_required,name="dispatch")
 class PaymentView(View):
     def get(self, request, *args, **kwargs):
 
@@ -68,7 +71,7 @@ class PaymentView(View):
 
         return render(request, 'subscription/payment_status.html', context)
 
-
+@method_decorator(login_company_required,name="dispatch")
 class PaymentHistory(TemplateView):
     template_name = "subscription/payment-history.html"
     # extra_context = { "payments":Payment.objects.filter(company=request.user.user)}

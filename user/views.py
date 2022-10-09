@@ -5,6 +5,8 @@ from accounts.models import User
 from django.contrib.auth import authenticate, login, logout
 from accounts.utils import detectuser
 from django.contrib import messages
+from accounts.verified_access import login_required #decorator
+from django.utils.decorators import method_decorator
 
 class RegistrationView(View):
     def get(self, request, *args, **kwargs):
@@ -56,7 +58,7 @@ class LogInView(View):
 
         return render(request, "jobseeker/registration.html",{"form":form})
 
-
+@method_decorator(login_required,name="dispatch")
 class LogOutView(View):
 
     def get(self, request, *args, **kwargs):
@@ -65,7 +67,7 @@ class LogOutView(View):
         messages.success(request,"See You Later")
         return redirect("home")
 
-
+@method_decorator(login_required,name="dispatch")
 class MyAccountView(TemplateView):
 
     def get(self, request, *args, **kwargs):
