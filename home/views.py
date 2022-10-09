@@ -1,20 +1,20 @@
-from django.views.generic import View,FormView,DetailView,TemplateView
+from django.views.generic import View, FormView, DetailView, TemplateView
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from .models import JobModel
-from .forms import JobModelForm,JobSearchForm
+from .forms import JobModelForm, JobSearchForm
 from django.contrib import messages
 from subscription.models import CompanySubscription
 from companyaccount.models import CompanyProfile
 
 
 class HomeView(View):
-    def get(self,request):
-        return render(request,"home/home.html")
+    def get(self, request):
+        return render(request, "home/home.html")
 
 
 class JobListingView(View):
-    def get(self,request):
+    def get(self, request):
         search_form = JobSearchForm
         if request.user.is_authenticated:
             if request.user.role == 1:
@@ -51,7 +51,7 @@ class JobModelView(FormView):
 
     def get(self, request, *args, **kwargs):
         company = CompanyProfile.objects.all()
-        
+
         sc_sub = CompanySubscription.objects.filter(company=request.user.user)
         is_subscribed = True if True in (sub.is_active(sub) for sub in sc_sub) else False
         if is_subscribed is True:
@@ -63,23 +63,26 @@ class JobModelView(FormView):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-
-            Job=form.save(commit=False)
-            Job.company=request.user.user
+            Job = form.save(commit=False)
+            Job.company = request.user.user
             Job.save()
 
         context = {
-            'form':form
+            'form': form
         }
         print("success")
-        messages.success(request,"Job Posted Successfully")
-        return render(request,"company/company-dashboard.html", {'form': form})
+        messages.success(request, "Job Posted Successfully")
+        return render(request, "company/company-dashboard.html", {'form': form})
 
 
-class JobDetailView(DetailView): #bibin
+class JobDetailView(DetailView):  # bibin
     model = JobModel
     context_object_name = "job"
     template_name = "home/job_detail.html"
 
+
 class AboutUsView(TemplateView):
     template_name = "about_us.html"
+
+class JobApplyView(TemplateView):
+    template_name = "about_us.html"  # need to overwrite
