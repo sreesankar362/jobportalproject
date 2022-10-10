@@ -1,10 +1,4 @@
-from dataclasses import fields
-from email.policy import default
-from tokenize import blank_re
-# from unittest.util import _MAX_LENGTH
 from django.db import models
-from django.contrib.auth.models import User
-from django.utils import timezone
 from autoslug import AutoSlugField
 from django_countries.fields import CountryField
 from home.models import JobModel
@@ -16,22 +10,23 @@ from django.core.exceptions import ValidationError
 
 
 class LatEducation(models.Model):
-    qual_name = models.CharField(max_length=255, null=True, blank=True)
-    qual_institute = models.CharField(max_length=50, null=True, blank=True)
-    qual_university = models.CharField(max_length=50, null=True, blank=True)
+    qualification = models.CharField(max_length=255, null=True, blank=True)
+    institute = models.CharField(max_length=50, null=True, blank=True)
+    university = models.CharField(max_length=50, null=True, blank=True)
     percent = models.IntegerField(validators=[MinValueValidator(25), MaxValueValidator(100)])
-    grad_year = models.IntegerField(blank=True)
-    qual_country = CountryField(null=True, blank=True)
+    passed_year = models.IntegerField(blank=True)
+    study_country = CountryField(null=True, blank=True)
 
     
 class Experience(models.Model):
     
-    exp_field = models.CharField(max_length=255, null=True, blank=True)
-    exp_position = models.CharField( max_length=50,null=True, blank=True)
-    exp_company = models.CharField( max_length=50,null=True, blank=True)
-    exp_description = models.TextField(max_length=300, null=True, blank = True)
-    start_date = models.DateField(null=True, blank=True)
-    end_date = models.DateField(default=datetime.date.today())
+    experience_field = models.CharField(max_length=255, null=True, blank=True)
+    job_position = models.CharField( max_length=50,null=True, blank=True)
+    company = models.CharField( max_length=50,null=True, blank=True)
+    experience_describe = models.TextField(max_length=300, null=True, blank = True)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    #end_date = models.DateField(default=datetime.date.today())
     exp_duration = models.IntegerField(default=0, editable= False)
     
     def save(self, *args, **kwargs):
@@ -40,7 +35,6 @@ class Experience(models.Model):
         super().save(*args, **kwargs)
         
     def get_exp(self):
-        
         self.exp_duration = int(self.start_date.year-self.end_date.year)
 
 
@@ -94,4 +88,18 @@ class AppliedJobs(models.Model):
 
     def __str__(self):
         return self.job.position
-    
+
+
+JOB_STATUS = (
+        ('Accepted', 'accepted'),
+        ('Rejected', 'rejected')
+    )
+
+
+class JobApplication(models.Model):
+    candidate = models.ForeignKey(CandidateProfile, on_delete=models.CASCADE,
+                                  null=True, blank=True)
+    job = models.ForeignKey(JobModel, on_delete=models.CASCADE)
+    job_status = models.CharField(choices=JOB_STATUS, max_length=20, default='Applied')
+    applied_date = models.DateTimeField(auto_now_add=True)
+    processed_date = models.DateTimeField()

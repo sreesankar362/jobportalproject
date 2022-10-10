@@ -3,8 +3,10 @@ from django.views.generic import View, TemplateView
 from user import forms
 from accounts.models import User
 from django.contrib.auth import authenticate, login, logout
-from accounts.utils import detectuser
 from django.contrib import messages
+from accounts.verified_access import login_required
+from django.utils.decorators import method_decorator
+
 
 class RegistrationView(View):
     def get(self, request, *args, **kwargs):
@@ -21,7 +23,7 @@ class RegistrationView(View):
             user.role = User.JOBSEEKER
             user.save()
             messages.success(self.request, "Registered as a Job Seeker")
-            return redirect('jobs')
+            return redirect('login')
         else:
             print("Error..................................")
             messages.error(self.request, "Error in Registration")
@@ -44,11 +46,12 @@ class LogInView(View):
                 if user.role == 2:
                     login(request, user)
                     messages.success(request,"Welcome to your Dashboard")
-                    return redirect('jobs')
+                    return redirect('myaccount')
                 else:
+                    messages.info(request, "Credentials did not match with user account")
                     return redirect("company-login")
             else:
-                messages.error(request,"No such User")
+                messages.error(request, "No such User")
                 print("No such User")
         else:
             messages.error(request,"Error in Form")
@@ -57,6 +60,7 @@ class LogInView(View):
         return render(request, "jobseeker/registration.html",{"form":form})
 
 
+@method_decorator(login_required,name="dispatch")
 class LogOutView(View):
 
     def get(self, request, *args, **kwargs):
@@ -66,6 +70,7 @@ class LogOutView(View):
         return redirect("home")
 
 
+@method_decorator(login_required,name="dispatch")
 class MyAccountView(TemplateView):
 
     def get(self, request, *args, **kwargs):

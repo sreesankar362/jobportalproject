@@ -33,3 +33,6 @@ class JobModel(models.Model):
 
     def __str__(self):
         return self.position
+
+
+

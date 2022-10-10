@@ -1,9 +1,12 @@
+from accounts.verified_access import login_company_required
+from django.utils.decorators import method_decorator
 from django.shortcuts import render
 from datetime import date, timedelta
 from django.views.generic import View, TemplateView
 from.models import Membership, Payment, CompanySubscription
 
 
+@method_decorator(login_company_required,name="dispatch")
 class Subscription(TemplateView):
     template_name = "subscription/choose_membership.html"
 
@@ -13,6 +16,7 @@ class Subscription(TemplateView):
         return context
 
 
+@method_decorator(login_company_required,name="dispatch")
 class PaymentView(View):
     def get(self, request, *args, **kwargs):
         start_date = date.today()
@@ -59,6 +63,7 @@ class PaymentView(View):
         return render(request, 'subscription/payment_status.html', context)
 
 
+@method_decorator(login_company_required,name="dispatch")
 class PaymentHistory(TemplateView):
     template_name = "subscription/payment-history.html"
 
