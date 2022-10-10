@@ -87,16 +87,23 @@
                                                                 <h3 class="">₹{{ membership.price }}</h3>
                                                             </div>
 
-                                                        {% if is_subscribed  %}
-                                                            <p class="text-danger" >You are already subscribed till {{ last_date }}</p>
-                                                            <button class="btn btn-success mt-2" type="submit" disabled  >
-                                                                Pay ₹{{ membership.price }}
-                                                            </button>
-                                                        {% else %}
-
+                                                        {% if company.is_approved and not is_subscribed %}
                                                             <button class="btn btn-success mt-2" type="submit"   >
                                                                 Pay ₹{{ membership.price }}
                                                             </button>
+                                                        {% else %}
+                                                            {% if not company.is_approved %}
+                                                                <p class="text-danger" >Your company is not verified to subscribe.</p>
+                                                                <button class="btn btn-success mt-2" type="submit" disabled  >
+                                                                    Pay ₹{{ membership.price }}
+                                                                </button>
+                                                            {% else %}
+                                                                <p class="text-danger" >You are already subscribed till {{ last_date }}</p>
+                                                                <button class="btn btn-success mt-2" type="submit" disabled  >
+                                                                    Pay ₹{{ membership.price }}
+                                                                </button>
+                                                            {% endif %}
+
                                                         {% endif %}
 
 

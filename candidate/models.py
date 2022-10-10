@@ -88,4 +88,18 @@ class AppliedJobs(models.Model):
 
     def __str__(self):
         return self.job.position
-    
+
+
+JOB_STATUS = (
+        ('Accepted', 'accepted'),
+        ('Rejected', 'rejected')
+    )
+
+
+class JobApplication(models.Model):
+    candidate = models.ForeignKey(CandidateProfile, on_delete=models.CASCADE,
+                                  null=True, blank=True)
+    job = models.ForeignKey(JobModel, on_delete=models.CASCADE)
+    job_status = models.CharField(choices=JOB_STATUS, max_length=20, default='Applied')
+    applied_date = models.DateTimeField(auto_now_add=True)
+    processed_date = models.DateTimeField()
