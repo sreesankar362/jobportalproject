@@ -13,7 +13,6 @@ class HomeView(View):  # Home Button Click
     def get(self, request):
         return render(request, "home/home.html")
 
-@method_decorator(login_required,name="dispatch")
 class JobListingView(View):  # Jobseeker list jobs
     def get(self, request):
         search_form = JobSearchForm
@@ -28,7 +27,6 @@ class JobListingView(View):  # Jobseeker list jobs
         }
         return render(request, "home/job_listing.html", context)
 
-@method_decorator(login_required,name="dispatch")
 def search(request):  #Job seeker search jobs
     if "keyword" in request.GET:
         keyword = request.GET['keyword']
