@@ -29,6 +29,10 @@ from accounts.models import User
 from django.views.generic import CreateView, FormView, RedirectView,DetailView, UpdateView,TemplateView
 from django.urls import reverse_lazy
 
+#bibin
+from accounts.verified_access import login_company_required #decorator
+from django.utils.decorators import method_decorator
+
 
 class CompanyRegistrationView(View):
     def get(self, request, *args, **kwargs):
@@ -121,7 +125,7 @@ class LogInView(View):
                 return render(request,"company/login.html",context={"form":form})
         return render(request,"registration.html")
 
-
+@method_decorator(login_company_required,name="dispatch")
 class CompanyDashboardView(View):
     def get(self, request):
         active_sub = None
@@ -156,7 +160,7 @@ class CompanyDashboardView(View):
 
 
 # nikhils addition
-
+@method_decorator(login_company_required,name="dispatch")
 class CreateCompanyProfileView(CreateView):
     form_class = CompanyProfileForm
     model = CompanyProfile
@@ -170,7 +174,7 @@ class CreateCompanyProfileView(CreateView):
         messages.success(self.request, "Profile Added Successfully!")
         return super().form_valid(form)
 
-
+@method_decorator(login_company_required,name="dispatch")
 class CompanyProfileUpdateView(UpdateView):
     form_class = CompanyProfileForm
     model = CompanyProfile
@@ -184,7 +188,7 @@ class CompanyProfileUpdateView(UpdateView):
         self.object = form.save()
         return super().form_valid(form)
 
-
+@method_decorator(login_company_required,name="dispatch")
 class PasswordResetView(FormView):
     template_name = 'company-password-reset.html'
     form_class = PasswordResetForm
@@ -209,7 +213,7 @@ class PasswordResetView(FormView):
                 messages.error(request, 'invalid credentials')
                 return render(request, self.template_name, {'form': form})
 
-
+@method_decorator(login_company_required,name="dispatch")
 class CompanyProfileView(TemplateView):  # bibin
     template_name = 'company/company-profile.html'
 

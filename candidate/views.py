@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from .forms import CandidateProfileForm, LatEducationForm, ExperienceForm
 from accounts.models import User
-
-
+from accounts.verified_access import login_required #decorator
+from django.utils.decorators import method_decorator
+@method_decorator(login_required,name="dispatch")
 class AddCandidateView(View):
     def get(self, request, *args, **kwargs):
 
