@@ -73,7 +73,7 @@ class JobModelView(FormView):   # Company post job
         messages.success(request, "Job Posted Successfully")
         return render(request, "company/company-dashboard.html", {'form': form})
 
-@method_decorator(login_required,name="dispatch")
+
 class JobDetailView(DetailView):  # Job seeker click view on job
     model = JobModel
     context_object_name = "job"
@@ -82,6 +82,8 @@ class JobDetailView(DetailView):  # Job seeker click view on job
 
 class AboutUsView(TemplateView):  # click button About Us
     template_name = "about_us.html"
+    
+    
 @method_decorator(login_required,name="dispatch")  # Job seeker apply job
 class JobApplyView(TemplateView):
     template_name = "about_us.html"  # need to overwrite
