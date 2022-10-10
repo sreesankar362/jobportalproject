@@ -1,42 +1,35 @@
 from django.shortcuts import render
-from .utils import *
 from datetime import date, timedelta
-from django.utils import timezone
-from django.views.generic import View,TemplateView
+from django.views.generic import View, TemplateView
 from.models import Membership, Payment, CompanySubscription
 
 
-class Subscription(View):
+class Subscription(TemplateView):
+    template_name = "subscription/choose_membership.html"
 
-    def get(self, request, *args, **kwargs):
-        mem = Membership.objects.all()
-        context = {
-            "mem": mem
-        }
-        return render(request, 'subscription/choose_membership.html', context)
+    def get_context_data(self, *args, **kwargs):
+        context = super(Subscription, self).get_context_data(*args, **kwargs)
+        context['mem'] = Membership.objects.all()
+        return context
 
 
 class PaymentView(View):
     def get(self, request, *args, **kwargs):
-
         start_date = date.today()
-        sc_sub = CompanySubscription.objects.filter(company=request.user.user)
-        is_subscribed = True if True in (sub.is_active(sub) for sub in sc_sub) else False
-
+        company = request.user.user
+        company_sub = CompanySubscription.objects.filter(company=company)
+        is_subscribed = company_sub.filter(end_date__gt=date.today()).exists()
         last_date = date.today()
-        for sc in sc_sub:
-            if sc.end_date > last_date:
-                last_date = sc.end_date
-
+        for sub in company_sub:
+            if sub.end_date > last_date:
+                last_date = sub.end_date
         mem_id = kwargs.get("mem_id")
         membership = Membership.objects.get(id=mem_id)
         sub_days = membership.membership_days
         expiry_date = start_date + timedelta(days=sub_days)
-
-
-
         per_month = (membership.price/sub_days)*30
         context = {
+            "company": company,
             "membership": membership,
             "start_date": start_date,
             "expiry_date": expiry_date,
@@ -44,13 +37,11 @@ class PaymentView(View):
             "is_subscribed": is_subscribed,
             "last_date": last_date
         }
-
         return render(request, 'subscription/payment.html', context)
 
     def post(self, request, *args, **kwargs):
         mem_id = kwargs.get("mem_id")
         membership = Membership.objects.get(id=mem_id)
-
         payment = Payment(company=request.user.user, amount_paid=membership.price,
                           status='success')
         payment.save()
@@ -65,13 +56,11 @@ class PaymentView(View):
         context = {
             "payment": payment
         }
-
         return render(request, 'subscription/payment_status.html', context)
 
 
 class PaymentHistory(TemplateView):
     template_name = "subscription/payment-history.html"
-    # extra_context = { "payments":Payment.objects.filter(company=request.user.user)}
 
     def get_context_data(self, *args, **kwargs):
         context = super(PaymentHistory, self).get_context_data(*args, **kwargs)

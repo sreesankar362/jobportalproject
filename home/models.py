@@ -1,5 +1,4 @@
 from django.db import models
-
 from companyaccount.models import CompanyProfile
 
 
@@ -34,4 +33,3 @@ class JobModel(models.Model):
 
     def __str__(self):
         return self.position
-
