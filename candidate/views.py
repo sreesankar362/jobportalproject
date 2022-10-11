@@ -1,20 +1,19 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from .forms import CandidateProfileForm, LatEducationForm, ExperienceForm
-from accounts.models import User
-from accounts.verified_access import login_required #decorator
+from .forms import CandidateProfileForm, LatEducationForm, SkillForm, ExperienceForm
+from accounts.verified_access import login_required  # decorator
 from django.utils.decorators import method_decorator
-@method_decorator(login_required,name="dispatch")
+
+
+@method_decorator(login_required, name="dispatch")
 class AddCandidateView(View):
     def get(self, request, *args, **kwargs):
 
-        candidate_profile_form = CandidateProfileForm()
-        lat_education_form = LatEducationForm()
-        experience_form = ExperienceForm()
         form = {
-            "candidate_profile_form": candidate_profile_form,
-            "lat_education_form": lat_education_form,
-            "experience_form": experience_form
+            "candidate_profile_form": CandidateProfileForm(),
+            "lat_education_form": LatEducationForm(),
+            "experience_form": ExperienceForm(),
+            "skill_form": SkillForm()
         }
         return render(request, "jobseeker/add_candidate.html", form)
 
@@ -35,6 +34,13 @@ class AddCandidateView(View):
             return redirect('myaccount')
 
         else:
-            print("Error..................................")
+            print(" Form Error...........................")
             # messages.error(self.request, "Error in Registration")
-            return render(request, "home/home.html")
+            form = {
+                "candidate_profile_form": CandidateProfileForm(),
+                "lat_education_form": LatEducationForm(),
+                "experience_form": ExperienceForm(),
+                "skill_form": SkillForm()
+            }
+
+            return render(request, "jobseeker/add_candidate.html", form)

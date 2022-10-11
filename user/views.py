@@ -27,7 +27,7 @@ class RegistrationView(View):
         else:
             print("Error..................................")
             messages.error(self.request, "Error in Registration")
-            return render(request, "home/home.html")
+            return render(request, "jobseeker/registration.html", context={"form": form})
 
 
 class LogInView(View):
@@ -56,6 +56,7 @@ class LogInView(View):
         else:
             messages.error(request,"Error in Form")
             print("Form Error")
+        return render(request, "jobseeker/login.html", context={"form": form})
 
         return render(request, "jobseeker/registration.html",{"form":form})
 

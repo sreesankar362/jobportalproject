@@ -1,6 +1,6 @@
-from .models import CandidateProfile, LatEducation, Experience
+from .models import CandidateProfile, LatEducation, Experience,Skill
 from django import forms
-
+from django.forms import modelformset_factory
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -28,3 +28,9 @@ class ExperienceForm(forms.ModelForm):
     class Meta:
         model = Experience
         fields = "__all__"
+
+
+class SkillForm(forms.ModelForm):
+    class Meta:
+        model=Skill
+        fields = ["skill"]

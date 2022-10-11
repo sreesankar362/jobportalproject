@@ -10,12 +10,13 @@
             <div class="col-6 card border">
                 <div class="card-body">
                     <h2>My Profile</h2>
-                    <form action="" class="mt-5" method="post">
+                    <form action="" class="mt-5" method="post" enctype="multipart/form-data">
                         {%csrf_token%}
                         <table>
                             {{lat_education_form.as_table}}
                             {{candidate_profile_form.as_table}}
                             {{experience_form.as_table}}
+                            {{skill_form.as_table}}
 
                         </table>
 
