@@ -74,4 +74,5 @@ class LogOutView(View):
 class MyAccountView(TemplateView):
 
     def get(self, request, *args, **kwargs):
+        print(request.user.profile.slug)
         return render(request, "jobseeker/welcome.html")
