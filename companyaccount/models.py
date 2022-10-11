@@ -11,7 +11,7 @@ class CompanyProfile(models.Model):
         upload_to="company_images",
         validators=[FileExtensionValidator(allowed_extensions=["jpg", "png", "jpeg"])],
         null=True,blank=True,
-        default='default_logo.png'
+        default='company/default_logo.png'
     )
     company_description = models.CharField(max_length=500, null=True, blank=True)
     location = models.CharField(max_length=100, null=True, blank=True)

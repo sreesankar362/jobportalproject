@@ -51,7 +51,14 @@ def search(request):
 
 
 @method_decorator(login_company_required,name="dispatch")
-class JobModelView(FormView):   # Company post job
+class JobModelView(FormView):
+    """
+    sdfgsdfgyhrtyert
+
+    ertyrtyurtyuertyurtyurtyu
+    rtyurty
+    rtyuy
+    """
     template_name = 'post_job.html'
     form_class = JobModelForm
 

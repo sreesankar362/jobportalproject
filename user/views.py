@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from accounts.verified_access import login_required
 from django.utils.decorators import method_decorator
-
+from candidate.models import CandidateProfile
 
 class RegistrationView(View):
     def get(self, request, *args, **kwargs):

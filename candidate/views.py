@@ -7,10 +7,18 @@ from .forms import CandidateProfileForm, LatEducationForm, ExperienceForm
 from accounts.models import User
 from accounts.verified_access import login_required  # decorator
 from django.utils.decorators import method_decorator
+<<<<<<< HEAD
 from .models import CandidateProfile, SavedJobs
 
 
 @method_decorator(login_required, name="dispatch")
+=======
+
+from .models import CandidateProfile
+
+
+@method_decorator(login_required,name="dispatch")
+>>>>>>> main
 class AddCandidateView(View):
     def get(self, request, *args, **kwargs):
 
@@ -31,13 +39,15 @@ class AddCandidateView(View):
         if candidate_profile_form.is_valid() and lat_education_form.is_valid() and experience_form.is_valid():
             # saving form values
             lat_education_form_obj = lat_education_form.save()
-            experience_form_obj = experience_form.save()
             # creating candidate profile
             candidate_profile_obj = candidate_profile_form.save(commit=False)
             candidate_profile_obj.latest_edu = lat_education_form_obj
-            candidate_profile_obj.experience = experience_form_obj
             candidate_profile_obj.user = request.user
             candidate_profile_obj.save()
+            exp = experience_form.save(commit=False)
+            candidate = candidate_profile_obj
+            exp.candidate = candidate
+            exp.save()
             return redirect('myaccount')
 
         else:
@@ -46,6 +56,7 @@ class AddCandidateView(View):
             return render(request, "home/home.html")
 
 
+<<<<<<< HEAD
 def save_job(request, *args, **kwargs):
     user = request.user
     job_id = kwargs.get("job_id")
@@ -89,3 +100,13 @@ class SavedJobsView(TemplateView):
 #        latest_edu = can.latest_edu
 
 #        return render(request,"jobseeker/candidate-profile.html",{"latest_edu":can})
+=======
+class ViewCandidateView(View):
+    def get(self,request, *args, **kwargs):
+        slug = kwargs.get("slug")
+        can = CandidateProfile.objects.get(slug=slug)
+        context = {
+            "can": can,
+        }
+        return render(request, "jobseeker/viewprofile.html", context)
+>>>>>>> main
