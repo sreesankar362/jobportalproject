@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import HomeView, JobListingView, JobModelView,JobDetailView,AboutUsView, search,JobApplyView
+from .views import HomeView, JobListingView, JobModelView,JobDetailView,AboutUsView, search
 
 
 urlpatterns = [
@@ -11,7 +11,6 @@ urlpatterns = [
                   path('jobs/search', search, name="search"),
                   path('user/', include("user.urls")),
                   path('postjob', JobModelView.as_view(), name="post_job"),
-                  path('job_detail/<int:pk>', JobDetailView.as_view(), name="job_detail"),  # bibin
-                  path('job_apply/<int:pk>', JobApplyView.as_view(), name="job_apply"),  # bibin
+                  path('job_detail/<int:pk>', JobDetailView.as_view(), name="job_detail"),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
