@@ -1,7 +1,36 @@
 {% extends 'common_html/base.html' %}
 
 {% block content %}
+<div style="background-color:#F1F1F1">
 
-<h1>welcome {{user}}</h1>
-<h1>{{can.dob}}</h1>
+
+    <div class="container" style="padding:90px;">
+
+        <div class="row">
+            <div class="card ">
+                <img src={{can.candidate_image.url}} class="rounded mx-auto d-block mt-3" width="200" height="200" alt="...">
+                <h6 class="card-body">Name:<a>{{request.user.username}}</a></h6>
+                <h6 class="card-body">Email ID: {{can.user}}</h6>
+                <h6 class="card-body">Date Of Birth : {{can.dob}}</h6>
+
+                                        {% for exps in exp %}
+
+                <h6 class="card-body">Latest Experience Field : {{exps.experience_field}}</h6>
+                                         {% endfor %}
+
+                <h6 class="card-body">Bio : {{can.summary}}</h6>
+                <h6 class="card-body">Languages Known : {{can.languages_known}}</h6>
+                <h6 class="card-body">Skills : {{can.skills}}</h6>
+                <h6 class="card-body">Address : {{can.address}}</h6>
+                <h6 class="card-body">Country : {{can.country}}</h6>
+                <h6 class="card-body">State : {{can.state}}</h6>
+                <div class="card-body">
+                    <a href="{%url 'myaccount'%}" class="card-link btn btn-danger">Back</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 {% endblock %}
