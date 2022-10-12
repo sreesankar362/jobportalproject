@@ -69,7 +69,6 @@ class Experience(models.Model):
         self.exp_duration = int(self.start_date.year - self.end_date.year)
 
 
-
 class SavedJobs(models.Model):
     job = models.ForeignKey(
         JobModel, related_name='saved_job', on_delete=models.CASCADE)
