@@ -1,9 +1,8 @@
 /* navbar start */
 
 .navbar{
-
     background-color: #6c8eff;
-    height: 100px;
+    height: 90px;
 }
 
 .nav-item a{
@@ -16,7 +15,7 @@
 
 }
 .nav-link{
-    width: 120px;
+    width: 140px;
 }
 
 
@@ -46,7 +45,7 @@
     color:rgb(0, 101, 184);
     background: rgb(255, 255, 255);
     border: none;
-    border-radius: 10px;
+    border-radius: 0%;
     height: 40px;
     font-size:16px;
 }
@@ -65,13 +64,11 @@
 
 /* main bg start*/
 .search-div{
-    background-image: url(./images/h1_hero.jpg);
     background-repeat: no-repeat;
     width: 100%;
     background-size: cover;
     display: flex;
-    height: auto;
-    width: 100%;
+    height: 70%;
 }
 
 .hero__caption h1{
@@ -163,15 +160,13 @@ box-shadow: 0 1px 5px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.22);
 
 /* recent jobs end */
 
+.how-it-works{
 
-
-
+}
 
 /* footer */
 .footer{
     width:100%;
     background-color: #6c8eff;
     color: white;
-    height:300px;
-
 }
