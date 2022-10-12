@@ -13,7 +13,7 @@ class CompanyProfileAdmin(admin.ModelAdmin):
     readonly_fields = [
                        'company_name', 'user', 'company_logo', 'industry',
                        'company_description', 'location', 'category', 'team_size',
-                       'founded', 'company_address', 'country_code'
+                       'founded', 'company_address', 'country_code', 'is_activated'
                        ]
     search_fields = ('company_name', 'company_description')
 

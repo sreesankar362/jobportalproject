@@ -10,5 +10,4 @@ class TokenGenerator(PasswordResetTokenGenerator):
         )
 
 
-print("token generated")
 account_activation_token = TokenGenerator()
