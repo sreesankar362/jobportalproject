@@ -9,9 +9,9 @@
 </style>
 
 
-<div class="container w-100">
+<div class=" w-100">
     <div class="row">
-        <div class="col-3" style="background-color:#6c8eff;">
+        <div class="col-2" style="background-color:#6c8eff;">
 
 
             <div class="sidebar text-center">
@@ -33,13 +33,36 @@
         </div>
 
 <div class="col-9">
-     <form action="" method="POST">
-                {% csrf_token %}
-                <div class="col-sm-4 mt-5 text-center">
-                    <img src="{%static 'home/images/userprofile.png'%}" width="100px" height="100px">
+
+        <h2 class="text-secondary" > DASHBOARD </h2>
+    <hr>
+    <p align="right">Wellcome {{user.username}} !</p>
+    <div class="row f-flex justify-content-center">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing vero.</h4>
+                    <p>elit. Accusantium aut consequuntur corporis, culpa dolorum eveniet
+                        id illum in magnam magni maiores minus quas quisquam quos reprehenderit
+                        repudiandae saepe tenetur </p>
                 </div>
-         <h1>Welcome {{user.username}}</h1>
-            </form>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing vero.</h4>
+                    <p>elit. Accusantium aut consequuntur corporis, culpa dolorum eveniet
+                        id illum in magnam magni maiores minus quas quisquam quos reprehenderit
+                        repudiandae saepe tenetur </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+
+    </div>
+
+
         </div>
         </div>
 </div>

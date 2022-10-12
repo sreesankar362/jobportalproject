@@ -50,13 +50,17 @@ class AddCandidateView(View):
 
 
 def save_job(request, *args, **kwargs):
-    user = request.user
-    job_id = kwargs.get("job_id")
-    job = JobModel.objects.get(id=job_id)
-    job = SavedJobs(user=user,job=job)
-    job.save()
-    messages.success(request, "saved")
-    return redirect("jobs")
+    if request.user.is_authenticated:
+        user = request.user
+        job_id = kwargs.get("job_id")
+        job = JobModel.objects.get(id=job_id)
+        job = SavedJobs(user=user,job=job)
+        job.save()
+        messages.success(request, "saved")
+        return redirect("jobs")
+    else:
+        messages.error(request, "Login To Save Job")
+        return redirect("jobs")
 
 
 def unsave_job(request, *args, **kwargs):
@@ -92,7 +96,7 @@ class ViewCandidateView(View):
         exp = Experience.objects.filter(candidate=request.user.profile)
         context = {
             "can": can,
-            "exp":exp,
+            "exp": exp,
         }
         return render(request, "jobseeker/candidate-profile.html", context)
 
