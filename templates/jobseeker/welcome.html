@@ -16,7 +16,8 @@
 
             <div class="sidebar text-center">
                 {% if request.user.profile %}
-                    <a href="{%url 'view_candidate' request.user.profile.slug %}" class="btn form-control mt-2 mb-2">Edit Profile</a>
+                    <a href="{%url 'view_candidate' request.user.profile.slug %}" class="btn form-control mt-2 mb-2">View Profile</a>
+                    <a href="{%url 'profile_update' request.user.profile.slug %}" class="btn form-control mt-2 mb-2">Edit Profile</a>
                 {% else %}
                     <a href="{%url 'add_candidate' %}" class="btn form-control mt-2 mb-2">Add Profile</a>
                 {% endif %}

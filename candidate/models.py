@@ -69,6 +69,7 @@ class Experience(models.Model):
         self.exp_duration = int(self.start_date.year - self.end_date.year)
 
 
+
 class SavedJobs(models.Model):
     job = models.ForeignKey(
         JobModel, related_name='saved_job', on_delete=models.CASCADE)
@@ -92,6 +93,7 @@ class AppliedJobs(models.Model):
 
 
 JOB_STATUS = (
+    ('Applied', 'applied'),
     ('Accepted', 'accepted'),
     ('Rejected', 'rejected')
 )
@@ -102,5 +104,8 @@ class JobApplication(models.Model):
                                   null=True, blank=True)
     job = models.ForeignKey(JobModel, on_delete=models.CASCADE)
     job_status = models.CharField(choices=JOB_STATUS, max_length=20, default='Applied')
-    applied_date = models.DateTimeField(auto_now_add=True)
-    processed_date = models.DateTimeField()
+    applied_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    processed_date = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.job_status

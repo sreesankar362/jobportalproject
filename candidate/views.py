@@ -4,8 +4,8 @@ from .forms import CandidateProfileForm, LatEducationForm, ExperienceForm
 from accounts.models import User
 from accounts.verified_access import login_required #decorator
 from django.utils.decorators import method_decorator
-
-from .models import CandidateProfile
+from django.contrib import messages
+from .models import CandidateProfile, JobApplication, JobModel
 
 
 @method_decorator(login_required,name="dispatch")
@@ -54,3 +54,39 @@ class ViewCandidateView(View):
             "can": can,
         }
         return render(request, "jobseeker/viewprofile.html", context)
+
+
+class CandidateProfileUpdateView(View):
+    def get(self,request,*args,**kwargs):
+        slug = kwargs.get("slug")
+        profile = CandidateProfile.objects.get(slug=slug)
+        form = CandidateProfileForm(instance=profile)
+        return render(request,"jobseeker/update_profile.html",{"form":form})
+
+    def post(self,request,*args,**kwargs):
+        slug = kwargs.get("slug")
+        profile = CandidateProfile.objects.get(slug=slug)
+        form = CandidateProfileForm(request.POST,instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Your Candidate Profile has been updated")
+            return redirect("myaccount")
+        else:
+            messages.error(request,"Error in updating")
+            return render(request,"jobseeker/profile_update.html",{"form":form})
+
+
+def apply_job(request, *args, **kwargs):
+    job_id = kwargs.get("job_id")
+    job = JobModel.objects.get(id=job_id)
+    slug = kwargs.get("slug")
+    candidate = CandidateProfile.objects.get(slug=slug)
+    #candidate = CandidateProfile.objects.get(user=request.user)
+
+    JobApplication.objects.create(job=job,candidate=candidate)
+    messages.success(request, 'Successfully applied for the job')
+    return redirect('jobs')
+
+
+
+
