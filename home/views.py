@@ -18,7 +18,7 @@ class HomeView(TemplateView):
 
 class JobListingView(TemplateView):
     template_name = "home/job_listing.html"
-
+    
     def get(self, request):
         search_form = JobSearchForm
         all_jobs = JobModel.objects.filter().order_by("-published_date")
