@@ -65,8 +65,6 @@ class LogOutView(View):
 
     def get(self, request, *args, **kwargs):
         logout(request)
-        print("logged out Successfully")
-        messages.success(request,"See You Later")
         return redirect("home")
 
 

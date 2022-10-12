@@ -9,7 +9,6 @@ from django.utils.decorators import method_decorator
 from .models import CandidateProfile, SavedJobs, Experience, JobModel, JobApplication
 
 
-
 @method_decorator(login_required, name="dispatch")
 class AddCandidateView(View):
     def get(self, request, *args, **kwargs):
@@ -49,13 +48,17 @@ class AddCandidateView(View):
 
 
 def save_job(request, *args, **kwargs):
-    user = request.user
-    job_id = kwargs.get("job_id")
-    job = JobModel.objects.get(id=job_id)
-    job = SavedJobs(user=user,job=job)
-    job.save()
-    messages.success(request, "saved")
-    return redirect("jobs")
+    if request.user.is_authenticated:
+        user = request.user
+        job_id = kwargs.get("job_id")
+        job = JobModel.objects.get(id=job_id)
+        job = SavedJobs(user=user,job=job)
+        job.save()
+        messages.success(request, "saved")
+        return redirect("jobs")
+    else:
+        messages.error(request, "Login To Save Job")
+        return redirect("jobs")
 
 
 def unsave_job(request, *args, **kwargs):
@@ -63,7 +66,6 @@ def unsave_job(request, *args, **kwargs):
     job_id = kwargs.get("job_id")
     job = JobModel.objects.get(id=job_id)
     saved_job = SavedJobs.objects.filter(user=user,job=job)
-    print(saved_job)
     saved_job.delete()
     messages.success(request, "unsaved")
 
@@ -91,7 +93,7 @@ class ViewCandidateView(View):
         exp = Experience.objects.filter(candidate=request.user.profile)
         context = {
             "can": can,
-            "exp":exp,
+            "exp": exp,
         }
         return render(request, "jobseeker/candidate-profile.html", context)
 
@@ -121,9 +123,7 @@ def apply_job(request, *args, **kwargs):
     job = JobModel.objects.get(id=job_id)
     slug = kwargs.get("slug")
     candidate = CandidateProfile.objects.get(slug=slug)
-    #candidate = CandidateProfile.objects.get(user=request.user)
-
-    JobApplication.objects.create(job=job,candidate=candidate)
+    JobApplication.objects.create(job=job, candidate=candidate)
     messages.success(request, 'Successfully applied for the job')
     return redirect('jobs')
 

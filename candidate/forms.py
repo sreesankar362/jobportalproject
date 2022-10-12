@@ -37,5 +37,5 @@ class ExperienceForm(forms.ModelForm):
 
     class Meta:
         model = Experience
-        exclude = ('candidate',)
+        exclude = ('candidate', 'exp_duration',)
 

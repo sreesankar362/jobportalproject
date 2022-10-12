@@ -14,24 +14,26 @@ from django.utils.decorators import method_decorator
 from django.core.mail import send_mail
 from django.conf import settings
 
+
 class HomeView(TemplateView):
     template_name = "home/home.html"
 
 
 class JobListingView(TemplateView):
     template_name = "home/job_listing.html"
-
+    
     def get(self, request):
         search_form = JobSearchForm
         all_jobs = JobModel.objects.filter().order_by("-published_date")
+        saved_jobs = None
         if request.user.is_authenticated:
-            saved_job = SavedJobs.objects.all().filter(user=request.user)
-            print(saved_job)
-
-
+            saved_job_obj = SavedJobs.objects.filter(user=request.user)
+            saved_jobs = []
+            for sj in saved_job_obj:
+                saved_jobs.append(sj.job)
         context = {
             "all_jobs": all_jobs,
-            "saved_job": saved_job,
+            "saved_jobs": saved_jobs,
             "form": search_form
         }
         return render(request, "home/job_listing.html", context)
@@ -56,13 +58,6 @@ def search(request):
 
 @method_decorator(login_company_required,name="dispatch")
 class JobModelView(FormView):
-    """
-    sdfgsdfgyhrtyert
-
-    ertyrtyurtyuertyurtyurtyu
-    rtyurty
-    rtyuy
-    """
     template_name = 'post_job.html'
     form_class = JobModelForm
 
@@ -85,11 +80,9 @@ class JobModelView(FormView):
             job = form.save(commit=False)
             job.company = request.user.user
             job.save()
-            print("success")
             messages.success(request, "Job Posted Successfully")
             return redirect('company-dash')
         else:
-            print("success")
             messages.error(request, "Job Not posted")
             return render(request, "post_job.html", {'form': form})
 
