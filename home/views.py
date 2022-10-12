@@ -25,9 +25,7 @@ class JobListingView(TemplateView):
         if request.user.is_authenticated:
             saved_job = SavedJobs.objects.all().filter(user=request.user)
             print(saved_job)
-            for obj in saved_job:
-               saved = obj.job.all()
-               print(saved)
+
 
         context = {
             "all_jobs": all_jobs,
