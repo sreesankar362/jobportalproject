@@ -2,45 +2,60 @@
 
 {% extends 'common_html/base.html' %}
 {%block content%}
+
+<div style="background-color:#e1eaf7">
 <br><br><br><br>
-    <div class="col-lg-6 offset-3">
-        <div class="box">
-            <h3 class="heading">Login</h3>
-            {% comment %} <p class="lead">Already our have account?</p> {% endcomment %}
-            {% if form.errors %}
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <div class="alert alert-danger alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{{ error|escape }}</strong>
+<div class="d-flex justify-content-center ">
+    <div class="col-lg-3 mb-5">
+        <div class="card mb-5">
+            <div class="card-body">
+                    <div class="box m-2">
+                        <h4 class="heading mt-2" style="color:#6c8eff">  LOGIN</h4>
+                        <h6 class=" text-secondary" >Company/Employer</h6>
+                        <hr>
+                        {% comment %} <p class="lead">Already our have account?</p> {% endcomment %}
+                        {% if form.errors %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="form-group mt-3">
+                                    <label for="id_{{ field.name }}">{{ field.label }}</label>
+                                    <input type="{{ field.field.widget.input_type }}"
+                                           class="form-control"
+                                           name="{{ field.name }}"
+                                           id="id_{{ field.name }}"
+                                           placeholder="{{ field.field.widget.attrs.placeholder }}">
+                                </div>
+                            {% endfor %}
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-outline-primary form-control"><i class="fa fa-sign-in"></i> Log in
+                                </button>
+                                <p class="mt-4">New to JobHub ? <a style="text-decoration:none;" href="{% url 'company-register' %}"> Signup</a> as company.</p>
+                            </div>
+                        </form>
                     </div>
-                {% endfor %}
-            {% endif %}
-            <form action="" method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="form-group">
-                        <label for="id_{{ field.name }}">{{ field.label }}</label>
-                        <input type="{{ field.field.widget.input_type }}"
-                               class="form-control"
-                               name="{{ field.name }}"
-                               id="id_{{ field.name }}"
-                               placeholder="{{ field.field.widget.attrs.placeholder }}">
-                    </div>
-                {% endfor %}
-                <div class="text-center">
-                    <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-sign-in"></i> Log in
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
+
     </div>
-    <br><br><br>
+
+
+    </div>
+
+</div>
 {% endblock %}
