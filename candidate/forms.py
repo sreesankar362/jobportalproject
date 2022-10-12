@@ -28,7 +28,7 @@ class CandidateProfileForm(forms.ModelForm):
 class LatEducationForm(forms.ModelForm):
     class Meta:
         model = LatEducation
-        exclude = "__all__"
+        fields = "__all__"
 
 
 class ExperienceForm(forms.ModelForm):
