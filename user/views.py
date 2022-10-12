@@ -75,5 +75,4 @@ class MyAccountView(TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-
         return render(request, "jobseeker/welcome.html")

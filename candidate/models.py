@@ -19,9 +19,10 @@ class LatEducation(models.Model):
 
 
 class CandidateProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,
-                                primary_key=True, related_name='profile')
-    summary = models.TextField(max_length=500, null=True, blank=True)
+
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True, related_name='profile')
+    summary = models.TextField(max_length=500,null=True,blank=True)
     candidate_image = models.ImageField(
         upload_to="candidate_images",
         validators=[FileExtensionValidator(allowed_extensions=["jpg", "png", "jpeg"])],
@@ -35,9 +36,10 @@ class CandidateProfile(models.Model):
     languages_known = models.CharField(max_length=300, null=True, blank=True)
     skills = models.CharField(max_length=300, null=True, blank=True)
     address = models.TextField(max_length=350, null=True, blank=True)
-    country = CountryField(null=True, blank=True)
+    country = CountryField(null=True,blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
     slug = AutoSlugField(populate_from='user', unique=True)
+
 
     def get_absolute_url(self):
         return "/profile/{}".format(self.slug)
