@@ -1,5 +1,6 @@
 {% extends 'common_html/base.html' %}
 {% block content %}
+{% load static %}
 <div class="container">
     <div class="row pt-4">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -13,7 +14,7 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="1500">
-                    <img src="/media/about/about_3.jpeg" class="d-block w-100" alt="..." height="500">
+                    <img src="{% static 'home/images/about/about_3.jpeg' %}" class="d-block w-100" alt="..." height="500">
                     <div class="carousel-caption d-none d-md-block">
                         <h5> #1 job site in the World </h5>
                         <p>JobHub strives to put job seekers first, giving them free access to search for jobs, post
@@ -21,7 +22,7 @@
                     </div>
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
-                    <img src="/media/about/img.png" class="d-block w-100" alt="..." height="500">
+                    <img src="{% static 'home/images/about/img.png' %}" class="d-block w-100" alt="..." height="500">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>#1 JobHub Mentorship..!</h5>
                         <p>You can depend on JobHub throughout your job seeking journey,Resume building,Tech guidance,HR
@@ -29,7 +30,7 @@
                     </div>
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
-                    <img src="/media/about/img_1.png" class="d-block w-100" alt="..." height="500">
+                    <img src="{% static 'home/images/about/img_1.png' %}" class="d-block w-100" alt="..." height="500">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Become a certified skilled labour</h5>
                         <p>Upload resume to JobHub and sit relax.We do the job search for you.. </p>
@@ -85,7 +86,7 @@
             </p>
         </div>
         <div class="col-5 pt-5">
-            <img src="/media/about/hub.jpg" class="w-100 rounded mx-auto d-block" alt="..." height="500">
+            <img src="{% static 'home/images/about/hub.jpg' %}" class="w-100 rounded mx-auto d-block" alt="..." height="500">
 
         </div>
     </div>

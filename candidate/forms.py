@@ -11,7 +11,8 @@ class CandidateProfileForm(forms.ModelForm):
 
     class Meta:
         model = CandidateProfile
-        fields = ["dob", "resume", "location", "country"]
+        fields = ["candidate_image", "summary", "dob", "resume", "address", "country", "state",
+                  "languages_known", "skills"]
     # exclude = ("user", "latest_edu", "experience",)
 
 
@@ -27,4 +28,6 @@ class ExperienceForm(forms.ModelForm):
 
     class Meta:
         model = Experience
-        fields = "__all__"
+        exclude = ('candidate',)
+
+

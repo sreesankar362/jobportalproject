@@ -1,7 +1,5 @@
 from django.db import models
-
 from companyaccount.models import CompanyProfile
-#from candidate.models import CandidateProfile
 
 
 class JobModel(models.Model):
@@ -36,11 +34,5 @@ class JobModel(models.Model):
     def __str__(self):
         return self.position
 
-"""
-class JobApplyModel(models.Model):
-    candidate = models.ForeignKey(CandidateProfile, on_delete=models.CASCADE,
-                                  null=True, blank=True)
-    job_position = models.CharField(max_length=150)
-    job_status = models.BooleanField(default=True)
-    applied_date = models.DateTimeField()
-"""
+
+
