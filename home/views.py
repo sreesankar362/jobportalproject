@@ -1,7 +1,9 @@
 from datetime import date
-from django.views.generic import FormView, DetailView, TemplateView
+from django.views.generic import FormView, DetailView, TemplateView,View
 from django.db.models import Q
 from django.shortcuts import render, redirect
+
+from candidate.models import SavedJobs
 from .models import JobModel
 from .forms import JobModelForm, JobSearchForm, EnquiryForm
 from django.contrib import messages
@@ -19,11 +21,17 @@ class HomeView(TemplateView):
 class JobListingView(TemplateView):
     template_name = "home/job_listing.html"
 
-    def get(get, request):
+    def get(self, request):
         search_form = JobSearchForm
         all_jobs = JobModel.objects.filter().order_by("-published_date")
+        if request.user.is_authenticated:
+            saved_job = SavedJobs.objects.all().filter(user=request.user)
+            print(saved_job)
+
+
         context = {
             "all_jobs": all_jobs,
+            "saved_job": saved_job,
             "form": search_form
         }
         return render(request, "home/job_listing.html", context)
@@ -121,3 +129,14 @@ class EnquiryView(FormView):
         else:
             messages.error(request, "Failed to sent enquiry")
             return render(request, "home/enquiry.html", {"form":form})
+
+
+class JobPostView(View):
+    def get(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            jobs=JobModel.objects.filter(company=request.user.user)
+            context={
+                "jobs":jobs,
+            }
+            return render(request, "company/posted_job.html", context)
+
