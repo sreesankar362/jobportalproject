@@ -1,0 +1,25 @@
+{% extends 'common_html/base.html' %}
+
+{% block content %}
+<div style="background-color:#e1eaf7">
+<div class="container p-3">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6 card border">
+            <div class="card-body">
+                <h2 class="text-center text-secondary">CONTACT US</h2>
+                <p class="text-center">Leave your query here and we will reach out to you.</p>
+                <hr>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <input type="submit" class="btn btn-primary form-control">
+                </form>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+</div>
+{% endblock %}

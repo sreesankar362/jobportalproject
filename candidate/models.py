@@ -19,9 +19,10 @@ class LatEducation(models.Model):
 
 
 class CandidateProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,
-                                primary_key=True, related_name='profile')
-    summary = models.TextField(max_length=500, null=True, blank=True)
+
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True, related_name='profile')
+    summary = models.TextField(max_length=500,null=True,blank=True)
     candidate_image = models.ImageField(
         upload_to="candidate_images",
         validators=[FileExtensionValidator(allowed_extensions=["jpg", "png", "jpeg"])],
@@ -35,9 +36,10 @@ class CandidateProfile(models.Model):
     languages_known = models.CharField(max_length=300, null=True, blank=True)
     skills = models.CharField(max_length=300, null=True, blank=True)
     address = models.TextField(max_length=350, null=True, blank=True)
-    country = CountryField(null=True, blank=True)
+    country = CountryField(null=True,blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
     slug = AutoSlugField(populate_from='user', unique=True)
+
 
     def get_absolute_url(self):
         return "/profile/{}".format(self.slug)
@@ -69,6 +71,7 @@ class Experience(models.Model):
         self.exp_duration = int(self.start_date.year - self.end_date.year)
 
 
+
 class SavedJobs(models.Model):
     job = models.ForeignKey(
         JobModel, related_name='saved_job', on_delete=models.CASCADE)
@@ -92,6 +95,7 @@ class AppliedJobs(models.Model):
 
 
 JOB_STATUS = (
+    ('Applied', 'applied'),
     ('Accepted', 'accepted'),
     ('Rejected', 'rejected')
 )
@@ -102,5 +106,8 @@ class JobApplication(models.Model):
                                   null=True, blank=True)
     job = models.ForeignKey(JobModel, on_delete=models.CASCADE)
     job_status = models.CharField(choices=JOB_STATUS, max_length=20, default='Applied')
-    applied_date = models.DateTimeField(auto_now_add=True)
-    processed_date = models.DateTimeField()
+    applied_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    processed_date = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.job_status

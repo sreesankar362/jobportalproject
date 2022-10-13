@@ -6,47 +6,67 @@
 .sidebar{height:500px;}
 .sidebar a {height:70px;display:block;padding:6px; color:white;;font-size:20px;border-bottom:2px solid white;}
 .sidebar a:hover{color:rgb(255, 255, 255);height:70px;}
-
 </style>
 
 
-<div class="container w-100">
+<div class=" w-100">
     <div class="row">
-        <div class="col-3" style="background-color:#6c8eff;">
+        <div class="col-2" style="background-color:#6c8eff;">
 
 
             <div class="sidebar text-center">
+
+
                 {% if request.user.profile %}
-                <a href="{%url 'view_candidate' request.user.profile.slug %}" class="btn form-control mt-2 mb-2">Edit
-                    Profile</a>
+
+                    <a href="{%url 'view_candidate' request.user.profile.slug %}" class="btn form-control mt-2 mb-2">My Profile</a>
+
+                    <a href="{%url 'profile_update' request.user.profile.slug %}" class="btn form-control mt-2 mb-2">Edit Profile</a>
+
                 {% else %}
-                <a href="{%url 'add_candidate' %}" class="btn form-control mt-2 mb-2">Add Profile</a>
+                    <a href="{%url 'add_candidate' %}" class="btn form-control mt-2 mb-2">Add Profile</a>
                 {% endif %}
+
                 <a href="#" class="btn form-control mt-2 mb-2">My Applications</a>
-                <a href="#" class="btn form-control mt-2 mb-2">Saved Jobs</a>
+                <a href="{%url 'saved-job' %}" class="btn form-control mt-2 mb-2">Saved Jobs</a>
                 <a href="{%url 'password_change'%}" class="btn form-control mt-2 mb-2">Change Password</a>
             </div>
 
         </div>
 
-        <div class="col-9">
-            <form action="" method="POST">
-                {% csrf_token %}
-                <div class="col-sm-4 mt-5 text-center">
-                    {%if company.company_logo %}
-                    <img src="{%static 'home/images/userprofile.png'%}" class="rounded mx-auto d-block" width="200" height="200"
-                         alt="...">
-                    {%else%}
-                    <img src="{%static 'home/images/avatar.jpg' %}" class="rounded mx-auto d-block" width="150"
-                         height="150"
-                         alt="...">
-                    {%endif%}
+<div class="col-9">
 
+        <h2 class="text-secondary" > DASHBOARD </h2>
+    <hr>
+    <p align="right">Wellcome {{user.username}} !</p>
+    <div class="row f-flex justify-content-center">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing vero.</h4>
+                    <p>elit. Accusantium aut consequuntur corporis, culpa dolorum eveniet
+                        id illum in magnam magni maiores minus quas quisquam quos reprehenderit
+                        repudiandae saepe tenetur </p>
                 </div>
-                <h1>Welcome {{user.username}}</h1>
-            </form>
+            </div>
         </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing vero.</h4>
+                    <p>elit. Accusantium aut consequuntur corporis, culpa dolorum eveniet
+                        id illum in magnam magni maiores minus quas quisquam quos reprehenderit
+                        repudiandae saepe tenetur </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+
     </div>
+
+
+        </div>
+        </div>
 </div>
 
 {% endblock %}

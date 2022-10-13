@@ -65,8 +65,6 @@ class LogOutView(View):
 
     def get(self, request, *args, **kwargs):
         logout(request)
-        print("logged out Successfully")
-        messages.success(request,"See You Later")
         return redirect("home")
 
 
@@ -74,6 +72,5 @@ class LogOutView(View):
 class MyAccountView(TemplateView):
 
     def get(self, request, *args, **kwargs):
-
 
         return render(request, "jobseeker/welcome.html")
