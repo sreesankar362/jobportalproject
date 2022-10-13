@@ -3,23 +3,22 @@
 {% block content %}
 
 <img src="{% static 'company/choose-bg.jpg' %}" alt=""
-     style="width:100%;z-index:-10;object-fit: cover;height:650px;">
+     style="width:100%;z-index:-10;object-fit: cover;height:600px;">
 
-<div class="container" style="position:absolute;top:150px;left:7%;">
+<div class="container" style="margin-top:-560px;">
 
-        <div class="row mt-5  d-flex justify-content-center" style="display:block;back">
-            <div class="row d-flex justify-content-center">
-                            <div class="col-6">
+        <div class="row mt-5  d-flex justify-content-center" style="display:block;">
+                 <div >
                     <h2 class="text-white text-center">CHOOSE SUBSCRIPTION PLAN </h2>
                     <p class="text-center text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab delectus, deleniti dolor dolore doloribus dolorum ducimus et expedita,
                     hic maiores minima modi molestiae mollitia porro quaerat quam quis tempora, vero!</p>
-            </div>
-            </div>
+                 </div>
+
 
 
             {% for membership in mem %}
-                    <div class="col-3" >
-                        <div class="card"  style="width=300px;">
+                    <div class="col-sm-3" >
+                        <div class="card"  >
                             <div class="card-body m-3">
 
                                 <h3 class="text-center">{{membership.membership_days}} Days</h3>

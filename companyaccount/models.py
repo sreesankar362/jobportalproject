@@ -25,8 +25,7 @@ class CompanyProfile(models.Model):
     )
     team_size = models.CharField(max_length=10, choices=choice, null=True, blank=True)
     founded = models.PositiveIntegerField(null=True, blank=True)
-    company_address = models.CharField(max_length=250, null=True, blank=True)
-    country_code = models.PositiveIntegerField(null=True, blank=True)
+    company_address = models.TextField(max_length=250, null=True, blank=True)
 
     is_activated = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=False)

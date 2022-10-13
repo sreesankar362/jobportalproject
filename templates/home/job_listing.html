@@ -217,19 +217,23 @@
                                     </div>
                                     <div style="display:flex;">
 
-
-                                      {% for object in saved_job %}
-                                        {% if job.position in object.job.position %}
+                                    {% if job in saved_jobs %}
                                         <a href="{%url 'unsave-job' job.id %}"><button class="ms-auto side-btn2 "> Unsave <i class="fa-regular fa-bookmark bookmark-icon"></i> </button></a>
-
-                                        {% else %}
-
-                                        {% endif %}
-                                       {% endfor %}
+{% else %}
                                         <a href="{%url 'save-job' job.id %}"><button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button></a>
+{% endif %}
 
-                                         <button class="side-btn2 " onclick="window.location.href = '{%url 'job_detail' job.id %}';">
-                                View <i class="fa-solid fa-angle-right"> </i></button>
+<!--                                      {% for object in saved_job %}-->
+<!--                                        {% if job.position in object.job.position %}-->
+<!--                                        <a href="{%url 'unsave-job' job.id %}"><button class="ms-auto side-btn2 "> Unsave <i class="fa-regular fa-bookmark bookmark-icon"></i> </button></a>-->
+
+<!--                                        {% else %}-->
+
+<!--                                        {% endif %}-->
+<!--                                       {% endfor %}-->
+<!--                                        <a href="{%url 'save-job' job.id %}"><button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button></a>-->
+
+                                         <button class="side-btn2 " onclick="window.location.href = '{%url 'job_detail' job.id %}';"> View <i class="fa-solid fa-angle-right"> </i></button>
                                     </div>
                                 </div>
                             </div><!-- one job card end-->
