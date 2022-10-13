@@ -1,6 +1,7 @@
 {% extends 'common_html/base.html' %}
 
 {% block content %}
+{% load static %}
 <div style="background-color:#F1F1F1">
 
 
@@ -8,45 +9,51 @@
         <div class="row">
             <div class="card">
                 {%for company in company_data%}
+                 {%if company.company_logo %}
                 <img src={{company.company_logo.url}} class="rounded mx-auto d-block" width="200" height="200"  alt="...">
+                {%else%}
+                <img src="{%static 'home/images/avatar.jpg' %}" class="rounded mx-auto d-block" width="150" height="150"
+             alt="...">
+                {%endif%}
+
                 <div class="card-body">
                     <h2 class="card-title">{{company.company_name}}</h2>
-                    <p class="card-text">{{company.company_description}}.</p>
+                    <p class="card-text mt-4">{{company.company_description}}.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
+                    <li class="list-group-item mt-3 ">
 
-                        <h3>Location:</h3>
+                        <h5>Location:</h5>
                         {{company.location}}
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item mt-3 ">
                         <h5>Industry:</h5>
                         {{company.industry}}
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item mt-3 ">
                         <h5>Category</h5>
                         {{company.category}}
                     </li>
-                    <li class="list-group-item">
-                        <h3>Team Size:</h3>
+                    <li class="list-group-item mt-3 ">
+                        <h5>Team Size:</h5>
                         {{company.team_size}}
                     </li>
-                    <li class="list-group-item">
-                        <h3>Founded:</h3>
+                    <li class="list-group-item mt-3 ">
+                        <h5>Founded:</h5>
                         {{company.founded}}
                     </li>
-                    <li class="list-group-item">
-                        <h3>Company Address:</h3>
+                    <li class="list-group-item mt-3 ">
+                        <h5>Company Address:</h5>
                         {{company.company_address}}
                     </li>
-                    <li class="list-group-item">
-                        <h3>Country Code:</h3>
+                    <li class="list-group-item mt-3 mb-3">
+                        <h5>Country Code:</h5>
                         {{company.country_code}}
                     </li>
                 </ul>
                 {% endfor %}
                 <div class="card-body">
-                    <a href="#" class="card-link btn btn-danger">Back</a>
+                    <button type="submit" class="card-link btn btn-danger ms-5 ps-5 mt-3 mb-3 pe-5 " onclick="history.back()">Back</button>
                 </div>
             </div>
         </div>

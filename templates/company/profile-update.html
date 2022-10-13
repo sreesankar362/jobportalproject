@@ -1,25 +1,30 @@
-
-
 {% extends 'common_html/base.html' %}
 
 {%block content%}
 
-<div style="background-color:#e1eaf7" >
-<div class="row d-flex justify-content-center ">
-    <div class="col-5 m-4">
-        <h3 align="center" class="text-secondary">UPDATE PROFILE</h3>
-        <hr>
-        <div class="card">
-            <div class="card-body">
-                <form action="" method="post" enctype="multipart/form-data">
-                    {%csrf_token%}
-                     {{form.as_p}}
-                    <button type="submit" class="btn btn-success form-control" >Update</button>
-                </form>
-            </div>
-        </div>
+<div style="background-color:#e1eaf7">
+    <div class="row d-flex justify-content-center ">
+        <div class="col-5 m-4">
+            <h3 align="center">Update Company Profile </h3>
+            <hr>
+            <div class="card">
+                <div class="card-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {%csrf_token%}
+                        <table>
+                            {{form.as_table}}
+                        </table>
 
+                        <input type="submit" class="card-link btn btn-success mt-5 mb-5 ps-4 pe-4 ">
+                        <button type="submit" class="card-link btn btn-danger mt-5 mb-5 ms-5 ps-5 pe-4"
+                                onclick="history.back()">Back
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
     </div>
-</div>
 </div>
 {%endblock%}
