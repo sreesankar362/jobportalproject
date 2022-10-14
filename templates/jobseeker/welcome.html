@@ -27,7 +27,7 @@
                     <a href="{%url 'add_candidate' %}" class="btn form-control mt-2 mb-2">Add Profile</a>
                 {% endif %}
 
-                <a href="#" class="btn form-control mt-2 mb-2">My Applications</a>
+                <a href="{% url 'applied-job' %}" class="btn form-control mt-2 mb-2">My Applications</a>
                 <a href="{%url 'saved-job' %}" class="btn form-control mt-2 mb-2">Saved Jobs</a>
                 <a href="{%url 'password_change'%}" class="btn form-control mt-2 mb-2">Change Password</a>
             </div>

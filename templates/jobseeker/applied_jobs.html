@@ -1,0 +1,61 @@
+{% extends 'common_html/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="row d-flex justify-content-center">
+
+
+    <div class="col-9 mt-4">
+        <h1 class="text-secondary text-center">APPLIED JOBS</h1>
+        <hr>
+
+        {% if jobapplicationobjects %}
+        {% for jobapplication in jobapplicationobjects %}
+        <div class="card job-card mb-4 p-2">
+            <div class="card-body ">
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card-left2 mt-1">
+                            <h5>{{jobapplication.job.position}} </h5>
+                            <p>{{jobapplication.job.company}} <br>
+                                <i class="fa-solid fa-location-dot"></i> {{jobapplication.job.company.location}} </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class=" right-details2 mt-4 text-secondary">
+                            <p><i class=" fa-regular fa-clock"></i> {{jobapplication.job.job_type}} <br>
+                                <i class="ms-1 fa-solid fa-money-bills"></i>
+                                {{jobapplication.job.min_salary}}-{{jobapplication.job.max_salary}} <br></p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md- text-secondary mt-4">
+                        <p><i class="ms-1 fa-solid fa-briefcase"> </i> {{ jobapplication.job.experience }} <br>
+                            <i class="ms-1 fa-solid fa-building"></i> {{jobapplication.job.work_type}}</p>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <button class="btn btn-primary"
+                                onclick="location.href='{% url 'job_detail' jobapplication.job.id %}';"
+                                style="width:150px;">View Job
+                        </button>
+                        <button class="btn btn-success btn mt-2"
+                                style="width:150px;">{{jobapplication.job_status}}
+                        </button>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="card text-center">
+        <h3>You haven't applied any job yet. </h3>
+    </div>
+    {% endif %}
+
+</div>
+</div>
+
+{% endblock %}
