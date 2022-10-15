@@ -1,5 +1,7 @@
 from datetime import date
-from django.views.generic import FormView, DetailView, TemplateView,View
+from typing import Dict, Type, Any, List
+
+from django.views.generic import FormView, DetailView, TemplateView, View
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
@@ -21,22 +23,26 @@ class HomeView(TemplateView):
 
 class JobListingView(TemplateView):
     template_name = "home/job_listing.html"
-    
+
     def get(self, request):
         search_form = JobSearchForm
         all_jobs = JobModel.objects.filter().order_by("-published_date")
         saved_jobs = None
-        if request.user.is_authenticated:
-            saved_job_obj = SavedJobs.objects.filter(user=request.user)
-            saved_jobs = []
-            for sj in saved_job_obj:
-                saved_jobs.append(sj.job)
+        saved_jobs = []
+        try:
+            if request.user.profile:
+                saved_job_obj = SavedJobs.objects.filter(candidate=self.request.user.profile)
+                saved_jobs = []
+                for sj in saved_job_obj:
+                    saved_jobs.append(sj.job)
+        except:
+            pass
         context = {
             "all_jobs": all_jobs,
             "saved_jobs": saved_jobs,
             "form": search_form
         }
-        return render(request, "home/job_listing.html", context)
+        return render(request, 'home/job_listing.html', context)
 
 
 def search(request):
@@ -56,7 +62,7 @@ def search(request):
     return render(request, "home/job_listing.html", context)
 
 
-@method_decorator(login_company_required,name="dispatch")
+@method_decorator(login_company_required, name="dispatch")
 class JobModelView(FormView):
     template_name = 'post_job.html'
     form_class = JobModelForm
@@ -121,15 +127,14 @@ class EnquiryView(FormView):
             return redirect("home")
         else:
             messages.error(request, "Failed to sent enquiry")
-            return render(request, "home/enquiry.html", {"form":form})
+            return render(request, "home/enquiry.html", {"form": form})
 
 
 class JobPostView(View):
-    def get(self,request,*args,**kwargs):
+    def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            jobs=JobModel.objects.filter(company=request.user.user)
-            context={
-                "jobs":jobs,
+            jobs = JobModel.objects.filter(company=request.user.user)
+            context = {
+                "jobs": jobs,
             }
             return render(request, "company/posted_job.html", context)
-
