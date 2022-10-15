@@ -48,24 +48,28 @@ class AddCandidateView(View):
 
 
 def save_job(request, *args, **kwargs):
-    if request.user.is_authenticated:
-        user = request.user
-        job_id = kwargs.get("job_id")
-        job = JobModel.objects.get(id=job_id)
-        job = SavedJobs(user=user, job=job)
-        job.save()
-        messages.success(request, "saved")
-        return redirect("jobs")
-    else:
-        messages.error(request, "Login To Save Job")
+    try:
+        if request.user.is_authenticated and request.user.profile:
+            candidate = request.user.profile
+            job_id = kwargs.get("job_id")
+            job = JobModel.objects.get(id=job_id)
+            job = SavedJobs(candidate=candidate, job=job)
+            job.save()
+            messages.success(request, "saved")
+            return redirect("jobs")
+        else:
+            messages.error(request, "Login To Save Job")
+            return redirect("jobs")
+    except:
+        messages.error(request,"Sorry Recruiters Cannot Save Jobs")
         return redirect("jobs")
 
 
 def unsave_job(request, *args, **kwargs):
-    user = request.user
+    candidate = request.user.profile
     job_id = kwargs.get("job_id")
     job = JobModel.objects.get(id=job_id)
-    saved_job = SavedJobs.objects.filter(user=user, job=job)
+    saved_job = SavedJobs.objects.filter(candidate=candidate, job=job)
     saved_job.delete()
     messages.success(request, "unsaved")
 
@@ -76,8 +80,8 @@ class SavedJobsView(TemplateView):
     template_name = 'jobseeker/saved_jobs.html'
 
     def get_context_data(self, *args, **kwargs):
-        context = super(SavedJobsView, self).get_context_data(**kwargs)
-        savedjobsobjects = SavedJobs.objects.filter(user=self.request.user)
+        context = super(SavedJobsView, self).get_context_data(*args, **kwargs)
+        savedjobsobjects = SavedJobs.objects.filter(candidate=self.request.user.profile)
 
         for savedjob in savedjobsobjects:
             print(savedjob.job.job_description)
@@ -128,13 +132,11 @@ def apply_job(request, *args, **kwargs):
     return redirect('jobs')
 
 
-# ...........................................
-
-
 class JobApplicationView(TemplateView):
     template_name = 'jobseeker/applied_jobs.html'
+
     def get_context_data(self, *args, **kwargs):
-        context = super(JobApplicationView, self).get_context_data(*args,**kwargs)
+        context = super(JobApplicationView, self).get_context_data(*args, **kwargs)
         jobapplicationobjects = JobApplication.objects.filter(candidate=self.request.user.profile)
         print(jobapplicationobjects)
         for objects in jobapplicationobjects:
