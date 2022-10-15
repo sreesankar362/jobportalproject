@@ -47,9 +47,13 @@
                 <div style="display:flex;">
                     <button class="side-btn2 " onclick="history.back()">
                         Back <i class="fa-solid fa-angle-right"> </i></button>
-                    {% if user.is_authenticated %}
-                        <button class="side-btn2 " onclick="window.location.href = '{%url 'apply_job' job.id request.user.profile.slug %}'">
+                    {% if request.user.is_authenticated %}
+                        {%if request.user.role == 1 %}
+
+                        <button class="side-btn2 " onclick="window.location.href = ''">
                             Apply <i class="fa-solid fa-angle-right"> </i></button>
+                        {% else%}
+                        {% endif%}
                     {%else%}
                         <button class="side-btn2 " onclick="window.location.href = '{%url 'login'%}'">
                             Apply <i class="fa-solid fa-angle-right"> </i></button>

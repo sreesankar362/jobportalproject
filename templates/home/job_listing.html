@@ -175,7 +175,7 @@
                     <p>{{all_jobs | length}} jobs found</p>
                         {% if all_jobs %}
                              {% for job in all_jobs %}
-                                        <div class="card job-card mb-4 p-2" ><!-- one job card -->
+                    <div class="card job-card mb-3 " style="border-radius:0%;background-color:rgb(230, 247, 255,.2)" ><!-- one job card -->
 
                                 <div class="card-body ">
                                    <div class="row">
@@ -191,7 +191,7 @@
                                             <div class="col-lg-3 col-md-6">
                                                      <div class=" right-details2 mt-4 text-secondary">
                                                             <p><i class=" fa-regular fa-clock"></i> {{job.job_type}} <br>
-                                                                <i class="ms-1 fa-solid fa-money-bills"></i> {{job.min_salary}}-{{job.max_salary}} <br> </p>
+                                                                <i class="ms-1 fa-solid fa-money-bills"></i> {{job.min_salary}} {% if job.max_salary %}-{{job.max_salary}} {% endif %} <br> </p>
 
                                                     </div>
                                             </div>
@@ -206,14 +206,13 @@
                                            <div class="col-lg-2 col-md-6">
                                                {% if job.company.company_logo %}
                                                     <a href=""> <img class="mt-2 company_logo" width="80" src=" {{ job.company.company_logo.url }} " alt=""> </a>
-                                               {% else %}
                                                {% endif %}
 
                                            </div>
 
                                    </div>
-                                    <div class="row p-3">
-                                       {{ job.job_description }}
+                                    <div class="row ">
+                                       <p style="font-size:14px;">{{ job.job_description }}</p>
                                     </div>
                                     <div style="display:flex;">
 
@@ -223,23 +222,13 @@
                                         <a href="{%url 'save-job' job.id %}"><button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button></a>
 {% endif %}
 
-<!--                                      {% for object in saved_job %}-->
-<!--                                        {% if job.position in object.job.position %}-->
-<!--                                        <a href="{%url 'unsave-job' job.id %}"><button class="ms-auto side-btn2 "> Unsave <i class="fa-regular fa-bookmark bookmark-icon"></i> </button></a>-->
-
-<!--                                        {% else %}-->
-
-<!--                                        {% endif %}-->
-<!--                                       {% endfor %}-->
-<!--                                        <a href="{%url 'save-job' job.id %}"><button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button></a>-->
-
                                          <button class="side-btn2 " onclick="window.location.href = '{%url 'job_detail' job.id %}';"> View <i class="fa-solid fa-angle-right"> </i></button>
                                     </div>
                                 </div>
                             </div><!-- one job card end-->
                              {% endfor %}
                         {% else %}
-                            <div class="text-center">
+                            <div class="text-center text-secondary">
                                 <h3>No Jobs Found! </h3>
                             </div>
                         {% endif %}

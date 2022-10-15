@@ -117,19 +117,19 @@ class EnquiryView(FormView):
                 [settings.EMAIL_HOST_USER],
                 fail_silently=False
             )
-            messages.success(request, "Enquiry is sent")
-            return redirect("home")
+            messages.success(request, "Enquiry sent")
+            return redirect("enquiry")
         else:
             messages.error(request, "Failed to sent enquiry")
-            return render(request, "home/enquiry.html", {"form":form})
+            return render(request, "home/enquiry.html", {"form": form})
 
 
 class JobPostView(View):
-    def get(self,request,*args,**kwargs):
+    def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            jobs=JobModel.objects.filter(company=request.user.user)
-            context={
-                "jobs":jobs,
+            jobs = JobModel.objects.filter(company=request.user.user)
+            context = {
+                "jobs": jobs,
             }
             return render(request, "company/posted_job.html", context)
 

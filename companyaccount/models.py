@@ -31,6 +31,9 @@ class CompanyProfile(models.Model):
     is_approved = models.BooleanField(default=False)
     is_mail_verified = models.BooleanField(default=False)
 
+    def is_subscribed(self,request):
+        return self.request.user.user.company_subscription.is_active()
+
     def __str__(self):
         return self.company_name
 

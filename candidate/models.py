@@ -8,6 +8,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 import datetime
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
+from companyaccount.models import CompanyProfile
 
 
 class LatEducation(models.Model):
@@ -22,7 +23,8 @@ class CandidateProfile(models.Model):
 
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True, related_name='profile')
-    summary = models.TextField(max_length=500,null=True,blank=True)
+    total_exp = models.PositiveSmallIntegerField(null=True, blank=True)
+    summary = models.TextField(max_length=500, null=True, blank=True)
     candidate_image = models.ImageField(
         upload_to="candidate_images",
         validators=[FileExtensionValidator(allowed_extensions=["jpg", "png", "jpeg"])],
@@ -40,7 +42,6 @@ class CandidateProfile(models.Model):
     state = models.CharField(max_length=255, null=True, blank=True)
     slug = AutoSlugField(populate_from='user', unique=True)
 
-
     def get_absolute_url(self):
         return "/profile/{}".format(self.slug)
 
@@ -48,11 +49,11 @@ class CandidateProfile(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.user.username
+        return self.user.first_name
 
 
 class Experience(models.Model):
-    candidate = models.ForeignKey(CandidateProfile, on_delete=models.CASCADE,
+    candidate = models.ForeignKey(CandidateProfile, on_delete=models.CASCADE, related_name="exp",
                                   null=True, blank=True)
     experience_field = models.CharField(max_length=255, null=True, blank=True)
     job_position = models.CharField(max_length=50, null=True, blank=True)
@@ -69,7 +70,6 @@ class Experience(models.Model):
 
     def get_exp(self):
         self.exp_duration = int(self.start_date.year - self.end_date.year)
-
 
 
 class SavedJobs(models.Model):
@@ -94,20 +94,14 @@ class AppliedJobs(models.Model):
         return self.job.position
 
 
-JOB_STATUS = (
-    ('Applied', 'applied'),
-    ('Accepted', 'accepted'),
-    ('Rejected', 'rejected')
-)
-
-
 class JobApplication(models.Model):
     candidate = models.ForeignKey(CandidateProfile, on_delete=models.CASCADE,
                                   null=True, blank=True)
     job = models.ForeignKey(JobModel, on_delete=models.CASCADE)
-    job_status = models.CharField(choices=JOB_STATUS, max_length=20, default='Applied')
+    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, null=True, blank=True)
+    job_status = models.CharField(max_length=20, default='applied')
     applied_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     processed_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.job_status
+        return str(self.job)

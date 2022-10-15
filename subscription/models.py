@@ -3,16 +3,12 @@ from companyaccount.models import CompanyProfile
 import uuid
 from datetime import date, timedelta
 
-MEM_TYPE = (
-    ('Free', 'free'),
-    ('Paid', 'paid')
-)
-
 
 class Membership(models.Model):
-    membership_days = models.IntegerField(default=7)
-    price = models.PositiveIntegerField(default=0)
-    type = models.CharField(max_length=20, choices=MEM_TYPE, default='paid')
+    name = models.CharField(max_length=200, null=True, blank=True)
+    membership_days = models.PositiveIntegerField()
+    price = models.PositiveIntegerField()
+    description = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return str(self.membership_days)
@@ -20,8 +16,9 @@ class Membership(models.Model):
 
 class Payment(models.Model):
     company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE)
-    payment_id = models.UUIDField(default=uuid.uuid4, editable=False)
-    amount_paid = models.CharField(max_length=100)
+    payment_id = models.CharField(max_length=200,null=True, blank=True)
+    amount_paid = models.CharField(max_length=100,null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
     status = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -36,5 +33,6 @@ class CompanySubscription(models.Model):
     end_date = models.DateField()
     payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank=True, null=True)
 
-    def is_active(self, obj):
-        return date.today() < obj.end_date
+    def is_expired(self):
+        return self.end_date < date.today()
+
