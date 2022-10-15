@@ -19,7 +19,6 @@ def send_approve_notification(mail_subject, mail_template, context):
 
 
 def company_activation_mail(request, user_obj, company_user_form, ):
-    print(" company_registration_mail called")
     current_site = get_current_site(request)
     subject = 'Welcome to JOBHUB!,Verify your Account.'
     message = render_to_string('company/acc_active_email.html', {
@@ -30,5 +29,4 @@ def company_activation_mail(request, user_obj, company_user_form, ):
     })
     recipient = company_user_form.cleaned_data.get('email')
     send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
-    print("company reg mail sent")
     messages.success(request, "An email has been send to you for account activation.")

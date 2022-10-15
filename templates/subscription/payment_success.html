@@ -21,12 +21,12 @@
                                 <tbody>
                                   <tr class="col-6 ">
                                     <th >Payment Id</th>
-                                    <td>{{payment.payment_id}}</td>
+                                    <td>{{session.payment_intent}}</td>
 
                                   </tr>
                                   <tr class="col-6 ">
                                     <th >Payment status</th>
-                                    <td>{{payment.status}}</td>
+                                    <td>{{session.payment_status}}</td>
 
                                   </tr>
                                   <tr class="col-6 ">
@@ -46,7 +46,7 @@
                                   </tr>
                                   <tr class="col-6 ">
                                     <th >Email</th>
-                                    <td>{{ request.user.email }}</td>
+                                    <td>{{ email }}</td>
 
                                   </tr>
 

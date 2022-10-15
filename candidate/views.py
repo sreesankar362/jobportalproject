@@ -24,9 +24,14 @@ class AddCandidateView(View):
         return render(request, "jobseeker/add_candidate.html", form)
 
     def post(self, request, *args, **kwargs):
-        candidate_profile_form = CandidateProfileForm(request.POST)
+        candidate_profile_form = CandidateProfileForm(request.POST, request.FILES)
         lat_education_form = LatEducationForm(request.POST)
         experience_form = ExperienceForm(request.POST)
+        form = {
+            "candidate_profile_form": candidate_profile_form,
+            "lat_education_form": lat_education_form,
+            "experience_form": experience_form
+        }
         if candidate_profile_form.is_valid() and lat_education_form.is_valid() and experience_form.is_valid():
             # saving form values
             lat_education_form_obj = lat_education_form.save()
@@ -42,9 +47,7 @@ class AddCandidateView(View):
             return redirect('myaccount')
 
         else:
-            print("Error..................................")
-            # messages.error(self.request, "Error in Registration")
-            return render(request, "home/home.html")
+            return render(request, "jobseeker/add_candidate.html", form)
 
 
 def save_job(request, *args, **kwargs):
@@ -123,18 +126,16 @@ def apply_job(request, *args, **kwargs):
     job = JobModel.objects.get(id=job_id)
     slug = kwargs.get("slug")
     candidate = CandidateProfile.objects.get(slug=slug)
-    JobApplication.objects.create(job=job, candidate=candidate)
+    JobApplication.objects.create(job=job, candidate=candidate, company=job.company)
     messages.success(request, 'Successfully applied for the job')
     return redirect('jobs')
 
 
-# ...........................................
-
-
 class JobApplicationView(TemplateView):
     template_name = 'jobseeker/applied_jobs.html'
+
     def get_context_data(self, *args, **kwargs):
-        context = super(JobApplicationView, self).get_context_data(*args,**kwargs)
+        context = super(JobApplicationView, self).get_context_data(**kwargs)
         jobapplicationobjects = JobApplication.objects.filter(candidate=self.request.user.profile)
         print(jobapplicationobjects)
         for objects in jobapplicationobjects:
