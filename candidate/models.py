@@ -77,7 +77,6 @@ class SavedJobs(models.Model):
                                   null=True, blank=True)
     job = models.ForeignKey(
         JobModel, related_name='saved_job', on_delete=models.CASCADE)
-    # user = models.ForeignKey(User,related_name='saved',on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
