@@ -55,7 +55,7 @@ def save_job(request, *args, **kwargs):
         user = request.user
         job_id = kwargs.get("job_id")
         job = JobModel.objects.get(id=job_id)
-        job = SavedJobs(user=user,job=job)
+        job = SavedJobs(user=user, job=job)
         job.save()
         messages.success(request, "saved")
         return redirect("jobs")
@@ -68,7 +68,7 @@ def unsave_job(request, *args, **kwargs):
     user = request.user
     job_id = kwargs.get("job_id")
     job = JobModel.objects.get(id=job_id)
-    saved_job = SavedJobs.objects.filter(user=user,job=job)
+    saved_job = SavedJobs.objects.filter(user=user, job=job)
     saved_job.delete()
     messages.success(request, "unsaved")
 
@@ -78,19 +78,19 @@ def unsave_job(request, *args, **kwargs):
 class SavedJobsView(TemplateView):
     template_name = 'jobseeker/saved_jobs.html'
 
-    def get_context_data(self,*args,**kwargs):
-        context = super(SavedJobsView,self).get_context_data(**kwargs)
-        savedjobsobjects= SavedJobs.objects.filter(user=self.request.user)
+    def get_context_data(self, *args, **kwargs):
+        context = super(SavedJobsView, self).get_context_data(**kwargs)
+        savedjobsobjects = SavedJobs.objects.filter(user=self.request.user)
 
         for savedjob in savedjobsobjects:
             print(savedjob.job.job_description)
 
-        context['savedjobsobjects']=savedjobsobjects
+        context['savedjobsobjects'] = savedjobsobjects
         return context
 
 
 class ViewCandidateView(View):
-    def get(self,request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug")
         can = CandidateProfile.objects.get(slug=slug)
         exp = Experience.objects.filter(candidate=request.user.profile)
@@ -102,23 +102,23 @@ class ViewCandidateView(View):
 
 
 class CandidateProfileUpdateView(View):
-    def get(self,request,*args,**kwargs):
+    def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug")
         profile = CandidateProfile.objects.get(slug=slug)
         form = CandidateProfileForm(instance=profile)
-        return render(request,"jobseeker/update_profile.html",{"form":form})
+        return render(request, "jobseeker/update_profile.html", {"form": form})
 
-    def post(self,request,*args,**kwargs):
+    def post(self, request, *args, **kwargs):
         slug = kwargs.get("slug")
         profile = CandidateProfile.objects.get(slug=slug)
-        form = CandidateProfileForm(request.POST,instance=profile)
+        form = CandidateProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            messages.success(request,"Your Candidate Profile has been updated")
+            messages.success(request, "Your Candidate Profile has been updated")
             return redirect("myaccount")
         else:
-            messages.error(request,"Error in updating")
-            return render(request,"jobseeker/profile_update.html",{"form":form})
+            messages.error(request, "Error in updating")
+            return render(request, "jobseeker/profile_update.html", {"form": form})
 
 
 def apply_job(request, *args, **kwargs):
@@ -131,5 +131,15 @@ def apply_job(request, *args, **kwargs):
     return redirect('jobs')
 
 
+class JobApplicationView(TemplateView):
+    template_name = 'jobseeker/applied_jobs.html'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(JobApplicationView, self).get_context_data(**kwargs)
+        jobapplicationobjects = JobApplication.objects.filter(candidate=self.request.user.profile)
+        print(jobapplicationobjects)
+        for objects in jobapplicationobjects:
+            print(objects.job.position)
+        context['jobapplicationobjects'] = jobapplicationobjects
 
+        return context
