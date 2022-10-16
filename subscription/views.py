@@ -49,6 +49,7 @@ def create_checkout_session(request, **kwargs):
     mem_id = data['id']
     print("mem_id", mem_id)
     mem = Membership.objects.get(id=mem_id)
+    print("mem", mem)
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[{
