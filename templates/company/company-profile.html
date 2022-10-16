@@ -1,8 +1,53 @@
 {% extends 'common_html/base.html' %}
 
-{%block content%}
+{% block content %}
+<div style="background-color:#F1F1F1">
 
-<h1>COMPANY PROFILE VIEW HERE</h1>
-{{form.as_p}}
 
-{%endblock%}
+    <div class="container" style="padding:100px;">
+        <div class="row">
+            <div class="card">
+                {%for company in company_data%}
+                <img src={{company.company_logo.url}} class="rounded mx-auto d-block" width="200" height="200"  alt="...">
+                <div class="card-body">
+                    <h2 class="card-title">{{company.company_name}}</h2>
+                    <p class="card-text">{{company.company_description}}.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+
+                        <h3>Location:</h3>
+                        {{company.location}}
+                    </li>
+                    <li class="list-group-item">
+                        <h5>Industry:</h5>
+                        {{company.industry}}
+                    </li>
+                    <li class="list-group-item">
+                        <h5>Category</h5>
+                        {{company.category}}
+                    </li>
+                    <li class="list-group-item">
+                        <h3>Team Size:</h3>
+                        {{company.team_size}}
+                    </li>
+                    <li class="list-group-item">
+                        <h3>Founded:</h3>
+                        {{company.founded}}
+                    </li>
+                    <li class="list-group-item">
+                        <h3>Company Address:</h3>
+                        {{company.company_address}}
+                    </li>
+
+                </ul>
+                {% endfor %}
+                <div class="card-body">
+                    <a href="#" class="card-link btn btn-danger">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -5,229 +5,129 @@
 {% load static %}
 
 
-
 <!-- bg Area Start-->
 
-    <div class="bg-overlay-text" style="" >
-        <div class="container ">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="  text-center">
-                        <h2 class="img-cap ">Search for your dream job</h2>
-                    </div>
+<div class="bg-overlay-text" style="">
+    <div class="container ">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="  text-center">
+                    <h2 class="img-cap ">Search for your dream job</h2>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 <!-- Hero Area End -->
 
 <!-- search area -->
-<div class="search-bg  d-flex justify-content-center">
-        <form action=""></form>
-                <div class="container w-75  ">
-                        <div class="row">
-                                <div class="col-lg-7 col-md-12 p-2">
-                                    <input type="text" class="form form-control search-input" placeholder="Job Title/Keyword or Company">
+{% comment %} <div class="search-bg  ">
+                <div class="p-2  ">
+                        <form action="{% url 'search' %}" class="" method="get">
+                                <div class="row d-flex justify-content-center">
+
+                                        <div class="col-6">
+                                              <input style="border-radius:0% ;height:60px;" aria-label="Search" class="form-control form" name="keyword" placeholder="Search JobHub" type="search">
+                                        </div>
+
+                                        <div class="col-1">
+                                            <button style="border-radius:0%;height:60px;width:200px;" class="btn btn-outline-primary" type="submit">Search <i class="fa fa-search "></i> </button>
+                                        </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 p-2">
-                                    <input type="text"  class="form form-control  search-input " placeholder="Location">
-                                </div >
-                                <div class="col-lg-2 col-md-6 p-2">
-                                    <button type="submit" class="btn btn-primary search-btn-2 form-control" > Search  <i class="fa fa-search "></i> </button>
-                                </div>
-                        </div>
+                        </form>
                 </div>
-        </form>
-</div>
+
+</div> {% endcomment %}
 <!-- search area end -->
 
 <div style="background-color:#F1F1F1">
 
 
-<div class="container w-75" >
+    <div class="container w-75">
         <div class="row">
-                <div class="col-3 mt-4 " >
-                    <div class="card  left-filter">
-                            <div class="card-body">
-                                    <!-- Job Category Listing start -->
-                                    <div class="job-category-listing mb-50">
-                                        <!-- single one -->
-                                        <div class="single-listing">
-                                            <div class="small-section-tittle2">
-                                                    <h4>Job Category</h4>
-                                            </div>
-                                            <!-- Select job items start -->
-                                            <div class="select-job-items2">
-                                                <select class="form-control" name="select">
-                                                    <option value="">All Category</option>
-                                                    <option value="">Category 1</option>
-                                                    <option value="">Category 2</option>
-                                                    <option value="">Category 3</option>
-                                                    <option value="">Category 4</option>
-                                                </select>
-                                            </div>
-                                            <!--  Select job items End-->
-                                            <!-- select-Categories start -->
-                                            <div class="select-Categories pt-80 pb-50">
-                                                <div class="small-section-tittle2">
-                                                    <h4>Job Type</h4>
-                                                </div>
-                                                <label class="form-control" class="container">Full Time
-                                                    <input  type="checkbox" >
-                                                    <span  class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">Part Time
-                                                    <input type="checkbox" checked="checked active">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">Remote
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">Freelance
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <!-- select-Categories End -->
-                                        </div>
-                                        <!-- single two -->
-                                        <div class="single-listing">
-                                            <div class="small-section-tittle2">
-                                                    <h4>Job Location</h4>
-                                            </div>
-                                            <!-- Select job items start -->
-                                            <div class="select-job-items2">
-                                                <select class="form-control" name="select">
-                                                    <option value="">Anywhere</option>
-                                                    <option value="">Category 1</option>
-                                                    <option value="">Category 2</option>
-                                                    <option value="">Category 3</option>
-                                                    <option value="">Category 4</option>
-                                                </select>
-                                            </div>
-                                            <!--  Select job items End-->
-                                            <!-- select-Categories start -->
-                                            <div class="select-Categories pt-80 pb-50">
-                                                <div class="small-section-tittle2">
-                                                    <h4>Experience</h4>
-                                                </div>
-                                                <label class="form-control" class="container">1-2 Years
-                                                    <input type="checkbox" >
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">2-3 Years
-                                                    <input type="checkbox" checked="checked active">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">3-6 Years
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">6-more..
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <!-- select-Categories End -->
-                                        </div>
-                                        <!-- single three -->
-                                        <div class="single-listing">
-                                            <!-- select-Categories start -->
-                                            <div class="select-Categories pb-50">
-                                                <div class="small-section-tittle2">
-                                                    <h4>Posted Within</h4>
-                                                </div>
-                                                <label class="form-control" class="container">Any
-                                                    <input type="checkbox" >
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">Today
-                                                    <input type="checkbox" checked="checked active">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">Last 2 days
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">Last 3 days
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">Last 5 days
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="form-control" class="container">Last 10 days
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <!-- select-Categories End -->
-                                        </div>
-
-                                    </div>
-                                    <!-- Job Category Listing End -->
-                            </div>
+            <div class="col-4 mt-4 ">
+                <div class="card  left-filter">
+                    <div class="card-body">
+                        <!-- Job Category Listing start -->
+                        
+                            <form method = 'get'>
+                                {{joblistingfilter.form.as_p}} <br>
+                                <input type="submit" />
+                            </form>
+                        
+                        <!-- Job Category Listing End -->
                     </div>
                 </div>
-                <div class="col-9 mt-4">
-                    <p>{{all_jobs | length}} jobs found</p>
-            {% for job in all_jobs %}
-                    <div class="card job-card mb-4 p-2" ><!-- one job card -->
-
-                        <div class="card-body ">
-                           <div class="row">
-
-                                    <div class="col-lg-4 col-md-12">
-                                        <div class="card-left2 mt-1">
-                                            <h5>{{job.position}} </h5>
-                                            <p>{{job.company}} <br>
-                                            <i class="fa-solid fa-location-dot"></i> {{job.company.location}} </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-6">
-                                             <div class=" right-details2 mt-4 text-secondary">
-                                                    <p><i class=" fa-regular fa-clock"></i> {{job.job_type}} <br>
-                                                        <i class="ms-1 fa-solid fa-money-bills"></i> {{job.min_salary}}-{{job.max_salary}} <br> </p>
-
-                                            </div>
-                                    </div>
-
-
-
-
-                                    <div class="col-lg-3 col-md-6 text-secondary mt-4">
-                                        <p> <i class="ms-1 fa-solid fa-briefcase">  </i> {{ job.experience }} <br>
-                                        <i class="ms-1 fa-solid fa-building"></i> {{job.work_type}}</p>
-                                   </div>
-                                   <div class="col-lg-2 col-md-6">
-                                           <a href=""> <img class="mt-2 company_logo" width="80" src=" {{ job.company.company_logo.url }} " alt=""> </a>
-                                   </div>
-
-                           </div>
-                            <div class="row p-3">
-                               {{ job.job_description }}
-                            </div>
-                            <div style="display:flex;">
-                                 <button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button>
-                                 <button class="side-btn2 "> View <i class="fa-solid fa-angle-right"> </i> </button>
-
-                            </div>
-                        </div>
-                    </div><!-- one job card end-->
-            {% endfor %}
-
-
-
-
-
-
                 </div>
+                <div class="col-8 mt-4">
+                    <p>{{joblistingfilter.qs | length}} job(s) found</p>
+                        {% if all_jobs %}
+                             {% comment %} {% for job in all_jobs %} {% endcomment %}
+                             {% for job in joblistingfilter.qs%}
+                    <div class="card job-card mb-3 " style="border-radius:0%;background-color:rgb(230, 247, 255,.2)" ><!-- one job card -->
+
+                                <div class="card-body ">
+                                   <div class="row">
+
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="card-left2 mt-1">
+                                                    <h5>{{job.position}} </h5>
+                                                    <p>{{job.company}} <br>
+                                                    <i class="fa-solid fa-location-dot"></i> {{job.company.location}} </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3 col-md-6">
+                                                     <div class=" right-details2 mt-4 text-secondary">
+                                                            <p><i class=" fa-regular fa-clock"></i> {{job.job_type}} <br>
+                                                                <i class="ms-1 fa-solid fa-money-bills"></i> {{job.min_salary}} {% if job.max_salary %}-{{job.max_salary}} {% endif %} <br> </p>
+
+                                                    </div>
+                                            </div>
+
+
+
+
+                                            <div class="col-lg-3 col-md-6 text-secondary mt-4">
+                                                <p> <i class="ms-1 fa-solid fa-briefcase">  </i> {{ job.experience }} <br>
+                                                <i class="ms-1 fa-solid fa-building"></i> {{job.work_type}}</p>
+                                           </div>
+                                           <div class="col-lg-2 col-md-6">
+                                               {% if job.company.company_logo %}
+                                                    <a href=""> <img class="mt-2 company_logo" width="80" src=" {{ job.company.company_logo.url }} " alt=""> </a>
+                                               {% endif %}
+
+                                           </div>
+
+                                   </div>
+                                    <div class="row ">
+                                       <p style="font-size:14px;">{{ job.job_description }}</p>
+                                    </div>
+                                    <div style="display:flex;">
+
+                                    {% if job in saved_jobs %}
+                                        <a href="{%url 'unsave-job' job.id %}"><button class="ms-auto side-btn2 "> Unsave <i class="fa-regular fa-bookmark bookmark-icon"></i> </button></a>
+{% else %}
+                                        <a href="{%url 'save-job' job.id %}"><button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button></a>
+{% endif %}
+
+                                         <button class="side-btn2 " onclick="window.location.href = '{%url 'job_detail' job.id %}';"> View <i class="fa-solid fa-angle-right"> </i></button>
+                                    </div>
+                                </div>
+                            </div><!-- one job card end-->
+                             {% endfor %}
+                        {% else %}
+                            <div class="text-center text-secondary">
+                                <h3>No Jobs Found! </h3>
+                            </div>
+                        {% endif %}
+
+
+            </div>
+
         </div>
-</div>
+    </div>
 
 </div>
 

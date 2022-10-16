@@ -1,0 +1,48 @@
+{% extends 'common_html/base.html' %}
+{% block content %}
+
+
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-9">
+            <h2 class=" " style="color: #6c8eff">PAYMENT HISTORY</h2>
+            <hr>
+
+            <table style="border: 1px solid grey" class="table table-striped">
+                      <thead>
+                        <tr style="height:60px;">
+                          <th scope="col">#</th>
+                          <th scope="col">Payment ID</th>
+                          <th scope="col">Amount Paid</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Payment Date</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                      {% if payments %}
+                          {% for payment in payments %}
+
+                                <tr style="height:60px;">
+                                  <th scope="row">{{ forloop.counter }}</th>
+                                  <td>{{ payment.payment_id }}</td>
+                                  <td>{{ payment.amount_paid }}</td>
+                                  <td>{{ payment.status }}</td>
+                                  <td>{{ payment.created_at }}</td>
+                                </tr>
+
+                            {% endfor %}
+                      {% else %}
+                        <tr>
+                            <td colspan="5">
+                                <h5 class="text-center text-danger" >No payments yet</h5>
+                            </td>
+                        </tr>
+                      {% endif %}
+                      </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

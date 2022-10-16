@@ -21,32 +21,30 @@
 </style>
 <div class="">
     <div class="row">
-        <div class="col-2">
-
-            {% for msg in messages %}
-                {{msg}}
-            {% endfor %}
-            {% if profile  %}
-                <div class="row" >
-                    <a id="sidebar-links" class="sidebar" href="{% url 'view-profile' %}">PROFILE</a>
-                </div>
-            {% else %}
-                <div class="row" >
-                    <a id="sidebar-links" class="sidebar" href="">ADD PROFILE</a>
-                </div>
-            {% endif %}
+        <div class="col-2" style="height:600px;background-color:#6c8eff" >
             <div class="row" >
-                <a id="sidebar-links" class="sidebar" href="">APPLICATIONS</a>
+                <a id="sidebar-links" class="sidebar" href="{% url 'view-profile' %}">PROFILE</a>
+            </div>
+
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar" href="{% url 'apps' %}">APPLICATIONS</a>
             </div>
             <div class="row " >
                 <a id="sidebar-links" class="sidebar" href="{%url 'post_job'%}">POST JOB</a>
             </div>
             <div class="row" >
-                <a id="sidebar-links" class="sidebar" href="">POSTED JOBS</a>
+                <a id="sidebar-links" class="sidebar" href="{%url 'postedjob'%}">POSTED JOBS</a>
             </div>
             <div class="row" >
                 <a id="sidebar-links" class="sidebar" href="{% url 'profile-update' request.user.user.id %}">UPDATE PROFILE</a>
             </div>
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar" href="{% url 'subscription' %}">SUBSCRIPTION</a>
+            </div>
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar" href="{% url 'history' %}">PAYMENTS</a>
+            </div>
+
             <div class="row" >
                 <a id="sidebar-links" class="sidebar" href="{% url 'reset-pass' %}">CHANGE PASSWORD</a>
             </div>
@@ -55,7 +53,67 @@
 
         </div>
         <div class="col-10">
-            <h1>This is Company dashboard</h1>
+            <div class="row">
+                    <div class="col-6 p-5">
+                        <div class="card" style="border-radius:0%;border:none;background-color:#cce6ff"><!--JOBS STATUS CARD-->
+                            <div class="card-body ">
+                                <h5>STATUS</h5>
+                                <hr>
+                                <h6> Total Jobs Posted: 5</h6>
+                                <h6>Total Applications Received : 21</h6>
+                                <h6>Pending Applications for Review : 6</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 p-5">
+
+                        {% if company.is_approved is False %}
+                            <div class="card mb-4" style="background-color:#ffe6e6;border:none;"><!--APPROVE STATUS CARD-->
+                                <div class="card-body ">
+
+                                        <h4 class="text-danger">NOT APPROVED</h4>
+                                        <hr>
+                                        <h6>Your company is not verified by JobHub Team.</h6>
+                                        <h6>Complete Profile and wait for JobHub's Approval</h6>
+                                        <p><i class="fa-solid fa-envelope"></i> Contact support@jobhub.com for queries</p>
+
+                                </div>
+                            </div><!--APPROVE STATUS CARD END-->
+                        {% endif %}
+
+                        {% if active_sub %}
+                            <div class="card " style="background-color:#e6ffe6;border-radius:0%;border:none;"><!--SUBSCRIPTION STATUS CARD-->
+                                <div class="card-body ">
+                                    <h5>SUBSCRIPTION</h5>
+
+                                        <h5 class="text-success">ACTIVE</h5>
+                                        <hr>
+                                        <h6>Days Remaining : {{ remaining }}</h6>
+                                        <h6>Current Membership Duration :{{ active_sub.membership }} Days</h6>
+                                        <h6> Start Date:{{ active_sub.start_date }} </h6>
+                                        <h6>End Date : {{ active_sub.end_date }}</h6>
+
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="card " style="background-color:#ffe6e6;border-radius:0%;border:none;"><!--SUBSCRIPTION STATUS CARD-->
+                                <div class="card-body ">
+                                    <h5>SUBSCRIPTION</h5>
+                                        <h5 class="text-danger">NOT SUBSCRIBED</h5>
+                                        <hr>
+                                        <p>Your company is not subscribed to JobHub.</p>
+                                        <p>Choose one subscription plan to continue using JobHub</p>
+                                        <button onclick="location.href='{% url 'subscription' %}';" class="btn btn-warning" style="border-radius:0%"> Choose Plan</button>
+
+                                </div>
+                            </div><!--SUBSCRIPTION STATUS CARD END-->
+                        {% endif %}
+                    </div>
+            </div>
+
+
+
             <p>
             </p>
         </div>

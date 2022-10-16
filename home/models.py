@@ -1,6 +1,6 @@
 from django.db import models
-
 from companyaccount.models import CompanyProfile
+from accounts.models import User
 
 
 class JobModel(models.Model):
@@ -19,7 +19,8 @@ class JobModel(models.Model):
     published_date = models.DateTimeField(auto_now=True, null=True, blank=True)
     application_end_date = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
-    experience = models.CharField(max_length=20, null=True, blank=True)
+    min_experience = models.PositiveIntegerField(max_length=20, null=True, blank=True)
+    max_experience = models.PositiveIntegerField(max_length=20, null=True, blank=True)
     min_salary = models.IntegerField(null=True, blank=True)
     max_salary = models.IntegerField(null=True, blank=True)
     No_of_openings = models.IntegerField(null=True, blank=True)
@@ -34,4 +35,14 @@ class JobModel(models.Model):
 
     def __str__(self):
         return self.position
+
+class Enquiry(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
+    message = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.email
+
 

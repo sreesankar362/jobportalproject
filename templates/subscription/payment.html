@@ -1,0 +1,128 @@
+{% extends 'common_html/base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/style.css' %}">
+{% block content %}
+
+
+
+    <div class="row d-flex justify-content-center" style="background-color:#e6ecff;">
+        <div class="p-5 " style="background-color:#e6ecff;">
+            <div class="row d-flex justify-content-center">
+
+                    <div class="col-5"  >
+                        <div class="card">
+                            <div class="card-body p-5">
+                                <div class="header text-center">
+                                    <h3  >JOBHUB SUBSCRIPTION</h3>
+                                    <h1 style="color:green;">₹{{ membership.price }}</h1>
+                                    <h5>{{ membership.membership_days }} Days</h5>
+                                    <p class="text-secondary">₹{{per_month | floatformat:2 }} per month</p>
+                                </div>
+                                <hr>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, aspernatur beatae, corporis dolore doloribus
+                                    dolorum esse explicabo fugiat id iste nemo, perspiciatis quaerat qui quo quos rerum suscipit ullam unde?
+                                </p>
+                                <hr>
+                                <div class="dates text-center " style="background-color:#e1e1ea;">
+                                    <div  class="p-4" >
+                                            <h5 class="" > Start Date : {{ start_date }}</h5>
+                                            <h5 class="text-danger">Expiry Date : {{ expiry_date }}</h5>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button onclick="location.href='{% url 'subscription' %}';" class="btn btn-warning" style="border-radius:0%;width:200px;"><i class="fa-solid fa-angles-left"></i> Go Back to Plans</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-4 " >
+
+                            <div class="box-2 card-body" >
+                                <form action="" method="post" >
+                                    {% csrf_token %}
+                                    <div class="box-inner-2">
+                                            <div>
+                                                    <p class="fw-bold">Payment Details</p>
+                                                    <p class="dis mb-3">Complete your purchase by providing your payment details</p>
+                                            </div>
+
+
+                                            <div class="mb-3">
+                                                    <p class="dis fw-bold mb-2">Email address</p>
+                                                    <input required class="form-control" type="email" value="{{request.user.email}}">
+                                            </div>
+                                            <div>
+                                                    <p class="dis fw-bold mb-2">Card details</p>
+                                                    <div class="d-flex align-items-center justify-content-between card-atm border ">
+                                                            <div class="fab fa-cc-visa ps-3"></div>
+                                                            <input required style="border:none;" type="text" class="form-control" placeholder="Card Details">
+                                                            <div class="d-flex w-50">
+                                                                    <input required type="text" class="form-control px-0" placeholder="MM/YY">
+                                                                    <input required  maxlength=3 class="form-control px-0" placeholder="CVV">
+                                                            </div>
+                                                    </div>
+                                                    <div class="my-3 cardname">
+                                                            <p class="dis fw-bold mb-2">Cardholder name</p>
+                                                            <input required class="form-control" type="text">
+                                                    </div>
+                                                    <div class="address">
+                                                            <p class="dis fw-bold mb-3">Billing address</p>
+                                                            <select required class="form-select" aria-label="Default select example">
+                                                                    <option selected hidden>India</option>
+                                                                    <option value="1">United States</option>
+                                                                    <option value="2">Australia</option>
+                                                                    <option value="3">Canada</option>
+                                                            </select>
+
+                                                            <div class="d-flex mt-2">
+                                                                    <input required class="form-control zip" type="text" placeholder="ZIP">
+                                                                    <input required class="form-control state" type="text" placeholder="State">
+                                                            </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column dis">
+
+                                                            <div class="mt-2 d-flex align-items-center justify-content-between mb-2">
+                                                                <p class="fw-bold">Total</p>
+                                                                <h3 class="">₹{{ membership.price }}</h3>
+                                                            </div>
+
+                                                        {% if company.is_approved and not is_subscribed %}
+                                                            <button class="btn btn-success mt-2" type="submit"   >
+                                                                Pay ₹{{ membership.price }}
+                                                            </button>
+                                                        {% else %}
+                                                            {% if not company.is_approved %}
+                                                                <p class="text-danger" >Your company is not verified to subscribe.</p>
+                                                                <button class="btn btn-success mt-2" type="submit" disabled  >
+                                                                    Pay ₹{{ membership.price }}
+                                                                </button>
+                                                            {% else %}
+                                                                <p class="text-danger" >You are already subscribed till {{ last_date }}</p>
+                                                                <button class="btn btn-success mt-2" type="submit" disabled  >
+                                                                    Pay ₹{{ membership.price }}
+                                                                </button>
+                                                            {% endif %}
+
+                                                        {% endif %}
+
+
+                                                </div>
+                                            </div>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $("input").css("border-radius","0%")
+    $("select").css("border-radius","0%")
+</script>
+{% endblock %}

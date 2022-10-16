@@ -1,29 +1,32 @@
 {% load static %}
 
  <!-- navbar -->
- <nav class="navbar navbar-dark navbar-expand-lg ">
+ <nav class="navbar navbar-dark navbar-expand-lg "  style=" ">
     <div id="leftrightspace" class="container-fluid ">
-        <!-- <img class="img-fluid" height="70" width="200" src="./images/bloom.png" alt=""> -->
-        <h2>JOB HUB</h2>
+         <img class="img-fluid" height="70" width="200" src="{% static 'home/images/logo.png' %}" alt="logo">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto  mb-lg-0">
-          <li class="nav-item">
+        <ul class="navbar-nav   ">
+          <li class="nav-item text-center">
             <a class="nav-link "  href="{% url 'home' %}">HOME</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item text-center">
             <a class="nav-link" href="{% url 'jobs' %}">JOBS</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">ABOUT US</a>
+          <li class="nav-item text-center">
+            <a class="nav-link" href="{% url 'about_us' %}">ABOUT US</a>
           </li>
+            <li class="nav-item text-center">
+            <a class="nav-link" href="{% url 'enquiry' %}">ENQUIRY</a>
+          </li>
+
 
 
         </ul>
-          {% if user.is_authenticated %}
-                <ul class="buttons-navbar mt-auto mb-auto" >
+            {% if user.is_authenticated %}
+                <ul class="navbar-nav buttons-navbar mt-auto mb-auto ms-auto" >
                     <li class="nav-item">
                         <button class="btn btn-danger" onclick="location.href='{% url 'logout' %}'" >LOGOUT</button>
                     </li>
@@ -37,15 +40,15 @@
                         </li>
                     {% endif %}
                 </ul>
-          {% else %}
-              <ul class="buttons-navbar mt-auto mb-auto" >
+            {% else %}
+              <ul class="navbar-nav buttons-navbar mt-auto mb-auto ms-auto" >
                 <li class="nav-item">
                     <button  onclick="location.href='{% url 'login' %}'" >LOGIN</button>
                 </li>
                 <li class="nav-item">
                     <button  onclick="location.href='{% url 'userregister' %}'">REGISTER</button>
                 </li>
-                <div class="ms-3 vr" style="color:orange;width:5px;"></div>
+                <div class="ms-3 vr" style="color:white;width:5px;"></div>
                       <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,7 +62,7 @@
                       </ul>
 
                 </ul>
-          {% endif %}
+            {% endif %}
 
 
 

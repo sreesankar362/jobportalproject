@@ -1,0 +1,54 @@
+<style>
+.sidebar{
+    height:60px;
+    text-align:center;
+    border-bottom:white 1px solid;
+    border-right:#6c8eff 2px solid;
+    font-size:18px;
+    line-height:60px;
+    background-color: #6c8eff;
+    color:white;
+    text-decoration:none;
+    }
+
+.active{
+    color: #6c8eff;
+    background-color: white;
+    }
+
+</style>
+
+<aside class="col-md-2" style="height:700px;background-color:#6c8eff">
+    <!--   SIDEBAR   -->
+
+
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar {% if '/profile/' == request.path %}active{% endif %}" href="{% url 'view-profile' %}">PROFILE</a>
+            </div>
+
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar {% if '/postjob' == request.path %}active{% endif %}" href="">APPLICATIONS</a>
+            </div>
+            <div class="row " >
+                <a id="sidebar-links" class="sidebar {% if '/applications' == request.path %}active{% endif %}" href="{%url 'post_job'%}">POST JOB</a>
+            </div>
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar {% if '/postedjob' == request.path %}active{% endif %}" href="{%url 'postedjob'%}">POSTED JOBS</a>
+            </div>
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar {% if '/update/' == request.path %}active{% endif %}" href="{% url 'profile-update' request.user.user.id %}">UPDATE PROFILE</a>
+            </div>
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar {% if '/choose' == request.path %}active{% endif %}" href="{% url 'subscription' %}">SUBSCRIPTION</a>
+            </div>
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar {% if '/payment/' == request.path %}active{% endif %}" href="{% url 'history' %}">PAYMENTS</a>
+            </div>
+
+            <div class="row" >
+                <a id="sidebar-links" class="sidebar {% if '/reset-password/' == request.path %}active{% endif %}" href="{% url 'reset-pass' %}">CHANGE PASSWORD</a>
+            </div>
+
+    <!--   SIDEBAR .//END   -->
+</aside>
+

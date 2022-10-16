@@ -1,0 +1,55 @@
+{% extends 'common_html/base.html' %}
+
+{% block content %}
+<div class="row d-flex justify-content-center ">
+    <div class="col-8 mt-3 mb-3">
+        <h3 style="color:grey">ALL APPLICATIONS</h3>
+        <hr>
+        {% if applications %}
+        {% for app in applications %}
+        <div class="card mt-2 " style="background-color:rgb(204, 224, 255, .3);border-radius:0%">
+            <div class="card-body " style="line-height:1em">
+                <div class="row">
+                    <div class="col-4">
+                            <div class="row">
+                                    <div class="col-sm-9"><p>Name: {{ app.candidate }} <a href=""><i class="fa-solid fa-address-card"></i></a> </p></div>
+                            </div>
+                            <div class="row">
+                                     <div class="col-sm-9"><p>Applied Job: {{ app.job.position }} <a href=""><i class="fa-solid fa-briefcase"></i></a></p></div>
+                            </div>
+                    </div>
+                    <div class="col-3">
+                        <p>Experience: {{ app.candidate.total_exp }} yrs</p>
+                        <p>Qualification: {{ app.candidate.latest_edu.qualification }} </p>
+                    </div>
+                    <div class="col-3">
+                        <p>Skills : {{ app.candidate.skills }}</p>
+                        <p>Resume : File <a href=""><i class="fa-solid fa-file-pdf"></i></a> </p>
+                    </div>
+                    <div class="col-2 text-center" style="">
+                        {% if app.job_status == 'applied' %}
+                            <button onclick="location.href='{% url 'accept' app.id %}';" style="width:100px;" class="btn btn-outline-success btn-sm mt-1">Accept</button> <br>
+                            <button onclick="location.href='{% url 'reject' app.id %}';" style="width:100px;" class="btn btn-outline-danger btn-sm mt-2" >Reject</button>
+                        {% else %}
+                            {% if app.job_status == 'accepted' %}
+                                <h6 class="text-center text-success ">Accepted</h6>
+
+                            {% else %}
+                                <h6 class="text-center text-danger">Rejected</h6>
+                                <button onclick="location.href='{% url 'delete' app.id %}';" class="btn btn-danger btn-sm "> <i class="fa-solid fa-trash"></i></button>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+        {% else %}
+        <div class="text-center text-secondary "> <h5>No Applications</h5></div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

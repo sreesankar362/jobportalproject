@@ -8,10 +8,17 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
+
 """
-
+import sys
 from pathlib import Path
+import environ
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
 
+
+sys.setrecursionlimit(2000)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#)(1zchubhbia=ym^ye1rr7!@rbv*yx%g4fezul(@mc5p=1zat'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,7 +48,12 @@ INSTALLED_APPS = [
     'user',
     'companyaccount',
     'accounts',
+<<<<<<< HEAD
+=======
+    'subscription',
+>>>>>>> main
     'candidate'
+
 ]
 
 MIDDLEWARE = [
@@ -59,7 +71,7 @@ ROOT_URLCONF = 'jobportalproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates','templates/profile','templates/common_html','templates/home','templates/company'],
+        'DIRS': ['templates','templates/profile', 'templates/common_html', 'templates/home', 'templates/company'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,23 +91,23 @@ AUTH_USER_MODEL = 'accounts.User'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'jobportal_db',
-#         'USER': 'teammember',
-#         'PASSWORD': 'password',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'job_hub_db',
+        'USER': 'jobhub_user',
+        'PASSWORD': 1234,
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+#  }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -115,12 +127,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_USE_TLS = True
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'jobhubproject@gmail.com'
-#EMAIL_HOST_PASSWORD = 'txngsuwrenworgb'
 
 
 # Internationalization
@@ -155,6 +161,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'tinumaria.sayone@gmail.com'
-EMAIL_HOST_PASSWORD = 'fpygejcehvzyenjv'
+# EMAIL_HOST_USER = env("EMAIL_HOST_USER"),
+EMAIL_HOST_USER = "jobhubproject@gmail.com"
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
+# sripekey
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51LsNhRSBeZkgYlGWZeVlpGmXC9g1VW7cQ5pgyIgODPMzEcj98MKLTxDDBjc2npuWJlq2Xj6xvg5e9Z5YVQXrzowi00JNPTx9U6'
+STRIPE_SECRET_KEY = 'sk_test_51LsNhRSBeZkgYlGWi0zDQWo74A1gsQd6hkfj9pYLICclqNUXbokZdFCsBen3xrVVSyFmBaqjKmzAimCDUjXpsdKp004bf94EPq'

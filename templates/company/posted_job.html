@@ -1,0 +1,50 @@
+{% extends 'common_html/base.html' %}
+{% block content %}
+
+
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center"  style="margin-bottom:400px;">
+        <div class="col-9">
+            <h2 class="" style="color: #6c8eff">POSTED JOBS</h2>
+            <hr>
+
+            <table style="border: 1px solid grey" class="table table-striped">
+                <thead>
+                <tr style="height:60px;">
+                    <th scope="col">Sl.No</th>
+                    <th scope="col">Job Position</th>
+                    <th scope="col">Job Type</th>
+                    <th scope="col">Application end-date</th>
+                    <th scope="col">No. of openings</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% if jobs %}
+                {% for job in jobs %}
+
+                <tr style="height:60px;">
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{%url 'job_detail' job.id%}">{{job.position}}</a></td>
+                    <td>{{ job.job_type }}</td>
+                    <td>{{job.application_end_date}}</td>
+                    <td>{{job.No_of_openings}}</td>
+
+                </tr>
+
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="5">
+                        <h5 class="text-center text-danger">No Jobs Posted!</h5>
+                        <a href="{%url 'post_job'%}"><button>Post A Job</button></a>
+                    </td>
+                </tr>
+                {% endif %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

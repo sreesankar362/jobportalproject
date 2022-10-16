@@ -1,0 +1,13 @@
+{% autoescape off %}
+Hi {{user.username}}
+{% if is_approved %}
+    Congratulations!
+    Your Company has beem approved by Team JobHub.
+    You can start posting jobs from now!
+{% else %}
+We are sorry!
+    Your Company is not eligible for posting jobs in JobHub.
+    Please update company profile with correct information.For more details contact support@jobhub.com
+    -ThankYou
+{% endif %}
+{% endautoescape %}
