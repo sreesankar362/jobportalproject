@@ -43,184 +43,47 @@
 
         <div class="div col-9 mt-2 mb-2"><!-- job card -->
 
-            <div class="card job-card">
+        {% for job in latest_jobs %}
+
+        <div class="card job-card mb-3">
                 <div class="card-body">
                    <div class="row">
                             <div class="col-lg-2 col-md-6">
-                                   <a href=""> <img class="mt-2 company_logo" width="100" src="{% static 'home/images/company_logo.jpg' %}" alt=""> </a>
+                                   <a href=""> <img class="mt-2 company_logo" width="100" src="{{ job.company.company_logo.url }}" alt=""> </a>
                             </div>
 
                             <div class="col-lg-4 col-md-6">
                                 <div class="card-left mt-2">
-                                    <h5>Software Developer </h5>
-                                    <p>Free Bird Technologies</p>
-                                    <p> <i class="fa-solid fa-location-dot"></i> Kochi,Kerala </p>
+                                    <h5>{{job.position}} </h5>
+                                    <p>{{job.company}}</p>
+                                    <p> <i class="fa-solid fa-location-dot"></i> {{job.company.location}} </p>
                                 </div>
                             </div>
 
                             <div class="col-lg-3 col-md-6 ">
 
                                 <div class=" right-details mt-6">
-                                    <p><i class="fa-regular fa-clock"></i> Full Time </p>
-                                    <p><i class="fa-solid fa-briefcase">  </i> Experience - 4 yrs</p>
-                                    <p><i class="fa-solid fa-building"></i> Work From Home</p>
+                                    <p><i class="fa-regular fa-clock"></i> {{job.job_type}} </p>
+                                    <p><i class="fa-solid fa-briefcase">  </i> Experience - {{job.experience}} yrs</p>
+                                    <p><i class="fa-solid fa-building"></i>{{ job.work_type }}}</p>
                                 </div>
                             </div>
 
                             <div class="col-lg-3 col-md-3 ">
-                                <button class=" viewbtn "> View Details <i class="fa-solid fa-angle-right"> </i> </button>
-                           </div>
+                                <button class=" viewbtn " onclick="location.href='{%url 'job_detail' job.id %}'"> View Details <i class="fa-solid fa-angle-right"> </i> </button>
+                            </div>
 
                    </div>
                 </div>
-            </div>
-        </div><!-- job card end-->
-        <div class="div col-9 mt-2 mb-2"><!-- job card -->
-
-            <div class="card job-card">
-                <div class="card-body">
-                   <div class="row">
-                            <div class="col-lg-2 col-md-6">
-                                   <a href=""> <img class="mt-2 company_logo" width="100" src="{% static 'home/images/company_logo.jpg' %}" alt=""> </a>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-left mt-2">
-                                    <h5>Software Developer </h5>
-                                    <p>Free Bird Technologies</p>
-                                    <p> <i class="fa-solid fa-location-dot"></i> Kochi,Kerala </p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 ">
-
-                                <div class=" right-details mt-6">
-                                    <p><i class="fa-regular fa-clock"></i> Full Time </p>
-                                    <p><i class="fa-solid fa-briefcase">  </i> Experience - 4 yrs</p>
-                                    <p><i class="fa-solid fa-building"></i> Work From Home</p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 ">
-                                <button class=" viewbtn "> View Details <i class="fa-solid fa-angle-right"> </i> </button>
-                           </div>
-
-                   </div>
-                </div>
-            </div>
-        </div><!-- job card end-->
-        <div class="div col-9 mt-2 mb-2"><!-- job card -->
-
-            <div class="card job-card">
-                <div class="card-body">
-                   <div class="row">
-                            <div class="col-lg-2 col-md-6">
-                                   <a href=""> <img class="mt-2 company_logo" width="100" src="{% static 'home/images/company_logo.jpg' %}" alt=""> </a>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-left mt-2">
-                                    <h5>Software Developer </h5>
-                                    <p>Free Bird Technologies</p>
-                                    <p> <i class="fa-solid fa-location-dot"></i> Kochi,Kerala </p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 ">
-
-                                <div class=" right-details mt-6">
-                                    <p><i class="fa-regular fa-clock"></i> Full Time </p>
-                                    <p><i class="fa-solid fa-briefcase">  </i> Experience - 4 yrs</p>
-                                    <p><i class="fa-solid fa-building"></i> Work From Home</p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 ">
-                                <button class=" viewbtn "> View Details <i class="fa-solid fa-angle-right"> </i> </button>
-                           </div>
-
-                   </div>
-                </div>
-            </div>
-        </div><!-- job card end-->
-        <div class="div col-9 mt-2 mb-2"><!-- job card -->
-
-            <div class="card job-card">
-                <div class="card-body">
-                   <div class="row">
-                            <div class="col-lg-2 col-md-6">
-                                   <a href=""> <img class="mt-2 company_logo" width="100" src="{% static 'home/images/company_logo.jpg' %}" alt=""> </a>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-left mt-2">
-                                    <h5>Software Developer </h5>
-                                    <p>Free Bird Technologies</p>
-                                    <p> <i class="fa-solid fa-location-dot"></i> Kochi,Kerala </p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 ">
-
-                                <div class=" right-details mt-6">
-                                    <p><i class="fa-regular fa-clock"></i> Full Time </p>
-                                    <p><i class="fa-solid fa-briefcase">  </i> Experience - 4 yrs</p>
-                                    <p><i class="fa-solid fa-building"></i> Work From Home</p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 ">
-                                <button class=" viewbtn "> View Details <i class="fa-solid fa-angle-right"> </i> </button>
-                           </div>
-
-                   </div>
-                </div>
-            </div>
-        </div><!-- job card end-->
-        <div class="div col-9 mt-2 mb-2"><!-- job card -->
-
-            <div class="card job-card">
-                <div class="card-body">
-                   <div class="row">
-                            <div class="col-lg-2 col-md-6">
-                                   <a href=""> <img class="mt-2 company_logo" width="100" src="{% static 'home/images/company_logo.jpg' %}" alt=""> </a>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-left mt-2">
-                                    <h5>Software Developer </h5>
-                                    <p>Free Bird Technologies</p>
-                                    <p> <i class="fa-solid fa-location-dot"></i> Kochi,Kerala </p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 ">
-
-                                <div class=" right-details mt-6">
-                                    <p><i class="fa-regular fa-clock"></i> Full Time </p>
-                                    <p><i class="fa-solid fa-briefcase">  </i> Experience - 4 yrs</p>
-                                    <p><i class="fa-solid fa-building"></i> Work From Home</p>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 ">
-                                <button class=" viewbtn "> View Details <i class="fa-solid fa-angle-right"> </i> </button>
-                           </div>
-
-                   </div>
-                </div>
-            </div>
         </div><!-- job card end-->
 
-
-
-
+        {%endfor%}
 
     </div>
 
 </div>
 <!-- recently posted end -->
-
+</div>
 <div class="m-4" style="text-align: center;" >
     <button class="viewall text-center" onclick="location.href='{% url 'jobs' %}';" > View All Jobs</button>
 </div>

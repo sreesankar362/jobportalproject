@@ -18,6 +18,7 @@ class JobSearchForm(forms.Form):
             attrs={'class': 'form-control', 'placeholder': 'Location'}),
     )
 
+
 class EnquiryForm(forms.ModelForm):
     class Meta:
         model = Enquiry

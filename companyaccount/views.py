@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_str
+
+from home.models import JobModel
 from .token import account_activation_token
 from .utils import company_activation_mail
 from subscription.models import CompanySubscription
@@ -16,6 +18,12 @@ from django.views.generic import CreateView, FormView, UpdateView, TemplateView
 from django.urls import reverse_lazy
 from accounts.verified_access import login_company_required
 from django.utils.decorators import method_decorator
+from datetime import date
+import datetime
+from candidate.models import JobApplication
+
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 class CompanyRegistrationView(View):
@@ -110,23 +118,14 @@ class LogInView(View):
 class CompanyDashboardView(View):
     def get(self, request):
         active_sub = None
-        company = request.user.user
-        print("get")
-        company_sub = CompanySubscription.objects.filter(company=company)
-        for sub in company_sub:
-            if sub.is_active(sub):
-                print("active")
-                sub_id = sub.id
-                active_sub = CompanySubscription.objects.get(id=sub_id)
-            else:
-                print("else")
-                pass
-
         remaining = 0
-        if active_sub:
-            print(active_sub.start_date)
+        company = request.user.user
+        print(company)
+
+        sub = CompanySubscription.objects.filter(company=company)
+        if sub.filter(end_date__gt=date.today()).exists():
+            active_sub = sub.get(end_date__gt=date.today())
             remaining = active_sub.end_date - active_sub.start_date
-        print(company.is_approved)
         context = {
             "company": company,
             "active_sub": active_sub,
@@ -199,3 +198,79 @@ class CompanyProfileView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["company_data"] = CompanyProfile.objects.filter(user=self.request.user)
         return context
+
+
+class ApplicationsView(View):
+    def get(self, request):
+        company = request.user.user
+        company_sub = CompanySubscription.objects.filter(company=company)
+        is_subscribed = company_sub.filter(end_date__gt=date.today()).exists()
+        if is_subscribed and company.is_approved:
+            applications = JobApplication.objects.filter(company=request.user.user).order_by("-applied_date")
+            context = {
+                "applications": applications
+            }
+            return render(request, 'company/applications.html', context)
+        else:
+            if not company.is_approved:
+                messages.error(request, "Company Profile not Approved ")
+            elif not is_subscribed:
+                messages.error(request, "Subscribe JOBHUB to View Applications ")
+            return redirect('company-dash')
+
+
+def accept_job(request, **kwargs):
+    app_id = kwargs.get("appl_id")
+    application = JobApplication.objects.get(id=app_id)
+    application.job_status = 'accepted'
+    application.processed_date = date.today()
+    application.save()
+    # sendmail
+    recipient = application.candidate.user.email
+    print(recipient)
+    send_mail(
+        'Congrats! We have accepted your job application',
+        "Luckily, your profile seems to match our requirements."
+        "We are forwarding your application because we found your profile quite impressive."
+        "We thankyou for choosing us to find a right job for you \n"
+        'Thanks and Regards,\n'
+        'Team JOBHUB',
+        settings.EMAIL_HOST_USER,
+        [recipient],
+        fail_silently=False
+    )
+    print(application.job_status)
+    return redirect("apps")
+
+
+def reject_job(request, **kwargs):
+    app_id = kwargs.get("appl_id")
+    application = JobApplication.objects.get(id=app_id)
+    application.job_status = 'rejected'
+    application.processed_date = date.today()
+    print(date.today())
+    application.save()
+    # sendmail
+    recipient = application.candidate.user.email
+    print(recipient)
+    send_mail(
+        'Sorry! We have rejected your job application',
+        "Unfortunately, your profile doesn't match our requirements."
+        "We would not be able to take this forward"
+        "We urge you to keep a tab on our page and apply for future job openings.\n"
+        'Thanks and Regards,\n' 
+        'Team JOBHUB',
+        settings.EMAIL_HOST_USER,
+        [recipient],
+        fail_silently=False
+    )
+    print(application.job_status)
+    return redirect("apps")
+
+
+def delete_application(request, **kwargs):
+    app_id = kwargs.get("appl_id")
+    application = JobApplication.objects.get(id=app_id)
+    application.delete()
+    print(application.job_status)
+    return redirect("apps")

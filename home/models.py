@@ -2,6 +2,7 @@ from django.db import models
 from companyaccount.models import CompanyProfile
 from accounts.models import User
 
+
 class JobModel(models.Model):
     position = models.CharField(max_length=100)
     job_description = models.TextField(max_length=800)
@@ -30,7 +31,6 @@ class JobModel(models.Model):
         ("hybrid", "Hybrid")
     )
     work_type = models.CharField(max_length=50, choices=work_type)
-    #saved_by = models.ManyToManyField(User,null=True, blank= True)
 
     def __str__(self):
         return self.position

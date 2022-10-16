@@ -5,20 +5,21 @@
 <img src="{% static 'company/choose-bg.jpg' %}" alt=""
      style="width:100%;z-index:-10;object-fit: cover;height:600px;">
 
-<div class="container" style="margin-top:-560px;">
+<div class="container" style="margin-top:-600px;">
 
-        <div class="row mt-5  d-flex justify-content-center" style="display:block;">
-                 <div >
+        <div class="row mt-3  d-flex justify-content-center" style="display:block;">
+                 <div class="col-sm-6" >
                     <h2 class="text-white text-center">CHOOSE SUBSCRIPTION PLAN </h2>
                     <p class="text-center text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab delectus, deleniti dolor dolore doloribus dolorum ducimus et expedita,
                     hic maiores minima modi molestiae mollitia porro quaerat quam quis tempora, vero!</p>
                  </div>
+        </div>
 
-
+        <div class="row mt-5  d-flex justify-content-center" style="display:block;">
 
             {% for membership in mem %}
-                    <div class="col-sm-3" >
-                        <div class="card"  >
+                    <div class="col-sm-3 col-md-3 col-l-3" >
+                        <div class="card mt-3" style="border-radius:0%">
                             <div class="card-body m-3">
 
                                 <h3 class="text-center">{{membership.membership_days}} Days</h3>
@@ -26,8 +27,14 @@
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi blanditiis consectetur cum distinctio,
                                     minus natus neque non optio quibusdam quidem quos reprehenderit, repudiandae tempore tenetur veniam?
                                 </p>
+
                                 <h2 class="text-center">{{membership.price}}Rs</h2>
-                                <button  onclick="location.href='{% url 'payment' membership.id %}';" class= "btn btn-warning form-control">Subscribe</button>
+                                {% if is_subscribed %}
+                                    <button  class= "btn btn-warning form-control" onclick="subscribe({{membership.id}})" disabled>Subscribe</button>
+                                {% else %}
+                                <p></p>
+                                    <button  class= "btn btn-warning form-control" onclick="subscribe({{membership.id}})" >Subscribe</button>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -36,4 +43,40 @@
 
         </div>
 </div>
+     <script src="https://js.stripe.com/v3/"></script>
+     <script type="text/javascript">
+
+        var stripe = Stripe('pk_test_51LsNhRSBeZkgYlGWZeVlpGmXC9g1VW7cQ5pgyIgODPMzEcj98MKLTxDDBjc2npuWJlq2Xj6xvg5e9Z5YVQXrzowi00JNPTx9U6');
+
+        function subscribe(id){
+        console.log("clicked")
+        console.log(id)
+        data = JSON.stringify({
+                id : id
+                })
+        fetch('{% url 'checkout' %}', {
+                                            method: 'POST',
+                                            body: data
+                                            })
+                                            .then(function(response) {
+                                              return response.json();
+                                            })
+                                                .then(function(session) {
+                                                  return stripe.redirectToCheckout({ sessionId: session.id });
+                                                })
+                                                    .then(function(result) {
+                                                      // If `redirectToCheckout` fails due to a browser or network
+                                                      // error, you should display the localized error message to your
+                                                      // customer using `error.message`.
+                                                      if (result.error) {
+                                                        alert(result.error.message);
+                                                      }
+                                                    })
+                                                        .catch(function(error) {
+                                                          console.error('Error:', error);
+                                                        });
+        };
+    </script>
+
+
 {% endblock %}

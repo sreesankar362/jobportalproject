@@ -3,7 +3,7 @@ from django.views.generic import FormView, DetailView, TemplateView,View
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-from candidate.models import SavedJobs
+from candidate.models import SavedJobs, JobApplication, AppliedJobs
 from .models import JobModel
 from .forms import JobModelForm, JobSearchForm, EnquiryForm
 from django.contrib import messages
@@ -17,6 +17,11 @@ from django.conf import settings
 
 class HomeView(TemplateView):
     template_name = "home/home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["latest_jobs"] = JobModel.objects.all().order_by("-published_date")[:5]
+        return context
 
 
 class JobListingView(TemplateView):
@@ -87,10 +92,29 @@ class JobModelView(FormView):
             return render(request, "post_job.html", {'form': form})
 
 
-class JobDetailView(DetailView):
-    model = JobModel
-    context_object_name = "job"
+# class JobDetailView(DetailView):
+#     model = JobModel
+#     context_object_name = "job"
+#     template_name = "home/job_detail.html"
+
+class JobDetailView(TemplateView):
     template_name = "home/job_detail.html"
+
+    def get(self, request, *args,**kwargs):
+        job_id = kwargs.get("pk")
+        print(job_id)
+        job = JobModel.objects.get(id=job_id)
+        applied_job = None
+        if request.user.is_authenticated:
+            applied_job_obj = JobApplication.objects.filter(job=job)
+            applied_job = []
+            for aj in applied_job_obj:
+                applied_job.append(aj.job)
+        context = {
+            "job": job,
+            "applied_job": applied_job,
+        }
+        return render(request, "home/job_detail.html", context)
 
 
 class AboutUsView(TemplateView):
@@ -117,19 +141,19 @@ class EnquiryView(FormView):
                 [settings.EMAIL_HOST_USER],
                 fail_silently=False
             )
-            messages.success(request, "Enquiry is sent")
-            return redirect("home")
+            messages.success(request, "Enquiry sent")
+            return redirect("enquiry")
         else:
             messages.error(request, "Failed to sent enquiry")
-            return render(request, "home/enquiry.html", {"form":form})
+            return render(request, "home/enquiry.html", {"form": form})
 
 
 class JobPostView(View):
-    def get(self,request,*args,**kwargs):
+    def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            jobs=JobModel.objects.filter(company=request.user.user)
-            context={
-                "jobs":jobs,
+            jobs = JobModel.objects.filter(company=request.user.user)
+            context = {
+                "jobs": jobs,
             }
             return render(request, "company/posted_job.html", context)
 
