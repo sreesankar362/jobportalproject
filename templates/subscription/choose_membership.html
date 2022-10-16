@@ -44,6 +44,7 @@
         </div>
 </div>
      <script src="https://js.stripe.com/v3/"></script>
+
      <script type="text/javascript">
 
         var stripe = Stripe('pk_test_51LsNhRSBeZkgYlGWZeVlpGmXC9g1VW7cQ5pgyIgODPMzEcj98MKLTxDDBjc2npuWJlq2Xj6xvg5e9Z5YVQXrzowi00JNPTx9U6');
@@ -65,9 +66,7 @@
                                                   return stripe.redirectToCheckout({ sessionId: session.id });
                                                 })
                                                     .then(function(result) {
-                                                      // If `redirectToCheckout` fails due to a browser or network
-                                                      // error, you should display the localized error message to your
-                                                      // customer using `error.message`.
+
                                                       if (result.error) {
                                                         alert(result.error.message);
                                                       }
