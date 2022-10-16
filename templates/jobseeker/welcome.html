@@ -3,44 +3,59 @@
 {% block content %}
 
 <style type="text/css">
-.sidebar{height:500px;}
-.sidebar a {height:70px;display:block;padding:6px; color:white;;font-size:20px;border-bottom:2px solid white;}
-.sidebar a:hover{color:rgb(255, 255, 255);height:70px;}
+.sidebar{ height:500px;
+          }
+.sidebar a { height:70px;
+            line-height:70px;
+
+            background-color: #6c8eff;
+            color:white;
+            text-align:center;
+            font-size:18px;
+            border-radius:0%;
+            text-decoration:none;
+            }
+.sidebar a:hover{
+    background-color:white ;
+    color:#6c8eff;
+}
+
+
 </style>
 
 
-<div class=" w-100">
+<div class=" w-100 pt-1" style="background-color:#f2f2f2">
     <div class="row">
-        <div class="col-2" style="background-color:#6c8eff;">
+        <div class="col-sm-2 mb-1" style="background-color:#6c8eff;">
 
 
-            <div class="sidebar text-center">
+            <div class="sidebar text-center ">
 
 
                 {% if request.user.profile %}
 
-                    <a href="{%url 'view_candidate' request.user.profile.slug %}" class="btn form-control mt-2 mb-2">My Profile</a>
+                    <a href="{%url 'view_candidate' request.user.profile.slug %}" class=" form-control mt-2 mb-2">PROFILE</a>
 
-                    <a href="{%url 'profile_update' request.user.profile.slug %}" class="btn form-control mt-2 mb-2">Edit Profile</a>
+                    <a href="{%url 'profile_update' request.user.profile.slug %}" class=" form-control mt-2 mb-2">EDIT PROFILE</a>
 
                 {% else %}
-                    <a href="{%url 'add_candidate' %}" class="btn form-control mt-2 mb-2">Add Profile</a>
+                    <a href="{%url 'add_candidate' %}" class=" form-control mt-2 mb-2">ADD PROFILE</a>
                 {% endif %}
 
-                <a href="{% url 'applied-job' %}" class="btn form-control mt-2 mb-2">My Applications</a>
-                <a href="{%url 'saved-job' %}" class="btn form-control mt-2 mb-2">Saved Jobs</a>
-                <a href="{%url 'password_change'%}" class="btn form-control mt-2 mb-2">Change Password</a>
+                <a href="{% url 'applied-job' %}" class=" form-control mt-2 mb-2">MY APPLICATIONS</a>
+                <a href="{%url 'saved-job' %}" class=" form-control mt-2 mb-2">SAVED JOBS</a>
+                <a href="{%url 'password_change'%}" class="form-control mt-2 mb-2">CHANGE PASSWORD</a>
             </div>
 
         </div>
 
-<div class="col-9">
+<div class="col-sm-9" >
 
         <h2 class="text-secondary" > DASHBOARD </h2>
     <hr>
     <p align="right">Wellcome {{user.username}} !</p>
     <div class="row f-flex justify-content-center">
-        <div class="col-4">
+        <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
                     <h4>Lorem ipsum dolor sit amet, consectetur adipisicing vero.</h4>
@@ -50,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
                     <h4>Lorem ipsum dolor sit amet, consectetur adipisicing vero.</h4>
@@ -60,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-4"></div>
+        <div class="col-sm-4"></div>
 
     </div>
 

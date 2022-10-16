@@ -99,11 +99,11 @@ class JobDetailView(DetailView):
 
 
 class AboutUsView(TemplateView):
-    template_name = "about_us.html"
+    template_name = "home/about_us.html"
 
 
 class EnquiryView(FormView):
-    template_name = 'enquiry.html'
+    template_name = 'home/enquiry.html'
     form_class = EnquiryForm
 
     def post(self, request, *args, **kwargs):

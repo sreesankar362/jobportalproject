@@ -1,25 +1,64 @@
 {% extends 'common_html/base.html' %}
 
 {% block content %}
-<div style="background-color:#e1eaf7">
-<div class="container p-3">
-    <div class="row">
-        <div class="col-3"></div>
-        <div class="col-6 card border">
+{% load static  %}
+<div style="background-color:white">
+    <div class="row d-flex justify-content-center">
+        <div class=" img-fluid" style="
+                                      background-image:url('{% static 'home/images/contact.png' %}');
+                                      height:500px;background-size:cover;
+                                      text-align: middle;
+                                      display: flex;
+                                      align-items: center;
+                                      justify-content: center;">
+            <div>
+                <h1 class="text-white text-center" style="font-size:40px;" >CONTACT US</h1>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row  d-flex justify-content-center" >
+        <h4 class="text-center m-4 ">Let’s Start a Conversation</h4>
+        <div class="col-sm-6 p-5 ">
+            <p>
+                <span class="text-primary">Jobhub</span> is a global leader in connecting people and jobs. Every day, jobhub aims to make
+                every workplace happier and more productive by transforming the way employers and candidates
+                find the right fit. For 25 years, jobhub has worked to transform the recruiting industry.
+                Today, the company leverages advanced
+                technology using intelligent digital, social and mobile solutions, including the flagship
+                website Jobhub.com®. </p>
+
+                <h6 class="text-primary mt-5">Points of Contact</h6>
+                <h6>U.S. | JOBHUB</h6>
+                <P>11350 McCormick Rd, EP III, Suite 200,</P>
+                <P>Hunt Valley, MD 21031</P>
+
+
+                <h6 class="text-primary">Support</h6>
+                <p>support@jobhub.com</p>
+
+                <h6 class="text-primary">Verification of Companies</h6>
+                <p>voe@jobhub.com </p>
+
+                <h6 class="text-primary"> Additional Office Locations</h6>
+                <h6>Germany</h6>
+                <p>Torstr. 231, Vorderhaus, 1. OG, 10115 Berlin</p>
+
+        </div>
+        <div class="col-sm-4 p-2 card border" style="border-radius:0%">
             <div class="card-body">
-                <h2 class="text-center text-secondary">CONTACT US</h2>
+                <h3 class="text-center text-secondary">ENQUIRY</h3>
                 <p class="text-center">Leave your query here and we will reach out to you.</p>
                 <hr>
                 <form action="" method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
-
-                    <input type="submit" class="btn btn-primary form-control">
+                    <button class="btn btn-primary form-control" type="submit"> MESSAGE</button>
                 </form>
             </div>
         </div>
-        <div class="col-3"></div>
     </div>
 </div>
-</div>
+
 {% endblock %}
