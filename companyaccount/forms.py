@@ -31,7 +31,7 @@ class CompanyProfileForm(forms.ModelForm):
             "location": forms.TextInput(attrs={"class": "form-control"}),
             "industry": forms.TextInput(attrs={"class": "form-control"}),
             "category": forms.TextInput(attrs={"class": "form-control"}),
-            "team_size": forms.TextInput(attrs={"class": "form-control"}),
+            "team_size": forms.Select(attrs={"class": "form-control"}),
             "founded": forms.TextInput(attrs={"class": "form-control"}),
             "company_address": forms.TextInput(attrs={"class": "form-control"}),
         }

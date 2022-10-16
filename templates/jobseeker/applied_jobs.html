@@ -40,9 +40,8 @@
                                 onclick="location.href='{% url 'job_detail' jobapplication.job.id %}';"
                                 style="width:150px;">View Job
                         </button>
-                        <button class="btn btn-success btn mt-2"
-                                style="width:150px;">{{jobapplication.job_status}}
-                        </button>
+                        <p class="text-center mt-3" style="border:2px solid grey">{{jobapplication.job_status | title }}</p>
+
                     </div>
 
             </div>

@@ -10,7 +10,7 @@
             <div class="card ">
                 <img src={{can.candidate_image.url}} class="rounded mx-auto d-block mt-3" width="200" height="200" alt="...">
                 <h6 class="card-body">Name:<a>{{request.user.username}}</a></h6>
-                <h6 class="card-body">Email ID: {{can.user}}</h6>
+                <h6 class="card-body">Email ID: {{can.user.email}}</h6>
                 <h6 class="card-body">Date Of Birth : {{can.dob}}</h6>
 
                                         {% for exps in exp %}

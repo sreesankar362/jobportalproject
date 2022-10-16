@@ -20,6 +20,11 @@ from django.conf import settings
 class HomeView(TemplateView):
     template_name = "home/home.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["latest_jobs"] = JobModel.objects.all().order_by("-published_date")[:5]
+        return context
+
 
 class JobListingView(TemplateView):
     template_name = "home/job_listing.html"
@@ -123,8 +128,8 @@ class EnquiryView(FormView):
                 [settings.EMAIL_HOST_USER],
                 fail_silently=False
             )
-            messages.success(request, "Enquiry is sent")
-            return redirect("home")
+            messages.success(request, "Enquiry sent")
+            return redirect("enquiry")
         else:
             messages.error(request, "Failed to sent enquiry")
             return render(request, "home/enquiry.html", {"form": form})
