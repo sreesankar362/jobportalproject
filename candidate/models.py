@@ -82,18 +82,6 @@ class SavedJobs(models.Model):
     def __str__(self):
         return self.job.position
 
-
-class AppliedJobs(models.Model):
-    job = models.ForeignKey(
-        JobModel, related_name='applied_job', on_delete=models.CASCADE)
-    user = models.ForeignKey(
-        User, related_name='applied_user', on_delete=models.CASCADE)
-    date_posted = models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        return self.job.position
-
-
 class JobApplication(models.Model):
     candidate = models.ForeignKey(CandidateProfile, on_delete=models.CASCADE,
                                   null=True, blank=True)

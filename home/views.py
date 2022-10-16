@@ -2,7 +2,6 @@ from datetime import date
 from django.views.generic import FormView, DetailView, TemplateView,View
 from django.db.models import Q
 from django.shortcuts import render, redirect
-
 from candidate.models import SavedJobs
 from .models import JobModel
 from .forms import JobModelForm, JobSearchForm, EnquiryForm
@@ -10,9 +9,10 @@ from django.contrib import messages
 from subscription.models import CompanySubscription
 from accounts.verified_access import login_company_required
 from django.utils.decorators import method_decorator
-
 from django.core.mail import send_mail
 from django.conf import settings
+from .filters import JobListingFilter 
+
 
 
 class HomeView(TemplateView):
@@ -30,6 +30,8 @@ class JobListingView(TemplateView):
     def get(self, request):
         search_form = JobSearchForm
         all_jobs = JobModel.objects.filter().order_by("-published_date")
+        joblistingfilter = JobListingFilter(request.GET, queryset = all_jobs)
+
         saved_jobs = None
         if request.user.is_authenticated:
             saved_job_obj = SavedJobs.objects.filter(user=request.user)
@@ -37,6 +39,8 @@ class JobListingView(TemplateView):
             for sj in saved_job_obj:
                 saved_jobs.append(sj.job)
         context = {
+            
+            'joblistingfilter': joblistingfilter,
             "all_jobs": all_jobs,
             "saved_jobs": saved_jobs,
             "form": search_form

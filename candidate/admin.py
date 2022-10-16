@@ -1,5 +1,5 @@
 from django.contrib import admin
-from candidate.models import CandidateProfile, SavedJobs, AppliedJobs, JobApplication
+from candidate.models import CandidateProfile, SavedJobs, JobApplication
 from candidate.models import CandidateProfile, Experience,JobApplication
 
 # admin.site.register(SavedJobs)

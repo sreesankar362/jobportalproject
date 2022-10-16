@@ -22,7 +22,7 @@
 <!-- Hero Area End -->
 
 <!-- search area -->
-<div class="search-bg  ">
+{% comment %} <div class="search-bg  ">
                 <div class="p-2  ">
                         <form action="{% url 'search' %}" class="" method="get">
                                 <div class="row d-flex justify-content-center">
@@ -38,7 +38,7 @@
                         </form>
                 </div>
 
-</div>
+</div> {% endcomment %}
 <!-- search area end -->
 
 <div style="background-color:#F1F1F1">
@@ -46,135 +46,25 @@
 
     <div class="container w-75">
         <div class="row">
-            <div class="col-3 mt-4 ">
+            <div class="col-4 mt-4 ">
                 <div class="card  left-filter">
                     <div class="card-body">
                         <!-- Job Category Listing start -->
-                        <div class="job-category-listing mb-50">
-                            <!-- single one -->
-                            <div class="single-listing">
-                                <div class="small-section-tittle2">
-                                    <h4>Job Category</h4>
-                                </div>
-                                <!-- Select job items start -->
-                                <div class="select-job-items2">
-                                    <select class="form-control" name="select">
-                                        <option value="">All Category</option>
-                                        <option value="">Category 1</option>
-                                        <option value="">Category 2</option>
-                                        <option value="">Category 3</option>
-                                        <option value="">Category 4</option>
-                                    </select>
-                                </div>
-                                <!--  Select job items End-->
-                                <!-- select-Categories start -->
-                                <div class="select-Categories pt-80 pb-50">
-                                    <div class="small-section-tittle2">
-                                        <h4>Job Type</h4>
-                                    </div>
-                                    <label class="form-control" class="container">Full Time
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">Part Time
-                                        <input type="checkbox" checked="checked active">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">Remote
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">Freelance
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <!-- select-Categories End -->
-                            </div>
-                            <!-- single two -->
-                            <div class="single-listing">
-                                <div class="small-section-tittle2">
-                                    <h4>Job Location</h4>
-                                </div>
-                                <!-- Select job items start -->
-                                <div class="select-job-items2">
-                                    <select class="form-control" name="select">
-                                        <option value="">Anywhere</option>
-                                        <option value="">Category 1</option>
-                                        <option value="">Category 2</option>
-                                        <option value="">Category 3</option>
-                                        <option value="">Category 4</option>
-                                    </select>
-                                </div>
-                                <!--  Select job items End-->
-                                <!-- select-Categories start -->
-                                <div class="select-Categories pt-80 pb-50">
-                                    <div class="small-section-tittle2">
-                                        <h4>Experience</h4>
-                                    </div>
-                                    <label class="form-control" class="container">1-2 Years
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">2-3 Years
-                                        <input type="checkbox" checked="checked active">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">3-6 Years
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">6-more..
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <!-- select-Categories End -->
-                            </div>
-                            <!-- single three -->
-                            <div class="single-listing">
-                                <!-- select-Categories start -->
-                                <div class="select-Categories pb-50">
-                                    <div class="small-section-tittle2">
-                                        <h4>Posted Within</h4>
-                                    </div>
-                                    <label class="form-control" class="container">Any
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">Today
-                                        <input type="checkbox" checked="checked active">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">Last 2 days
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">Last 3 days
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">Last 5 days
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="form-control" class="container">Last 10 days
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <!-- select-Categories End -->
-                            </div>
-
-                        </div>
+                        
+                            <form method = 'get'>
+                                {{joblistingfilter.form.as_p}} <br>
+                                <input type="submit" />
+                            </form>
+                        
                         <!-- Job Category Listing End -->
                     </div>
                 </div>
                 </div>
-                <div class="col-9 mt-4">
-                    <p>{{all_jobs | length}} jobs found</p>
+                <div class="col-8 mt-4">
+                    <p>{{joblistingfilter.qs | length}} job(s) found</p>
                         {% if all_jobs %}
-                             {% for job in all_jobs %}
+                             {% comment %} {% for job in all_jobs %} {% endcomment %}
+                             {% for job in joblistingfilter.qs%}
                     <div class="card job-card mb-3 " style="border-radius:0%;background-color:rgb(230, 247, 255,.2)" ><!-- one job card -->
 
                                 <div class="card-body ">

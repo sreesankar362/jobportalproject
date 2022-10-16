@@ -32,7 +32,7 @@
                     <li class="list-group-item">{{job.min_qualification}}</li>
                     <li class="list-group-item">
                         <h5>Experience:</h5>
-                        {{job.experience}}
+                        {{job.min_experience}} to {% if job.max_experience %} {{job.max_experience}} {%else%} 15+ {%endif%}
                     </li>
                     <li class="list-group-item">
                         <h5>Skills:</h5>
