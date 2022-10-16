@@ -1,1 +1,1 @@
-web: python manage.py runserver 0.0.0.0:$PORT --settings=jobportalproject.settings --noreload
+web: gunicorn jobportalproject.wsgi --log-file -
