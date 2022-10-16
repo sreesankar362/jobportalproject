@@ -10,9 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 
 """
+import os
 import sys
 from pathlib import Path
 import environ
+import dj_database_url
+import django_heroku
+
+
 env = environ.Env()
 # reading .env file
 environ.Env.read_env()
@@ -27,12 +32,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = "1zchubhbia=ym^ye1rr7!@rbv*yx%g4fezul(@mc5p=1zat"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -55,6 +60,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -68,7 +74,7 @@ ROOT_URLCONF = 'jobportalproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates','templates/profile', 'templates/common_html', 'templates/home', 'templates/company'],
+        'DIRS': ['templates', 'templates/profile', 'templates/common_html', 'templates/home', 'templates/company'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,12 +105,6 @@ DATABASES = {
     }
 }
 
-#DATABASES = {
- #    'default': {
-  #       'ENGINE': 'django.db.backends.sqlite3',
-   #      'NAME': BASE_DIR / 'db.sqlite3',
-   #  }
- #}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -141,8 +141,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
@@ -160,9 +163,11 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 # EMAIL_HOST_USER = env("EMAIL_HOST_USER"),
 EMAIL_HOST_USER = "jobhubproject@gmail.com"
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_PASSWORD = "iakhxbjobfisjckh"
 
 # sripekey
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51LsNhRSBeZkgYlGWZeVlpGmXC9g1VW7cQ5pgyIgODPMzEcj98MKLTxDDBjc2npuWJlq2Xj6xvg5e9Z5YVQXrzowi00JNPTx9U6'
-STRIPE_SECRET_KEY = 'sk_test_51LsNhRSBeZkgYlGWi0zDQWo74A1gsQd6hkfj9pYLICclqNUXbokZdFCsBen3xrVVSyFmBaqjKmzAimCDUjXpsdKp004bf94EPq'
+STRIPE_PUBLISHABLE_KEY = "pk_test_51LsNhRSBeZkgYlGWZeVlpGmXC9g1VW7cQ5pgyIgODPMzEcj98MKLTxDDBjc2npuWJlq2Xj6xvg5e9Z5YVQXrzowi00JNPTx9U6"
+STRIPE_SECRET_KEY = "sk_test_51LsNhRSBeZkgYlGWi0zDQWo74A1gsQd6hkfj9pYLICclqNUXbokZdFCsBen3xrVVSyFmBaqjKmzAimCDUjXpsdKp004bf94EPq"
+
+django_heroku.settings(locals())
