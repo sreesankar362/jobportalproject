@@ -27,11 +27,11 @@
                         <form action="{% url 'search' %}" class="" method="get">
                                 <div class="row d-flex justify-content-center">
 
-                                        <div class="col-6">
+                                        <div class="col-lg-6 col-sm-12">
                                               <input style="border-radius:0% ;height:60px;" aria-label="Search" class="form-control form" name="keyword" placeholder="Search JobHub" type="search">
                                         </div>
 
-                                        <div class="col-1">
+                                        <div class="col-lg-1 col-sm-12">
                                             <button style="border-radius:0%;height:60px;width:200px;" class="btn btn-outline-primary" type="submit">Search <i class="fa fa-search "></i> </button>
                                         </div>
                                 </div>
@@ -46,7 +46,7 @@
 
     <div class="container w-75">
         <div class="row">
-            <div class="col-3 mt-4 ">
+            <div class="col-sm-3 mt-4 ">
                 <div class="card  left-filter">
                     <div class="card-body">
                         <!-- Job Category Listing start -->
@@ -171,7 +171,7 @@
                     </div>
                 </div>
                 </div>
-                <div class="col-9 mt-4">
+                <div class="col-sm-9 mt-4">
                     <p>{{all_jobs | length}} jobs found</p>
                         {% if all_jobs %}
                              {% for job in all_jobs %}

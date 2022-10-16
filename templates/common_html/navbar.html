@@ -3,7 +3,7 @@
  <!-- navbar -->
  <nav class="navbar navbar-dark navbar-expand-lg "  style=" ">
     <div id="leftrightspace" class="container-fluid ">
-         <img class="img-fluid" height="70" width="200" src="{% static 'home/images/logo.png' %}" alt="logo">
+         <img class="img-fluid" height="30" width="200" src="{% static 'home/images/logo.png' %}" alt="logo">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -15,13 +15,13 @@
           <li class="nav-item text-center">
             <a class="nav-link" href="{% url 'jobs' %}">JOBS</a>
           </li>
+
+            <li class="nav-item text-center">
+            <a class="nav-link" href="{% url 'enquiry' %}">CONTACT US</a>
+          </li>
           <li class="nav-item text-center">
             <a class="nav-link" href="{% url 'about_us' %}">ABOUT US</a>
           </li>
-            <li class="nav-item text-center">
-            <a class="nav-link" href="{% url 'enquiry' %}">ENQUIRY</a>
-          </li>
-
 
 
         </ul>

@@ -229,10 +229,10 @@ def accept_job(request, **kwargs):
     recipient = application.candidate.user.email
     print(recipient)
     send_mail(
-        'Congrats! We have accepted your job application',
+        'Congrats! We have accepted your job application.',
         "Luckily, your profile seems to match our requirements."
         "We are forwarding your application because we found your profile quite impressive."
-        "We thankyou for choosing us to find a right job for you \n"
+        "We thankyou for choosing us to find a right job for you.\n"
         'Thanks and Regards,\n'
         'Team JOBHUB',
         settings.EMAIL_HOST_USER,
@@ -254,9 +254,9 @@ def reject_job(request, **kwargs):
     recipient = application.candidate.user.email
     print(recipient)
     send_mail(
-        'Sorry! We have rejected your job application',
+        'Sorry! We have rejected your job application.',
         "Unfortunately, your profile doesn't match our requirements."
-        "We would not be able to take this forward"
+        "We would not be able to take this forward."
         "We urge you to keep a tab on our page and apply for future job openings.\n"
         'Thanks and Regards,\n' 
         'Team JOBHUB',
