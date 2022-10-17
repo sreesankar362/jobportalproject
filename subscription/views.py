@@ -12,7 +12,7 @@ from.models import Membership, Payment, CompanySubscription
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-YOUR_DOMAIN = 'http://127.0.0.1:8000'
+YOUR_DOMAIN = 'https://jobhubonline.herokuapp.com'
 
 
 @method_decorator(login_company_required, name="dispatch")
@@ -48,7 +48,9 @@ def create_checkout_session(request, **kwargs):
     import json
     data = json.loads(request.body.decode("utf-8"))
     mem_id = data['id']
+    print("mem_id", mem_id)
     mem = Membership.objects.get(id=mem_id)
+    print("mem", mem)
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[{
@@ -61,6 +63,10 @@ def create_checkout_session(request, **kwargs):
               },
             },
             'unit_amount': mem.price*100,
+              'product_data': {
+                'name': 'Subscription',
+                'description': 'Jobhub Subscription',
+              },
           },
           'quantity': 1,
         }],
@@ -68,6 +74,7 @@ def create_checkout_session(request, **kwargs):
         success_url=YOUR_DOMAIN + '/subscribe/payment/success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url=YOUR_DOMAIN + '/subscribe/payment/failed',
     )
+    print("session_id",session.id)
     return JsonResponse({'id': session.id})
 
 
