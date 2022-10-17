@@ -3,6 +3,7 @@
 .navbar{
     background-color: #6c8eff;
     height: 90px;
+    z-index:200;
 }
 
 .nav-item a{
