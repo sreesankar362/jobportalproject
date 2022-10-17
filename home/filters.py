@@ -1,6 +1,9 @@
-from dataclasses import field
-import django_filters
+
 from .models import JobModel
+import django_filters
+
+from .models import JobModel
+
 
 class JobListingFilter(django_filters.FilterSet):
       

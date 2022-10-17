@@ -2,62 +2,60 @@
 {% block content %}
 {% load static %}
 
+
+
 <div class="row d-flex justify-content-center">
-
-
-<div class="col-9 mt-4">
-            <h1 class="text-secondary text-center" >SAVED JOBS</h1>
-    <hr>
-
-    {% if savedjobsobjects %}
-    {% for savedjob in savedjobsobjects %}
-    <div class="card job-card mb-4 p-2">
-        <div class="card-body ">
-
-            <div class="row">
-                <div class="col-lg-4 col-md-12">
-                    <div class="card-left2 mt-1">
-                        <h5>{{savedjob.job.position}} </h5>
-                        <p>{{savedjob.job.company}} <br>
-                            <i class="fa-solid fa-location-dot"></i> {{savedjob.job.company.location}} </p>
+    <div class="col-9 mt-4">
+        <h1 class="text-secondary text-center">SAVED JOBS</h1>
+        {% if savedjobsobjects %}
+          {% for savedjob in savedjobsobjects %}
+          <hr>
+          <div class="card job-card mb-4 p-2">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card-left2 mt-1">
+                            <h5>{{savedjob.job.position}} </h5>
+                            <p>{{savedjob.job.company}} <br>
+                                <i class="fa-solid fa-location-dot"></i> {{savedjob.job.company.location}} </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class=" right-details2 mt-4 text-secondary">
+                            <p><i class=" fa-regular fa-clock"></i> {{savedjob.job.job_type}} <br>
+                                <i class="ms-1 fa-solid fa-money-bills"></i>
+                                {{savedjob.job.min_salary}}-{{savedjob.job.max_salary}} <br></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-secondary mt-4">
+                        <p><i class="ms-1 fa-solid fa-briefcase"> </i> {{ savedjob.job.experience }} <br>
+                            <i class="ms-1 fa-solid fa-building"></i> {{savedjob.job.work_type}}</p>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        {% if savedjob.job.company.company_logo %}
+                        <a href=""> <img class="mt-2 company_logo" width="80"
+                                         src=" {{ savedjob.job.company.company_logo.url }} "
+                                         alt=""> </a>
+                        {% else %}
+                        {% endif %}
                     </div>
                 </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class=" right-details2 mt-4 text-secondary">
-                        <p><i class=" fa-regular fa-clock"></i> {{savedjob.job.job_type}} <br>
-                            <i class="ms-1 fa-solid fa-money-bills"></i> {{savedjob.job.min_salary}}-{{savedjob.job.max_salary}} <br></p>
-
-                    </div>
+                <div class="row p-3">
+                    {{ savedjob.job.job_description }}
                 </div>
-                <div class="col-lg-3 col-md-6 text-secondary mt-4">
-                    <p><i class="ms-1 fa-solid fa-briefcase"> </i> {{ savedjob.job.experience }} <br>
-                        <i class="ms-1 fa-solid fa-building"></i> {{savedjob.job.work_type}}</p>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    {% if savedjob.job.company.company_logo %}
-                    <a href=""> <img class="mt-2 company_logo" width="80" src=" {{ savedjob.job.company.company_logo.url }} "
-                                     alt=""> </a>
-                    {% else %}
-                    {% endif %}
-
-                </div>
-
             </div>
-            <div class="row p-3">
-                {{ savedjob.job.job_description }}
-            </div>
+            <button class="btn btn-primary" onclick="location.href='{% url 'job_detail' savedjob.job.id %}';"
+                    style="width:150px;">View Job
+            </button>
+        </div><!-- one job card end-->
+          {% endfor %}
+        {% else %}
+        <div class="text-center">
+            <h3>You haven't saved any job yet. </h3>
         </div>
-        <button class="btn btn-primary" onclick="location.href='{% url 'job_detail' savedjob.job.id %}';" style="width:150px;">View Job</button>
-    </div><!-- one job card end-->
-    {% endfor %}
-    {% else %}
-    <div class="card text-center">
-        <h3>You haven't saved any job yet. </h3>
+        {% endif %}
     </div>
-    {% endif %}
+</div>
 
-</div>
-</div>
 {% endblock %}
 
