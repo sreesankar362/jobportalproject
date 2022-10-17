@@ -1,9 +1,6 @@
 from django.db import models
-<<<<<<< HEAD
 # from django.contrib.auth.models import User
 from django.utils import timezone
-=======
->>>>>>> main
 from autoslug import AutoSlugField
 from django_countries.fields import CountryField
 from home.models import JobModel
@@ -17,14 +14,12 @@ from companyaccount.models import CompanyProfile
 
 
 class LatEducation(models.Model):
-<<<<<<< HEAD
-    qual_name =  models.CharField(max_length=255, null=True, blank=True)
-    qual_institute = models.CharField(max_length=50, null=True, blank=True)
-    qual_university = models.CharField(max_length=50, null=True, blank=True)
-    percent = models.IntegerField(validators=[MinValueValidator(25),
-                                       MaxValueValidator(100)])
-    grad_year = models.IntegerField(blank=True)
-    qual_country = CountryField(null=True, blank=True)
+
+    qualification = models.CharField(max_length=255, null=True, blank=True)
+    institute = models.CharField(max_length=50, null=True, blank=True)
+    university = models.CharField(max_length=50, null=True, blank=True)
+    percent = models.IntegerField(validators=[MinValueValidator(25), MaxValueValidator(100)])
+    passed_year = models.IntegerField(blank=True)
     
     
 class Experience(models.Model):
@@ -46,7 +41,7 @@ class Experience(models.Model):
         
         self.exp_duration = int(self.start_date.year-self.end_date.year)
     
-=======
+
     qualification = models.CharField(max_length=255, null=True, blank=True)
     institute = models.CharField(max_length=50, null=True, blank=True)
     university = models.CharField(max_length=50, null=True, blank=True)
@@ -54,7 +49,7 @@ class Experience(models.Model):
     passed_year = models.IntegerField(blank=True)
 
 
->>>>>>> main
+
 class CandidateProfile(models.Model):
 
     user = models.OneToOneField(
