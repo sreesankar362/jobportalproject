@@ -1,9 +1,9 @@
 from django.contrib import admin
-from candidate.models import CandidateProfile, SavedJobs, AppliedJobs, JobApplication
+from candidate.models import CandidateProfile, SavedJobs, JobApplication
 from candidate.models import CandidateProfile, Experience,JobApplication
 
 # admin.site.register(SavedJobs)
-admin.site.register(CandidateProfile)
+
 # admin.site.register(Experience)
 
 
@@ -12,4 +12,16 @@ class JobApplicationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(JobApplication, JobApplicationAdmin)
+
+# Register your models here.
+
+from .models import *
+
+admin.site.register(CandidateProfile)
+
+admin.site.register(LatEducation)
+
+admin.site.register(Experience)
+
+
 

@@ -57,16 +57,13 @@ def create_checkout_session(request, **kwargs):
           'price_data': {
             'currency': 'inr',
             'product_data': {
-              'name': mem.description,
-            },
-            'unit_amount': mem.price*100,
-              'product_data': {
                 'name': 'Subscription',
-                'description': 'Jobhub Subscription',
-              },
-          },
-          'quantity': 1,
-        }],
+                'description': mem.description,
+             },
+             'unit_amount': mem.price*100,
+            },
+            'quantity': 1,
+            }],
         mode='payment',
         success_url=YOUR_DOMAIN + '/subscribe/payment/success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url=YOUR_DOMAIN + '/subscribe/payment/failed',

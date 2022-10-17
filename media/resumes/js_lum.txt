@@ -1,0 +1,15 @@
+                                       JAVASCRIPT
+                                      ------------
+
+print ---> console.log("hi");
+
+js engine -- node.js needs to be installed
+
+js standard = ES6 =ECMAScript
+
+v8 engine = Revolution in js platform. = used in chrome and other browsers.
+spidermonkey = js engine in firefox
+
+
+
+
