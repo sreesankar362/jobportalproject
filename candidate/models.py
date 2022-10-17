@@ -1,4 +1,6 @@
 from django.db import models
+# from django.contrib.auth.models import User
+from django.utils import timezone
 from autoslug import AutoSlugField
 from django_countries.fields import CountryField
 from home.models import JobModel
@@ -12,11 +14,40 @@ from companyaccount.models import CompanyProfile
 
 
 class LatEducation(models.Model):
+
     qualification = models.CharField(max_length=255, null=True, blank=True)
     institute = models.CharField(max_length=50, null=True, blank=True)
     university = models.CharField(max_length=50, null=True, blank=True)
     percent = models.IntegerField(validators=[MinValueValidator(25), MaxValueValidator(100)])
     passed_year = models.IntegerField(blank=True)
+    
+    
+class Experience(models.Model):
+    
+    exp_field = models.CharField(max_length=255, null=True, blank=True)
+    exp_position = models.CharField( max_length=50,null=True, blank=True)
+    exp_company = models.CharField( max_length=50,null=True, blank=True)
+    exp_description = models.TextField(max_length=300, null=True, blank = True)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(default=datetime.date.today())
+    exp_duration = models.IntegerField(default=0, editable= False)
+    
+    def save(self, *args, **kwargs):
+        if self.start_date >= datetime.date.today() or self.end_date >= datetime.date.today():
+            raise ValidationError("Sorry, The date entered should be before todays date.")
+        super().save(*args, **kwargs)
+        
+    def get_exp(self):
+        
+        self.exp_duration = int(self.start_date.year-self.end_date.year)
+    
+
+    qualification = models.CharField(max_length=255, null=True, blank=True)
+    institute = models.CharField(max_length=50, null=True, blank=True)
+    university = models.CharField(max_length=50, null=True, blank=True)
+    percent = models.IntegerField(validators=[MinValueValidator(25), MaxValueValidator(100)])
+    passed_year = models.IntegerField(blank=True)
+
 
 
 class CandidateProfile(models.Model):
@@ -81,18 +112,6 @@ class SavedJobs(models.Model):
 
     def __str__(self):
         return self.job.position
-
-
-class AppliedJobs(models.Model):
-    job = models.ForeignKey(
-        JobModel, related_name='applied_job', on_delete=models.CASCADE)
-    user = models.ForeignKey(
-        User, related_name='applied_user', on_delete=models.CASCADE)
-    date_posted = models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        return self.job.position
-
 
 class JobApplication(models.Model):
     candidate = models.ForeignKey(CandidateProfile, on_delete=models.CASCADE,

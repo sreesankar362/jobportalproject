@@ -19,7 +19,8 @@ class JobModel(models.Model):
     published_date = models.DateTimeField(auto_now=True, null=True, blank=True)
     application_end_date = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
-    experience = models.CharField(max_length=20, null=True, blank=True)
+    min_experience = models.PositiveIntegerField(max_length=20, null=True, blank=True)
+    max_experience = models.PositiveIntegerField(max_length=20, null=True, blank=True)
     min_salary = models.IntegerField(null=True, blank=True)
     max_salary = models.IntegerField(null=True, blank=True)
     No_of_openings = models.IntegerField(null=True, blank=True)
@@ -34,7 +35,6 @@ class JobModel(models.Model):
 
     def __str__(self):
         return self.position
-
 
 class Enquiry(models.Model):
     first_name = models.CharField(max_length=50)
