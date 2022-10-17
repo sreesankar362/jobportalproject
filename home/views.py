@@ -2,7 +2,7 @@ from datetime import date
 from django.views.generic import FormView, DetailView, TemplateView,View
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from candidate.models import SavedJobs
+from candidate.models import SavedJobs, JobApplication
 from .models import JobModel
 from .forms import JobModelForm, JobSearchForm, EnquiryForm
 from django.contrib import messages
@@ -96,18 +96,37 @@ class JobModelView(FormView):
             return render(request, "post_job.html", {'form': form})
 
 
-class JobDetailView(DetailView):
-    model = JobModel
-    context_object_name = "job"
+# class JobDetailView(DetailView):
+#     model = JobModel
+#     context_object_name = "job"
+#     template_name = "home/job_detail.html"
+
+class JobDetailView(TemplateView):
     template_name = "home/job_detail.html"
+
+    def get(self, request, *args,**kwargs):
+        job_id = kwargs.get("pk")
+        print(job_id)
+        job = JobModel.objects.get(id=job_id)
+        applied_job = None
+        if request.user.is_authenticated:
+            applied_job_obj = JobApplication.objects.filter(job=job)
+            applied_job = []
+            for aj in applied_job_obj:
+                applied_job.append(aj.job)
+        context = {
+            "job": job,
+            "applied_job": applied_job,
+        }
+        return render(request, "home/job_detail.html", context)
 
 
 class AboutUsView(TemplateView):
-    template_name = "about_us.html"
+    template_name = "home/about_us.html"
 
 
 class EnquiryView(FormView):
-    template_name = 'enquiry.html'
+    template_name = 'home/enquiry.html'
     form_class = EnquiryForm
 
     def post(self, request, *args, **kwargs):
