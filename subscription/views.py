@@ -12,7 +12,7 @@ from.models import Membership, Payment, CompanySubscription
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-YOUR_DOMAIN = 'http://127.0.0.1:8000'
+YOUR_DOMAIN = 'https://jobhubonline.herokuapp.com'
 
 
 @method_decorator(login_company_required, name="dispatch")
@@ -45,25 +45,30 @@ def create_checkout_session(request, **kwargs):
     Stripe session is created by passing the price data and success, cancel urls.
     created stripe session ID is returned to js in choose_membership.html.
     """
+    import json
     data = json.loads(request.body.decode("utf-8"))
     mem_id = data['id']
+    print("mem_id", mem_id)
     mem = Membership.objects.get(id=mem_id)
+    print("mem", mem)
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[{
           'price_data': {
             'currency': 'inr',
             'product_data': {
-              'name': mem.description,
+                'name': 'Subscription',
+                'description': mem.description,
+             },
+             'unit_amount': mem.price*100,
             },
-            'unit_amount': mem.price*100,
-          },
-          'quantity': 1,
-        }],
+            'quantity': 1,
+            }],
         mode='payment',
         success_url=YOUR_DOMAIN + '/subscribe/payment/success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url=YOUR_DOMAIN + '/subscribe/payment/failed',
     )
+    print("session_id",session.id)
     return JsonResponse({'id': session.id})
 
 

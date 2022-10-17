@@ -9,11 +9,11 @@ class JobModel(models.Model):
     skills = models.TextField(max_length=200)
     company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, related_name='employer')
     job_type = (
-        ("full-time", "full time"),
-        ("part-time", 'Part Time'),
-        ("temporary", 'Temporary'),
-        ("contract", 'Contract'),
-        ("freelance", 'Freelance')
+        ("Full Time", "full time"),
+        ("Part Time", 'Part Time'),
+        ("Temporary", 'Temporary'),
+        ("Contract", 'Contract'),
+        ("Freelance", 'Freelance')
     )
     job_type = models.CharField(max_length=50, choices=job_type)
     published_date = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -26,9 +26,9 @@ class JobModel(models.Model):
     min_qualification = models.CharField(max_length=100, null=True, blank=True)
     categories = models.CharField(max_length=100)
     work_type = (
-        ("wfh", "Work from Home"),
-        ("wfo", "Work from Office"),
-        ("hybrid", "Hybrid")
+        ("Work From Home", "Work from Home"),
+        ("Work From Office", "Work from Office"),
+        ("Hybrid", "Hybrid")
     )
     work_type = models.CharField(max_length=50, choices=work_type)
 
