@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="227bd43b-c69f-4ab3-8cbe-09cf939c9405" name="Changes" comment="" />
+    <list default="true" id="227bd43b-c69f-4ab3-8cbe-09cf939c9405" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../home/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../templates/common_html/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/common_html/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../templates/common_html/messages.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/common_html/messages.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../templates/common_html/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/common_html/navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../templates/company/company-dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/company/company-dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../templates/home/about_us.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/home/about_us.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../templates/home/enquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/home/enquiry.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../templates/home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/home/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../templates/home/job_listing.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/home/job_listing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../templates/jobseeker/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/jobseeker/welcome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../templates/subscription/choose_membership.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/subscription/choose_membership.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="2F4TAqO3AVrBTlM8J5tFHIHbQn3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/sree/Documents/JobPortalProject/jobportalproject"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/sree/Documents/JobPortalProject/jobportalproject&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -29,5 +45,16 @@
       <updated>1663750215194</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
