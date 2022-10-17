@@ -2,7 +2,7 @@ from datetime import date
 from django.views.generic import FormView, DetailView, TemplateView,View
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from candidate.models import SavedJobs, JobApplication, AppliedJobs
+from candidate.models import SavedJobs, JobApplication
 from .models import JobModel
 from .forms import JobModelForm, JobSearchForm, EnquiryForm
 from django.contrib import messages
