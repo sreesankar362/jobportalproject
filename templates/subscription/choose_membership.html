@@ -2,47 +2,78 @@
 {%load static%}
 {% block content %}
 
-<img src="{% static 'company/choose-bg.jpg' %}" alt=""
-     style="width:100%;object-fit: cover;height:600px;">
+<!--<img src="{% static 'company/choose-bg.jpg' %}" alt=""-->
+<!--     style="width:100%;object-fit: cover;height:650px;">-->
 
-<div class="container" style="margin-top:-600px;background-color:#e6e6e6">
+<div  style="background-color:#e6e6e6;
 
-        <div class="row mt-5  d-flex justify-content-center" style="display:block;">
-                 <div class="col-sm-6 " >
+            background-image:url('{% static 'company/choose-bg.jpg' %}');
+            background-size:cover;
+            background-repeat:no-repeat">
+
+        <div class="row  d-flex justify-content-center" style="display:block;">
+                 <div class="col-sm-6 mt-5  " >
                     <h2 class="text-white text-center">CHOOSE SUBSCRIPTION PLAN </h2>
                     <p class="text-center text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab delectus, deleniti dolor dolore doloribus dolorum ducimus et expedita,
                     hic maiores minima modi molestiae mollitia porro quaerat quam quis tempora, vero!</p>
                  </div>
         </div>
 
-        <div class="row mt-1  d-flex justify-content-center" >
-
+        <div class="row   d-flex justify-content-center" >
+            {% if mem %}
             {% for membership in mem %}
-                    <div class="col-sm-3 col-md-3 col-l-3" >
-                        <div class="card mt-2" mb-2 style="border-radius:0%;width:300px;">
+                    <div class="col-lg-3" style="width:330px;">
+                        <div class="card mt-2 mb-5  " style="border-radius:0%;">
                             <div class="card-body m-3">
 
-                                <h3 class="text-center">{{membership.membership_days}} Days</h3>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi blanditiis consectetur cum distinctio,
-                                    minus natus neque non optio quibusdam quidem quos reprehenderit, repudiandae tempore tenetur veniam?
+                                <h3 style="color:#6c8eff" class="text-center text-info">{{membership.membership_days}} Days</h3>
+                                <div class="" align="middle" style="border-bottom:2px solid grey;" ></div>
+                                <h2 class="text-center mt-3">{{membership.price}}₹</h2>
+                                <p class="text-center">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit dolor sit amet, consectetur adipisicing
                                 </p>
+                                <p class=""> Features <i class="fa-regular fa-circle-check"></i></p>
+                                <ul>
+                                    <li class="nav-item"> <i class="fa-regular fa-circle-check"></i>consectetur</li>
+                                    <li class="nav-item"> <i class="fa-regular fa-circle-check"></i>adipisicing</li>
+                                    <li class="nav-item"> <i class="fa-regular fa-circle-check"></i>adipisicing</li>
 
-                                <h2 class="text-center">{{membership.price}}Rs</h2>
+                                </ul>
+
                                 {% if is_subscribed %}
-                                    <button  class= "btn btn-warning form-control" onclick="subscribe({{membership.id}})" disabled > Subscribe</button>
+                                    <button style="border-radius:0%"  class= "btn btn-outline-info form-control" onclick="subscribe({{membership.id}})" disabled > SELECT PLAN</button>
                                 {% else %}
                                 <p></p>
-                                    <button  class= "btn btn-warning form-control" onclick="subscribe({{membership.id}})" > Subscribe</button>
+                                    <button style="border-radius:0%" class= "btn btn-outline-info form-control" onclick="subscribe({{membership.id}})" > SELECT PLAN</button>
                                 {% endif %}
                             </div>
                         </div>
 
                     </div>
             {% endfor %}
+            {% else %}
+                    <div class="col-sm-5 col-md-3 col-l-3" >
+                        <div class="card mt-2 mb-4" style="border-radius:0%;width:300px;">
+                            <div class="card-body m-3">
+
+                                <h6 class="text-center text-danger">No Membership Available</h6>
+                                <p class="text-center">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi blanditiis consectetur cum distinctio,
+                                    minus natus neque non optio quibusdam quidem quos reprehenderit, repudiandae tempore tenetur veniam
+                                </p>
+
+                                <p class="text-center">contact <a href="">support@jobhub.com</a> </p>
+
+                            </div>
+                        </div>
+
+                    </div>
+            {% endif %}
 
         </div>
 </div>
+
+
      <script src="https://js.stripe.com/v3/"></script>
 
      <script type="text/javascript">

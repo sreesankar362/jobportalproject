@@ -57,10 +57,7 @@ def create_checkout_session(request, **kwargs):
           'price_data': {
             'currency': 'inr',
             'product_data': {
-              'name': mem.description, 'product_data': {
-                'name': 'Subscription',
-                'description': 'Jobhub Subscription',
-              },
+              'name': mem.description,
             },
             'unit_amount': mem.price*100,
               'product_data': {
