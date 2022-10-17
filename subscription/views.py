@@ -60,6 +60,10 @@ def create_checkout_session(request, **kwargs):
               'name': mem.description,
             },
             'unit_amount': mem.price*100,
+              'product_data': {
+                'name': 'Subscription',
+                'description': 'Jobhub Subscription',
+              },
           },
           'quantity': 1,
         }],
