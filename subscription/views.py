@@ -45,6 +45,7 @@ def create_checkout_session(request, **kwargs):
     Stripe session is created by passing the price data and success, cancel urls.
     created stripe session ID is returned to js in choose_membership.html.
     """
+    import json
     data = json.loads(request.body.decode("utf-8"))
     mem_id = data['id']
     mem = Membership.objects.get(id=mem_id)
@@ -54,7 +55,10 @@ def create_checkout_session(request, **kwargs):
           'price_data': {
             'currency': 'inr',
             'product_data': {
-              'name': mem.description,
+              'name': mem.description, 'product_data': {
+                'name': 'Subscription',
+                'description': 'Jobhub Subscription',
+              },
             },
             'unit_amount': mem.price*100,
           },
