@@ -1,3 +1,5 @@
+from typing import Dict, Any
+
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
@@ -64,7 +66,7 @@ def save_job(request, *args, **kwargs):
             messages.error(request, "Login To Save Job")
             return redirect("jobs")
     except:
-        messages.error(request,"Sorry Recruiters Cannot Save Jobs")
+        messages.error(request, "Sorry Recruiters Cannot Save Jobs")
         return redirect("jobs")
 
 
@@ -79,18 +81,21 @@ def unsave_job(request, *args, **kwargs):
     return redirect("jobs")
 
 
-class SavedJobsView(TemplateView):
-    template_name = 'jobseeker/saved_jobs.html'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(SavedJobsView, self).get_context_data(*args, **kwargs)
-        savedjobsobjects = SavedJobs.objects.filter(candidate=self.request.user.profile)
-
-        for savedjob in savedjobsobjects:
-            print(savedjob.job.job_description)
-
-        context['savedjobsobjects'] = savedjobsobjects
-        return context
+class SavedJobsView(View):
+    def get(self, request, *args, **kwargs):
+        try:
+            candidate = request.user.profile
+            savedjobsobjects = SavedJobs.objects.filter(candidate=candidate)
+            if request.user.profile:
+                for savedjob in savedjobsobjects:
+                    print(savedjob.job.job_description)
+                context = {
+                    'savedjobsobjects': savedjobsobjects
+                }
+                return render(request,'jobseeker/saved_jobs.html', context)
+        except:
+            messages.error(request, "Please add your profile ")
+            return redirect('myaccount')
 
 
 class ViewCandidateView(View):
@@ -135,15 +140,18 @@ def apply_job(request, *args, **kwargs):
     return redirect('jobs')
 
 
-class JobApplicationView(TemplateView):
-    template_name = 'jobseeker/applied_jobs.html'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(JobApplicationView, self).get_context_data(**kwargs)
-        jobapplicationobjects = JobApplication.objects.filter(candidate=self.request.user.profile)
-        print(jobapplicationobjects)
-        for objects in jobapplicationobjects:
-            print(objects.job.position)
-        context['jobapplicationobjects'] = jobapplicationobjects
-
-        return context
+class JobApplicationView(View):
+    def get(self, request, *args, **kwargs):
+        try:
+            candidate = request.user.profile
+            jobapplicationobjects = JobApplication.objects.filter(candidate=candidate)
+            if request.user.profile:
+                for objects in jobapplicationobjects:
+                    print(objects.job.position)
+                context = {
+                    "jobapplicationobjects": jobapplicationobjects
+                }
+                return render(request, "jobseeker/applied_jobs.html", context)
+        except:
+            messages.error(request, "Please add your profile ")
+            return redirect('myaccount')

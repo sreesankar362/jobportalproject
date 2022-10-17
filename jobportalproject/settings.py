@@ -89,15 +89,15 @@ AUTH_USER_MODEL = 'accounts.User'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'job_hub_db',
-        'USER': 'jobhubuser',
-        'PASSWORD': 1234,
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'job_hub_db',
+         'USER': 'jobhubuser',
+         'PASSWORD': 1234,
+         'HOST': 'localhost',
+         'PORT': '5432',
+     }
+ }
 
 #DATABASES = {
  #    'default': {

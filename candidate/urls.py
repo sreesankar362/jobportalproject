@@ -14,7 +14,7 @@ urlpatterns = [
     path("unsave-jobs/<int:job_id>", views.unsave_job, name="unsave-job"),
     path("viewcandidate/<str:slug>",ViewCandidateView.as_view(),name="view_candidate"),
     #path("my-applications",views.applied_jobs, name="applied-job"),
-    path("applied-jobs", JobApplicationView.as_view(), name="applied-job")
+    path("applied-jobs", JobApplicationView.as_view(), name="applied-job"),
 
 ]
 
