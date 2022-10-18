@@ -18,6 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+handler400 = 'apps.home.views.handler400'
+handler403 = 'apps.home.views.handler403'
+handler404 = 'apps.home.views.handler404'
+handler500 = 'apps.home.views.handler500'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("apps.home.urls")),
