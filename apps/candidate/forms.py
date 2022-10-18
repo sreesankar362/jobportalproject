@@ -15,8 +15,10 @@ class CandidateProfileForm(forms.ModelForm):
                   "languages_known"]
         # exclude = ("user", "latest_edu", "experience",)
         widgets = {
+            "candidate_image": forms.FileInput(attrs={"class": "form-control"}),
             "summary": forms.Textarea(attrs={"class": "form-control"}),
-            "dob" : forms.DateInput(attrs={"class": "form-control", "type": "date"}),
+            "dob": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
+            "resume": forms.FileInput(attrs={"class": "form-control"}),
             "skills": forms.TextInput(attrs={"class": "form-control"}),
             "address": forms.Textarea(attrs={"class": "form-control"}),
             "state": forms.TextInput(attrs={"class": "form-control"}),
