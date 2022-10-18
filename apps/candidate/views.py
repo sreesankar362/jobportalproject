@@ -1,52 +1,58 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
-
-from .forms import CandidateProfileForm, LatEducationForm, ExperienceForm
 from apps.accounts.verified_access import login_required  # decorator
 from django.utils.decorators import method_decorator
-from .models import CandidateProfile, SavedJobs, Experience, JobModel, JobApplication
-
+from .models import CandidateProfile, SavedJobs, Experience, JobModel, JobApplication,LatEducation
+from django.urls import reverse_lazy
+from .forms import EduFormSet, ExpFormSet, CandidateFormSet
 
 @method_decorator(login_required, name="dispatch")
-class AddCandidateView(View):
-    def get(self, request, *args, **kwargs):
+class AddCandidateView(TemplateView):
+    template_name = "jobseeker/add_candidate.html"
 
-        candidate_profile_form = CandidateProfileForm()
-        lat_education_form = LatEducationForm()
-        experience_form = ExperienceForm()
-        form = {
-            "candidate_profile_form": candidate_profile_form,
-            "lat_education_form": lat_education_form,
-            "experience_form": experience_form
-        }
-        return render(request, "jobseeker/add_candidate.html", form)
+    def get(self, *args, **kwargs):
 
-    def post(self, request, *args, **kwargs):
-        candidate_profile_form = CandidateProfileForm(request.POST, request.FILES)
-        lat_education_form = LatEducationForm(request.POST)
-        experience_form = ExperienceForm(request.POST)
-        form = {
-            "candidate_profile_form": candidate_profile_form,
-            "lat_education_form": lat_education_form,
-            "experience_form": experience_form
-        }
-        if candidate_profile_form.is_valid() and lat_education_form.is_valid() and experience_form.is_valid():
-            # saving form values
-            lat_education_form_obj = lat_education_form.save()
-            # creating candidate profile
-            candidate_profile_obj = candidate_profile_form.save(commit=False)
-            candidate_profile_obj.latest_edu = lat_education_form_obj
-            candidate_profile_obj.user = request.user
-            candidate_profile_obj.save()
-            exp = experience_form.save(commit=False)
-            candidate = candidate_profile_obj
-            exp.candidate = candidate
-            exp.save()
-            return redirect('myaccount')
+        edu_formset = EduFormSet(queryset=LatEducation.objects.none(), prefix="edu")
+        exp_formset = ExpFormSet(queryset=Experience.objects.none(), prefix="exp")
+        candidate_formset = CandidateFormSet(queryset=CandidateProfile.objects.none(), prefix="candidate")
 
+        return self.render_to_response(
+            {'edu_formset': edu_formset, 'exp_formset': exp_formset, "candidate_formset": candidate_formset})
+
+    def post(self, *args, **kwargs):
+        edu_formset = EduFormSet(self.request.POST, prefix="edu")
+        exp_formset = ExpFormSet(self.request.POST, prefix="exp")
+        candidate_formset = CandidateFormSet(self.request.POST, self.request.FILES, prefix="candidate")
+        # check post values reach back
+        print(self.request.POST)
+
+        if edu_formset.is_valid() and exp_formset.is_valid() and candidate_formset.is_valid():
+            print("***********************")
+            print(edu_formset)
+            print("&&&&&&&&&&&&&&&&&.........")
+            print(exp_formset)
+
+            lat_education_form_obj = edu_formset.save()
+            candidate_profile_objs = candidate_formset.save(commit=False)
+            exp_obj = exp_formset.save(commit=False)
+
+            for profile in candidate_profile_objs:
+                profile.user = self.request.user
+                for edu in lat_education_form_obj:
+                    profile.latest_edu = edu
+                profile.save()
+                for exp in exp_obj:
+                    exp.candidate = profile
+                    exp.save()
+
+            return redirect(reverse_lazy("myaccount"))
         else:
-            return render(request, "jobseeker/add_candidate.html", form)
+            print("Form Error")
+
+        return self.render_to_response(
+            {'edu_formset': edu_formset, 'exp_formset': exp_formset, "candidate_formset": candidate_formset})
+
 
 
 def save_job(request, *args, **kwargs):
@@ -107,24 +113,29 @@ class ViewCandidateView(View):
         return render(request, "jobseeker/candidate-profile.html", context)
 
 
-class CandidateProfileUpdateView(View):
+class CandidateProfileUpdateView(TemplateView):
+    template_name = "jobseeker/update_profile.html"
+
     def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug")
-        profile = CandidateProfile.objects.get(slug=slug)
-        form = CandidateProfileForm(instance=profile)
-        return render(request, "jobseeker/update_profile.html", {"form": form})
+        candidate_formset = CandidateFormSet(prefix="candidate", queryset=CandidateProfile.objects.filter(slug=slug))
+
+        return self.render_to_response(
+            {"candidate_formset": candidate_formset})
 
     def post(self, request, *args, **kwargs):
-        slug = kwargs.get("slug")
-        profile = CandidateProfile.objects.get(slug=slug)
-        form = CandidateProfileForm(request.POST,request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
+        candidate_formset = CandidateFormSet(self.request.POST, self.request.FILES, prefix="candidate")
+
+        if candidate_formset.is_valid():
+            candidate_formset.save()
             messages.success(request, "Your Candidate Profile has been updated")
             return redirect("myaccount")
         else:
             messages.error(request, "Error in updating")
-            return render(request, "jobseeker/profile_update.html", {"form": form})
+            return self.render_to_response(
+                {"candidate_formset": candidate_formset})
+
+
 
 
 def apply_job(request, *args, **kwargs):

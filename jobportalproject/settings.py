@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 """
 import dj_database_url
-import django_heroku
 import os
 import sys
 from pathlib import Path
@@ -33,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "1zchubhbia=ym^ye1rr7!@rbv*yx%g4fezul(@mc5p=1zat"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
@@ -166,20 +165,14 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "jobhubproject@gmail.com"
 EMAIL_HOST_PASSWORD = "iakhxbjobfisjckh"
 
-# aws
-AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
-AWS_URL = env("AWS_URL")
-AWS_S3_REGION_NAME = 'us-east-1'
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_QUERYSTRING_AUTH = False
 
 
-STATIC_URL = AWS_URL + '/static/'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIA_URL = AWS_URL + '/media/'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # sripekey
@@ -187,4 +180,3 @@ STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 
 
-django_heroku.settings(locals())
