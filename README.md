@@ -23,6 +23,11 @@
     12.Done
 
 
+Heroku Deployment
+https://medium.com/@shashankmohabia/deploying-a-django-app-to-heroku-using-github-repository-319c04a11c1a
+
+Stripe Integration
+https://www.geekinsta.com/integrate-stripe-with-django/
 
 Postgresql setting on django project
 link : https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-20-04
