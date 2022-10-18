@@ -33,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "1zchubhbia=ym^ye1rr7!@rbv*yx%g4fezul(@mc5p=1zat"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['*']
@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'apps.companyaccount',
     'apps.accounts',
     'apps.subscription',
-    'apps.candidate'
+    'apps.candidate',
+    'storages'
 
 ]
 
@@ -142,12 +143,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATIC_URL = 'static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
 
 
@@ -165,9 +166,25 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "jobhubproject@gmail.com"
 EMAIL_HOST_PASSWORD = "iakhxbjobfisjckh"
 
-# sripekey
+# aws
+AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+AWS_URL = env("AWS_URL")
+AWS_DEFAULT_ACL = None
+AWS_S3_REGION_NAME = 'us-west-2'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
 
-STRIPE_PUBLISHABLE_KEY = "pk_test_51LsNhRSBeZkgYlGWZeVlpGmXC9g1VW7cQ5pgyIgODPMzEcj98MKLTxDDBjc2npuWJlq2Xj6xvg5e9Z5YVQXrzowi00JNPTx9U6"
-STRIPE_SECRET_KEY = "sk_test_51LsNhRSBeZkgYlGWi0zDQWo74A1gsQd6hkfj9pYLICclqNUXbokZdFCsBen3xrVVSyFmBaqjKmzAimCDUjXpsdKp004bf94EPq"
+
+STATIC_URL = AWS_URL + '/static/'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIA_URL = AWS_URL + '/media/'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+# sripekey
+STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+
 
 django_heroku.settings(locals())
