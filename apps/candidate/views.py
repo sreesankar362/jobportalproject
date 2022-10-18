@@ -117,7 +117,7 @@ class CandidateProfileUpdateView(View):
     def post(self, request, *args, **kwargs):
         slug = kwargs.get("slug")
         profile = CandidateProfile.objects.get(slug=slug)
-        form = CandidateProfileForm(request.POST, instance=profile)
+        form = CandidateProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, "Your Candidate Profile has been updated")
