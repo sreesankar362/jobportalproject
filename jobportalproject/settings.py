@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 """
 import dj_database_url
-import django_heroku
+#import django_heroku
 import os
 import sys
 from pathlib import Path
@@ -55,7 +55,9 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.subscription',
     'apps.candidate',
-    'storages'
+    'storages',
+    'jquery',
+    'djangoformsetjs',
 
 ]
 
@@ -146,13 +148,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 
-# STATIC_URL = 'static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR/'media'
+MEDIA_URL = '/media/'
+#MEDIA_ROOT = BASE_DIR/'media'
 
 
 # Default primary key field type
@@ -170,22 +172,22 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 # aws
-AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
-print("AWS_ACCESS_KEY_ID:", AWS_ACCESS_KEY_ID)
-AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
-AWS_URL = env("AWS_URL")
-AWS_DEFAULT_ACL = 'public-read'
+#AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+#AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+#print("AWS_ACCESS_KEY_ID:", AWS_ACCESS_KEY_ID)
+#AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+#AWS_URL = env("AWS_URL")
+#AWS_DEFAULT_ACL = 'public-read'
 
-AWS_S3_REGION_NAME = 'us-east-1'
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_QUERYSTRING_AUTH = False
+#AWS_S3_REGION_NAME = 'us-east-1'
+#AWS_S3_SIGNATURE_VERSION = 's3v4'
+#AWS_QUERYSTRING_AUTH = False
 
 
-STATIC_URL = AWS_URL + '/static/'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIA_URL = AWS_URL + '/media/'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#STATIC_URL = AWS_URL + '/static/'
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#MEDIA_URL = AWS_URL + '/media/'
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 # sripekey
@@ -193,4 +195,4 @@ STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
