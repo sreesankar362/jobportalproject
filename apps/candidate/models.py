@@ -30,8 +30,7 @@ class CandidateProfile(models.Model):
     candidate_image = models.ImageField(
         upload_to="candidate_images",
         validators=[FileExtensionValidator(allowed_extensions=["jpg", "png", "jpeg"])],
-        null=True, blank=True,
-        default='candidate/default_image.jpg'
+        null=True, blank=True
     )
     dob = models.DateField(null=True, blank=True)
     resume = models.FileField(upload_to='resumes', null=True, blank=True)
