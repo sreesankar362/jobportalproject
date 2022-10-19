@@ -1,17 +1,25 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
-from .forms import EduFormSet, ExpFormSet, CandidateFormSet
-from apps.accounts.verified_access import login_required  # decorator
 from django.utils.decorators import method_decorator
-from .models import CandidateProfile, SavedJobs, Experience, JobModel, JobApplication,LatEducation
 from django.urls import reverse_lazy
+
+
+from .forms import EduFormSet, ExpFormSet, CandidateFormSet
+from apps.accounts.verified_access import login_required  # class auth decorator
+from .models import CandidateProfile, SavedJobs, Experience, JobModel, JobApplication, LatEducation
+
 
 @method_decorator(login_required, name="dispatch")
 class AddCandidateView(TemplateView):
+    """Candidate/Job Seeker Profile is addes once login happens.
+    Here all the date taken as formset with prefixes
+    and store in db with adding user/instance datas.
+    """
     template_name = "jobseeker/add_candidate.html"
 
     def get(self, *args, **kwargs):
+        """Three formsets are transferred to jobseeker/add_candidate.html with unique prefixes"""
 
         edu_formset = EduFormSet(queryset=LatEducation.objects.none(), prefix="edu")
         exp_formset = ExpFormSet(queryset=Experience.objects.none(), prefix="exp")
@@ -21,39 +29,36 @@ class AddCandidateView(TemplateView):
             {'edu_formset': edu_formset, 'exp_formset': exp_formset, "candidate_formset": candidate_formset})
 
     def post(self, *args, **kwargs):
+        """Data received here with unique prefixes,accessed with respective formsets
+        and validity of forms checked and saved.
+        """
         edu_formset = EduFormSet(self.request.POST, prefix="edu")
         exp_formset = ExpFormSet(self.request.POST, prefix="exp")
         candidate_formset = CandidateFormSet(self.request.POST, self.request.FILES, prefix="candidate")
-        # check post values reach back
-        print(self.request.POST)
+        print(self.request.POST) # checking the post data received.
 
         if edu_formset.is_valid() and exp_formset.is_valid() and candidate_formset.is_valid():
-            print("***********************")
-            print(edu_formset)
-            print("&&&&&&&&&&&&&&&&&.........")
-            print(exp_formset)
-
             lat_education_form_obj = edu_formset.save()
-            candidate_profile_objs = candidate_formset.save(commit=False)
+            candidate_profile_objs = candidate_formset.save(commit=False) # need to insert some fields before committing
             exp_obj = exp_formset.save(commit=False)
 
             for profile in candidate_profile_objs:
                 profile.user = self.request.user
                 for edu in lat_education_form_obj:
                     profile.latest_edu = edu
-                    break # Only first value storing in DB
+                    break  # Only first value storing in DB since no user field for 'latest_edu'
                 profile.save()
                 for exp in exp_obj:
-                    exp.candidate = profile
+                    exp.candidate = profile # Here the candidate field holds the full profile.
                     exp.save()
 
             return redirect(reverse_lazy("myaccount"))
         else:
             print("Form Error")
+            messages.error(self.request, "Error in AddCandidateView Form ")
 
         return self.render_to_response(
             {'edu_formset': edu_formset, 'exp_formset': exp_formset, "candidate_formset": candidate_formset})
-
 
 
 def save_job(request, *args, **kwargs):
@@ -85,6 +90,7 @@ def unsave_job(request, *args, **kwargs):
     return redirect("jobs")
 
 
+@method_decorator(login_required, name="dispatch")
 class SavedJobsView(View):
     def get(self, request, *args, **kwargs):
         try:
@@ -96,12 +102,13 @@ class SavedJobsView(View):
                 context = {
                     'savedjobsobjects': savedjobsobjects
                 }
-                return render(request,'jobseeker/saved_jobs.html', context)
+                return render(request, 'jobseeker/saved_jobs.html', context)
         except:
             messages.error(request, "Please add your profile ")
             return redirect('myaccount')
 
 
+@method_decorator(login_required, name="dispatch")
 class ViewCandidateView(View):
     def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug")
@@ -114,6 +121,7 @@ class ViewCandidateView(View):
         return render(request, "jobseeker/candidate-profile.html", context)
 
 
+@method_decorator(login_required, name="dispatch")
 class CandidateProfileUpdateView(TemplateView):
     template_name = "jobseeker/update_profile.html"
 
@@ -137,8 +145,6 @@ class CandidateProfileUpdateView(TemplateView):
                 {"candidate_formset": candidate_formset})
 
 
-
-
 def apply_job(request, *args, **kwargs):
     job_id = kwargs.get("job_id")
     job = JobModel.objects.get(id=job_id)
@@ -149,6 +155,7 @@ def apply_job(request, *args, **kwargs):
     return redirect('jobs')
 
 
+@method_decorator(login_required, name="dispatch")
 class JobApplicationView(View):
     def get(self, request, *args, **kwargs):
         try:
