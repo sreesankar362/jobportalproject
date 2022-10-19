@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 """
 import dj_database_url
-#import django_heroku
+import django_heroku
 import os
 import sys
 from pathlib import Path
@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'apps.subscription',
     'apps.candidate',
     'storages',
-    'jquery',
+    # 'jquery',
     'djangoformsetjs',
 
 ]
