@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from .models import CandidateProfile, SavedJobs, Experience, JobModel, JobApplication,LatEducation
 from django.urls import reverse_lazy
 
+
 @method_decorator(login_required, name="dispatch")
 class AddCandidateView(TemplateView):
     template_name = "jobseeker/add_candidate.html"
@@ -53,7 +54,6 @@ class AddCandidateView(TemplateView):
 
         return self.render_to_response(
             {'edu_formset': edu_formset, 'exp_formset': exp_formset, "candidate_formset": candidate_formset})
-
 
 
 def save_job(request, *args, **kwargs):
@@ -135,8 +135,6 @@ class CandidateProfileUpdateView(TemplateView):
             messages.error(request, "Error in updating")
             return self.render_to_response(
                 {"candidate_formset": candidate_formset})
-
-
 
 
 def apply_job(request, *args, **kwargs):

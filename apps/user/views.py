@@ -25,9 +25,8 @@ class RegistrationView(View):
             messages.success(self.request, "Registered as a Job Seeker")
             return redirect('login')
         else:
-            print("Error..................................")
-            messages.error(self.request, "Error in Registration")
-            return render(request, "home/home.html")
+            messages.error(self.request, "Registration Failed")
+            return render(request, "jobseeker/registration.html", context={"form": form})
 
 
 class LogInView(View):
@@ -45,19 +44,18 @@ class LogInView(View):
                 print("logged In Successfully")
                 if user.role == 2:
                     login(request, user)
-                    messages.success(request, "Welcome to your Dashboard")
                     return redirect('myaccount')
                 else:
                     messages.info(request, "Credentials did not match with user account")
                     return redirect("company-login")
             else:
-                messages.error(request, "No such User")
+                messages.error(request, "Invalid Credentials")
                 print("No such User")
         else:
             messages.error(request, "Error in Form")
             print("Form Error")
 
-        return render(request, "jobseeker/registration.html", {"form": form})
+        return render(request, "jobseeker/login.html", context={"form": form})
 
 
 @method_decorator(login_required, name="dispatch")

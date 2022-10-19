@@ -103,7 +103,6 @@ class LogInView(View):
             if user is not None:
                 if user.role == 1:
                     login(request, user)
-                    messages.info(request, "Your are logged in")
                     return redirect('company-dash')
                 else:
                     messages.info(request, "Credentials did not match with Company account")
@@ -118,7 +117,7 @@ class LogInView(View):
                     messages.error(request, "Invalid Credentials")
                     return render(request, "company/login.html", context={"form": form})
 
-        return render(request, "registration.html")
+        return render(request, "company/registration.html", form)
 
 
 @method_decorator(login_company_required, name="dispatch")

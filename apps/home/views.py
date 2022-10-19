@@ -17,14 +17,17 @@ from .filters import JobListingFilter
 def handler400(request, exception):
     return render(request,'error_handler/error_400.html', status=400)
 
+
 def handler403(request, exception):
-    return render(request,'error_handler/error_403.html', status=403)
+    return render(request, 'error_handler/error_403.html', status=403)
+
 
 def handler404(request, exception):
-    return render(request,'error_handler/error_404.html', status=404)
+    return render(request, 'error_handler/error_404.html', status=404)
+
 
 def handler500(request):
-    return render(request,'error_handler/error_500.html', status=500)
+    return render(request, 'error_handler/error_500.html', status=500)
 
 
 class HomeView(TemplateView):
@@ -42,7 +45,7 @@ class JobListingView(TemplateView):
     def get(self, request):
         search_form = JobSearchForm
         all_jobs = JobModel.objects.filter().order_by("-published_date")
-        joblistingfilter = JobListingFilter(request.GET, queryset = all_jobs)
+        joblistingfilter = JobListingFilter(request.GET, queryset=all_jobs)
 
         saved_jobs = None
         try:
@@ -51,7 +54,7 @@ class JobListingView(TemplateView):
                 saved_jobs = []
                 for sj in saved_job_obj:
                     saved_jobs.append(sj.job)
-        except:
+        except :
             pass
         context = {
             
@@ -119,7 +122,7 @@ class JobModelView(FormView):
 class JobDetailView(TemplateView):
     template_name = "home/job_detail.html"
 
-    def get(self, request, *args,**kwargs):
+    def get(self, request, *args, **kwargs):
         job_id = kwargs.get("pk")
         print(job_id)
         job = JobModel.objects.get(id=job_id)

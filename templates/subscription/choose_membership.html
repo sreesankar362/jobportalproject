@@ -23,7 +23,7 @@
             {% if mem %}
             {% for membership in mem %}
                     <div class="col-lg-3" style="width:330px;">
-                        <div class="card mt-2 mb-5  " style="border-radius:0%;">
+                        <div class="card mt-2 mb-3  " style="border-radius:0%;">
                             <div class="card-body m-3">
 
                                 <h3 style="color:#6c8eff" class="text-center text-info">{{membership.membership_days}} Days</h3>
@@ -50,13 +50,16 @@
                         </div>
 
                     </div>
+
             {% endfor %}
+{% if is_subscribed %}<h5 class="text-center text-danger" ><i class="fa-solid fa-circle-info"></i> Your Subscription is Already Active. </h5>{% endif %}
+
             {% else %}
                     <div class="col-sm-5 col-md-3 col-l-3" >
                         <div class="card mt-2 mb-4" style="border-radius:0%;width:300px;">
                             <div class="card-body m-3">
 
-                                <h6 class="text-center text-danger">No Membership Available</h6>
+                                <h6 class="text-center text-danger">No Plans Available Now</h6>
                                 <p class="text-center">
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi blanditiis consectetur cum distinctio,
                                     minus natus neque non optio quibusdam quidem quos reprehenderit, repudiandae tempore tenetur veniam
