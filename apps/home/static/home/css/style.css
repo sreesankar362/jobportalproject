@@ -3,11 +3,10 @@
 .navbar{
     background-color: #6c8eff;
     height: 90px;
-    z-index:200;
 }
 
 .nav-item a{
-    font-size:18px;
+    font-size:16px;
     color: white;
     background-color: #6c8eff;
 }
@@ -22,7 +21,7 @@
 
 #leftrightspace{
     margin-left: 10%;
-    margin-right:10%;
+
 }
 #leftrightspace h2{
     color: white;
@@ -33,6 +32,7 @@
 
     background-color: rgb(230, 230, 230);
     padding-top: 3%;
+
 }
 
 .buttons-navbar{
