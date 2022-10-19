@@ -1,41 +1,39 @@
-from .models import CandidateProfile, LatEducation, Experience, JobApplication
-from django import forms
+from .models import CandidateProfile, LatEducation, Experience
+from django.forms import modelformset_factory, DateInput, TextInput, NumberInput,FileInput,ClearableFileInput
 
 
-class DateInput(forms.DateInput):
+class DateInput(DateInput):
     input_type = 'date'
 
 
-class CandidateProfileForm(forms.ModelForm):
-    dob = forms.DateField(widget=DateInput())
+EduFormSet = modelformset_factory(
+    LatEducation, fields=("qualification","institute","university","percent","passed_year"), extra=1, widgets={
+        "qualification": TextInput(attrs={"class": "form-control"}),
+        "institute": TextInput(attrs={"class": "form-control"}),
+        "university": TextInput(attrs={"class": "form-control"}),
+        "percent": NumberInput(attrs={"class": "form-control"}),
+        "passed_year": NumberInput(attrs={"class": "form-control"}),
+    }
+)
+ExpFormSet = modelformset_factory(
+    Experience, fields=("experience_field", "job_position", "company", "experience_describe", "start_date", "end_date"),
+    extra=1, widgets={
+        "start_date": DateInput(attrs={"class": "form-control", "type": "date"}),
+        "end_date": DateInput(attrs={"class": "form-control", "type": "date"}),
+        "experience_field": TextInput(attrs={"class": "form-control"}),
+        "job_position": TextInput(attrs={"class": "form-control"}),
+        "company": TextInput(attrs={"class": "form-control"}),
 
-    class Meta:
-        model = CandidateProfile
-        fields = ["candidate_image", "summary", "dob", "resume", "skills", "address", "state", "country",
-                  "languages_known"]
-        # exclude = ("user", "latest_edu", "experience",)
-        widgets = {
-            "summary": forms.Textarea(attrs={"class": "form-control"}),
-            "dob" : forms.DateInput(attrs={"class": "form-control", "type": "date"}),
-            "skills": forms.TextInput(attrs={"class": "form-control"}),
-            "address": forms.Textarea(attrs={"class": "form-control"}),
-            "state": forms.TextInput(attrs={"class": "form-control"}),
-            "country": forms.Select(attrs={"class": "form-select"}),
-            "languages_known": forms.TextInput(attrs={"class": "form-control"}),
-        }
+    }
+)
+CandidateFormSet = modelformset_factory(
+    CandidateProfile, fields=("candidate_image", "summary", "dob", "resume", "skills", "address", "state", "country",
+                              "languages_known"), extra=1,
+    widgets={"dob": DateInput(attrs={"class": "form-control", "type": "date"}),
+             "skills": TextInput(attrs={"class": "form-control"}),
+             "state": TextInput(attrs={"class": "form-control"}),
+             "resume": ClearableFileInput(attrs={"class": "form-control"}),
+             "languages_known": TextInput(attrs={"class": "form-control"}),
 
-
-class LatEducationForm(forms.ModelForm):
-    class Meta:
-        model = LatEducation
-        fields = "__all__"
-
-
-class ExperienceForm(forms.ModelForm):
-    start_date = forms.DateField(widget=DateInput())
-    end_date = forms.DateField(widget=DateInput())
-
-    class Meta:
-        model = Experience
-        exclude = ('candidate', 'exp_duration',)
-
+             }
+)

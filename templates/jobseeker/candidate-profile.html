@@ -7,24 +7,92 @@
     <div class="container" style="padding:90px;">
 
         <div class="row">
-            <div class="card ">
-                <img src={{can.candidate_image.url}} class="rounded mx-auto d-block mt-3" width="200" height="200" alt="...">
-                <h6 class="card-body">Name:<a>{{request.user.username}}</a></h6>
-                <h6 class="card-body">Email ID: {{can.user.email}}</h6>
-                <h6 class="card-body">Date Of Birth : {{can.dob}}</h6>
+            <div class="card ms-5 ">
+                <img src={{can.candidate_image.url}} class="rounded mx-auto d-block mt-3" width="200" height="200"
+                     alt="...">
+                <div class="card-header">
+                    Name :
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5"><a>{{request.user.username}}</a></li>
+                </ul>
+                                <div class="card-header">
+                    Email ID :
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5">{{can.user.email}}</li>
+                </ul>
+                                <div class="card-header">
+                    Date Of Birth :
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5">{{can.dob}}</li>
+                </ul>
 
-                                        {% for exps in exp %}
+                <div class="card-header">
+                    Education:
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5">Qualification:{{can.latest_edu.qualification}}</li>
+                    <li class="list-group-item ps-5">Institute:{{can.latest_edu.institute}}</li>
+                    <li class="list-group-item ps-5">University:{{can.latest_edu.university}}</li>
+                    <li class="list-group-item ps-5">Percent:{{can.latest_edu.percent}}</li>
+                    <li class="list-group-item ps-5">Passed_Year:{{can.latest_edu.passed_year}}</li>
+                </ul>
 
-                <h6 class="card-body">Latest Experience Field : {{exps.experience_field}}</h6>
-                                         {% endfor %}
 
-                <h6 class="card-body">Bio : {{can.summary}}</h6>
-                <h6 class="card-body">Languages Known : {{can.languages_known}}</h6>
-                <h6 class="card-body">Skills : {{can.skills}}</h6>
-                <h6 class="card-body">Address : {{can.address}}</h6>
-                <h6 class="card-body">Country : {{can.country}}</h6>
-                <h6 class="card-body">State : {{can.state}}</h6>
-                <div class="card-body">
+                {% for element in exp %}
+                <div class="card-header">
+                    Experience:
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5">{{element.experience_field}}</li>
+                    <li class="list-group-item ps-5">{{element.job_position}}</li>
+                    <li class="list-group-item ps-5">{{element.company}}</li>
+                    <li class="list-group-item ps-5">{{element.experience_describe}}</li>
+                    <li class="list-group-item ps-5">{{element.start_date}}</li>
+                    <li class="list-group-item ps-5">{{element.end_date}}</li>
+                    {% endfor %}
+                </ul>
+                <div class="card-header">
+                    Bio:
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5">{{can.summary}}</li>
+                </ul>
+                <div class="card-header">
+                    Languages Known :
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5">{{can.languages_known}}</li>
+                </ul>
+                <div class="card-header">
+                    Skills:
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5">{{can.skills}}</li>
+                </ul>
+                <div class="card-header">
+                    Address :
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5">{{can.address}}</li>
+                </ul>
+                <div class="card-header">
+                    Country:
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5">{{can.country}}</li>
+                </ul>
+                <div class="card-header">
+                    State :
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ps-5">{{can.state}}</li>
+                </ul>
+
+
+                <div class="card-body mt-5 mb-5">
                     <a href="{%url 'myaccount'%}" class="card-link btn btn-danger">Back</a>
                 </div>
             </div>

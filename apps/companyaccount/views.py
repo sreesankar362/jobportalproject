@@ -48,6 +48,16 @@ class CompanyRegistrationView(View):
             company = CompanyProfile(user=user_obj, company_name=company_name)
             company.save()
             company_activation_mail(request, user_obj, company_user_form)
+
+            subject = 'Welcome to JOBHUB!'
+            message = 'Dear User,\n' \
+                      'Thank you for joining JOBHUB. Your account has been registered.' \
+                      'We are excited to have you on board and looking forward to help you.\n' \
+                      'Thanks and Regards,\n' \
+                      'Team JOBHUB'
+            recipient = company_user_form.cleaned_data.get('email')
+            send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+
             return redirect("company-login")
         else:
             messages.error(request, "Invalid credentials")

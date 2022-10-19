@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "1zchubhbia=ym^ye1rr7!@rbv*yx%g4fezul(@mc5p=1zat"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,6 +42,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +55,9 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.subscription',
     'apps.candidate',
-    'storages'
+    'storages',
+    # 'jquery',
+    'djangoformsetjs',
 
 ]
 
@@ -70,6 +73,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'jobportalproject.urls'
+
 
 TEMPLATES = [
     {
@@ -95,6 +99,7 @@ AUTH_USER_MODEL = 'accounts.User'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql',
@@ -105,6 +110,7 @@ DATABASES = {
          'PORT': '5432',
      }
  }
+
 
 
 # Password validation
@@ -143,13 +149,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 
-# STATIC_URL = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATIC_URL = 'static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR/'media'
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = BASE_DIR/'media'
 
 
 # Default primary key field type
@@ -162,18 +168,19 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-# EMAIL_HOST_USER = env("EMAIL_HOST_USER"),
-EMAIL_HOST_USER = "jobhubproject@gmail.com"
-EMAIL_HOST_PASSWORD = "iakhxbjobfisjckh"
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 # aws
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
 AWS_URL = env("AWS_URL")
-AWS_DEFAULT_ACL = None
-AWS_S3_REGION_NAME = 'us-west-2'
+AWS_DEFAULT_ACL = 'public-read'
+
+AWS_S3_REGION_NAME = 'us-east-1'
 AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_QUERYSTRING_AUTH = False
 
 
 STATIC_URL = AWS_URL + '/static/'
