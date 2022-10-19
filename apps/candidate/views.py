@@ -1,9 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
+
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-
 
 from .forms import EduFormSet, ExpFormSet, CandidateFormSet
 from apps.accounts.verified_access import login_required  # class auth decorator
@@ -29,19 +29,19 @@ class AddCandidateView(TemplateView):
             {'edu_formset': edu_formset, 'exp_formset': exp_formset, "candidate_formset": candidate_formset})
 
     def post(self, *args, **kwargs):
+
         """Data received here with unique prefixes,accessed with respective formsets
         and validity of forms checked and saved.
         """
         edu_formset = EduFormSet(self.request.POST, prefix="edu")
         exp_formset = ExpFormSet(self.request.POST, prefix="exp")
         candidate_formset = CandidateFormSet(self.request.POST, self.request.FILES, prefix="candidate")
-        print(self.request.POST) # checking the post data received.
+        print(self.request.POST)  # checking the post data received.
 
         if edu_formset.is_valid() and exp_formset.is_valid() and candidate_formset.is_valid():
             lat_education_form_obj = edu_formset.save()
-            candidate_profile_objs = candidate_formset.save(commit=False) # need to insert some fields before committing
+            candidate_profile_objs = candidate_formset.save(commit=False)  # need to insert some fields before committing
             exp_obj = exp_formset.save(commit=False)
-
             for profile in candidate_profile_objs:
                 profile.user = self.request.user
                 for edu in lat_education_form_obj:
@@ -49,7 +49,7 @@ class AddCandidateView(TemplateView):
                     break  # Only first value storing in DB since no user field for 'latest_edu'
                 profile.save()
                 for exp in exp_obj:
-                    exp.candidate = profile # Here the candidate field holds the full profile.
+                    exp.candidate = profile  # Here the candidate field holds the full profile.
                     exp.save()
 
             return redirect(reverse_lazy("myaccount"))
@@ -122,6 +122,7 @@ class ViewCandidateView(View):
 
 
 @method_decorator(login_required, name="dispatch")
+
 class CandidateProfileUpdateView(TemplateView):
     template_name = "jobseeker/update_profile.html"
 
@@ -143,7 +144,6 @@ class CandidateProfileUpdateView(TemplateView):
             messages.error(request, "Error in updating")
             return self.render_to_response(
                 {"candidate_formset": candidate_formset})
-
 
 def apply_job(request, *args, **kwargs):
     job_id = kwargs.get("job_id")
