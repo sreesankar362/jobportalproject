@@ -1,35 +1,121 @@
 {% extends 'common_html/base.html' %}
+{% load static %}
+{% load formset_tags %}
 
 {% block content %}
 <div style="background-color:#F1F1F1">
-
-
-    <div class="container" style="padding:100px;">
-        <div class="row ">
-            <div class="col-3"></div>
-            <div class="col-6 card border">
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 card">
                 <div class="card-body">
-                    <h2>My Profile</h2>
-                    <form action="" class="mt-5" method="post" enctype="multipart/form-data">
-                        {%csrf_token%}
-                        <table>
+                    <h3 class="card-title mb-5 mt-3 p-3 bg-info text-dark" align="center">My Profile</h3>
+                    <h6 class="card-subtitle mb-5 text-muted">Basic Info</h6>
+                    <form id="form-container" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
 
-                            {{candidate_profile_form.as_table}}
-                            {{lat_education_form.as_table}}
-                            {{experience_form.as_table}}
+                        <div id="candidate_formset" data-formset-prefix="{{ candidate_formset.prefix }}">
+                            {{ candidate_formset.management_form }}
+                            <div data-formset-body>
+                                <!-- New forms will be inserted in here -->
+                                {% for form in candidate_formset %}
+                                <div data-formset-form>
+                                    <table>
+                                        {{ form }}
+                                    </table>
+                                </div>
+                                {% endfor %}
+                            </div>
 
-                        </table>
-
-                        <div class="mb-3 mt-3">
-                            <button type="submit" class="btn btn-info form-control">Add</button>
                         </div>
+                        <h6 class="card-subtitle mb-5 mt-5 text-muted">Education Details</h6>
+                        <div id="edu_formset" data-formset-prefix="{{ edu_formset.prefix }}">
+
+                            {{ edu_formset.management_form }}
+
+                            <div data-formset-body>
+                                <!-- New forms will be inserted in here -->
+                                {% for form in edu_formset %}
+                                <div data-formset-form>
+                                    <table>
+                                        {{ form }}
+                                    </table>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <script type="form-template" data-formset-empty-form>
+                                {% escapescript %}
+                                <div data-formset-form>
+                                    {{ edu_formset.empty_form }}
+                                </div>
+                                {% endescapescript %}
+                            </script>
+
+                            <!-- This button will add a new form when clicked -->
+                            <input type="button" value="Add More" data-formset-add class="btn btn-warning mt-4 mb-4">
+
+                            <script>jQuery(function($) {
+        $("#edu_formset").formset({
+            animateForms: true
+        });
+    });
+
+
+
+                            </script>
+
+                        </div>
+                        <h6 class="card-subtitle mb-5 mt-5 text-muted">Experience Details</h6>
+                        <div id="exp_formset" data-formset-prefix="{{ exp_formset.prefix }}">
+                            {{ exp_formset.management_form }}
+
+                            <div data-formset-body>
+                                <!-- New forms will be inserted in here -->
+                                {% for form in exp_formset %}
+                                <div data-formset-form>
+                                    <table>
+                                        {{ form }}
+                                    </table>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <script type="form-template" data-formset-empty-form>
+                                {% escapescript %}
+                                <div data-formset-form>
+                                    {{ exp_formset.empty_form }}
+                                </div>
+                                {% endescapescript %}
+                            </script>
+
+                            <!-- This button will add a new form when clicked -->
+                            <input type="button" value="Add More" data-formset-add class="btn btn-warning mt-4 mb-4">
+
+                            <script>jQuery(function($) {
+        $("#exp_formset").formset({
+            animateForms: true
+        });
+    });
+
+
+                            </script>
+
+                        </div>
+
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button class="btn btn-success mt-4 mb-5 " type="submit">SUBMIT</button>
+                        </div>
+
                     </form>
                 </div>
-
             </div>
-            <div class="col-3"></div>
+            <div class="col-2"></div>
         </div>
     </div>
-</div>
 
+</div>
 {% endblock %}
