@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 """
 import dj_database_url
-#import django_heroku
+import django_heroku
 import os
 import sys
 from pathlib import Path
@@ -193,4 +193,5 @@ STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 
 
-#django_heroku.settings(locals())
+
+django_heroku.settings(locals())
