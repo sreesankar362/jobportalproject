@@ -203,7 +203,10 @@ class CompanyProfileView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["company_data"] = CompanyProfile.objects.filter(user=self.request.user)
+        company = CompanyProfile.objects.filter(user=self.request.user)
+        context["company_data"] = company
+        context["company_logo"] = company.company_logo.exist()
+        print(company.company_logo)
         return context
 
 
