@@ -24,6 +24,13 @@ from django.conf import settings
 
 
 class CompanyRegistrationView(View):
+    """
+    Company users can register to jobhub
+    This class takes company name from CompanyRegistrationForm and user details from RegistrationForm
+    Creates a Company profile and sends activation mail
+    Sends welcome mail to company's email from jobhub's email after successful registration and redirects to login page
+    """
+
     def get(self, request, *args, **kwargs):
         company_form = CompanyRegistrationForm()
         company_user_form = RegistrationForm()
@@ -208,7 +215,8 @@ class CompanyProfileView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["company_data"] = CompanyProfile.objects.filter(user=self.request.user)
+        company = CompanyProfile.objects.filter(user=self.request.user)
+        context["company_data"] = company
         return context
 
 

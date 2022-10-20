@@ -18,7 +18,6 @@ def handler400(request, exception):
     return render(request, 'error_handler/error_400.html', status=400)
 
 
-
 def handler403(request, exception):
     return render(request, 'error_handler/error_403.html', status=403)
 
@@ -122,16 +121,13 @@ def search(request):
 @method_decorator(login_company_required, name="dispatch")
 class JobModelView(FormView):
     """
-<<<<<<< HEAD
     this class enables the company to post a job after the company approval and successful subscription on
     clicking the 'Post Job' tab
 
     in case any one of the condition is not satisfied company will be redirected to the dashboard
-
     on successful post application a success message will be rendered.
-=======
+
     Allows company to post jobs if the company is approved by admin and subscribed to job hub plans.
->>>>>>> main
     """
     template_name = 'post_job.html'
     form_class = JobModelForm
@@ -163,6 +159,11 @@ class JobModelView(FormView):
 
 
 class JobDetailView(TemplateView):
+    """
+    User can view the details of a particular job.
+    All the applied jobs are collected in a list and taken as context.
+    Returns a template with job details.
+    """
     template_name = "home/job_detail.html"
 
     def get(self, request, *args, **kwargs):
@@ -187,6 +188,11 @@ class AboutUsView(TemplateView):
 
 
 class EnquiryView(FormView):
+    """
+    To contact jobhub team if user has any query.
+    Renders an enquiry template where query message and details can be added.
+    Sends mail with query details to jobhub's email and redirects to home page.
+    """
     template_name = 'home/enquiry.html'
     form_class = EnquiryForm
 

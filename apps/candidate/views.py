@@ -144,6 +144,11 @@ class ViewCandidateView(View):
 
 @method_decorator(login_required, name="dispatch")
 class CandidateProfileUpdateView(TemplateView):
+    """
+    Candidates can update their profile
+    Displays update profile template where they can update neccesary fields
+    Returns a success message after updation and redirects to dashboard
+    """
     template_name = "jobseeker/update_profile.html"
 
     def get(self, request, *args, **kwargs):
@@ -168,6 +173,12 @@ class CandidateProfileUpdateView(TemplateView):
 
 
 def apply_job(request, *args, **kwargs):
+    """
+    Candidate can apply for a job.
+    This function creates a job application taking candidate profile & job.
+    Displays disabled Applied button after job is applied.
+    Returns a success message after job is applied and redirects to job listing page.
+    """
     job_id = kwargs.get("job_id")
     job = JobModel.objects.get(id=job_id)
     slug = kwargs.get("slug")
