@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from accounts.models import User,UserManager
+from apps.accounts.models import User,UserManager
 
 
 class TestUserModel(TestCase):
@@ -36,6 +36,7 @@ class TestUserModel(TestCase):
         elif role == 2:
             role = 'Jobseeker'
         self.assertEqual(role,self.user.get_role())
+
 
 class TestUserManager(TestCase):
     def setUp(self) -> None:

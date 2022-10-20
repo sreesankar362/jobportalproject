@@ -24,6 +24,13 @@ from django.conf import settings
 
 
 class CompanyRegistrationView(View):
+    """
+    Company users can register to jobhub
+    This class takes company name from CompanyRegistrationForm and user details from RegistrationForm
+    Creates a Company profile and sends activation mail
+    Sends welcome mail to company's email from jobhub's email after successful registration and redirects to login page
+    """
+
     def get(self, request, *args, **kwargs):
         company_form = CompanyRegistrationForm()
         company_user_form = RegistrationForm()
@@ -69,6 +76,12 @@ class CompanyRegistrationView(View):
 
 
 def activate(request, uidb64, token):
+    """
+    verifying token send to registered company email.
+
+    if token is valid setting is_active status of user to true and is_activated, is_mail_verified
+    status of company profile to True.Then only company can login.
+    """
     User = get_user_model()
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -103,7 +116,6 @@ class LogInView(View):
             if user is not None:
                 if user.role == 1:
                     login(request, user)
-                    messages.info(request, "Your are logged in")
                     return redirect('company-dash')
                 else:
                     messages.info(request, "Credentials did not match with Company account")
@@ -118,7 +130,7 @@ class LogInView(View):
                     messages.error(request, "Invalid Credentials")
                     return render(request, "company/login.html", context={"form": form})
 
-        return render(request, "registration.html")
+        return render(request, "company/registration.html", form)
 
 
 @method_decorator(login_company_required, name="dispatch")

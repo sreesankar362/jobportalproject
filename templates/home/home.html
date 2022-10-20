@@ -9,18 +9,18 @@
 <div class=" search-div  bg-primary" style="background-image: url({% static 'home/images/h1_hero.jpg' %} );">
         <div class="container ">
             <div class="row">
-                <div class="col-sm-12 col-md-12 ">
+                <div class="col-lg-12 col-md-12 ">
                         <div class="caption ">
                             <div class="hero__caption">
                                 <h1 class="text-center">Finding the best jobs for You</h1>
                             </div>
                         </div>
                     <!-- Search Box -->
-                        <form action="{% url 'search' %}">
+                        <form action="{% url 'jobs' %}">
                             <div class="search row d-flex justify-content-center">
-                                <div class="inpt col-lg-7 col-md-12 col-sm-12 mb-4">
+                                {% comment %} <div class="inpt col-lg-7 col-md-12 col-sm-12 mb-4">
                                     <input style="border-radius:0%;" type="text" class="searchbar form-control col-sm-6" name="keyword" placeholder="Job Tittle or keyword ">
-                                </div>
+                                </div> {% endcomment %}
                                 <div class="inpt col-lg-3 col-md-12 col-sm-12 ">
                                     <button style="border-radius:0%;" type="submit" class="searchbar-2 form-control btn btn-primary">Search
                                         <i class="fa fa-search "></i>
@@ -41,7 +41,7 @@
     <hr>
     <div class=" row d-flex justify-content-center">
 
-        <div class="div col-sm-9 mt-2 mb-2"><!-- job card -->
+        <div class="div col-9 mt-2 mb-2"><!-- job card -->
 
         {% for job in latest_jobs %}
 
@@ -64,8 +64,8 @@
 
                                 <div class=" right-details mt-6">
                                     <p><i class="fa-regular fa-clock"></i> {{job.job_type}} </p>
-                                    <p><i class="fa-solid fa-briefcase">  </i> Experience - {{job.experience}}</p>
-                                    <p><i class="fa-solid fa-building"></i>{{ job.work_type }}</p>
+                                    <p><i class="fa-solid fa-briefcase">  </i> Experience - {{job.experience}} yrs</p>
+                                    <p><i class="fa-solid fa-building"></i>{{ job.work_type }}}</p>
                                 </div>
                             </div>
 

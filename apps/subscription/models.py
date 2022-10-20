@@ -1,6 +1,7 @@
 from django.db import models
 from apps.companyaccount.models import CompanyProfile
 from datetime import date
+import uuid
 
 
 class Membership(models.Model):
@@ -15,8 +16,9 @@ class Membership(models.Model):
 
 class Payment(models.Model):
     company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE)
-    payment_id = models.CharField(max_length=200,null=True, blank=True)
-    amount_paid = models.CharField(max_length=100,null=True, blank=True)
+    payment_id = models.CharField(max_length=200, null=True, blank=True)
+    payment_number = models.UUIDField(default=uuid.uuid4, max_length=200, null=True, blank=True)
+    amount_paid = models.CharField(max_length=100, null=True, blank=True)
     email = models.CharField(max_length=100, null=True, blank=True)
     status = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -34,4 +36,3 @@ class CompanySubscription(models.Model):
 
     def is_expired(self):
         return self.end_date < date.today()
-

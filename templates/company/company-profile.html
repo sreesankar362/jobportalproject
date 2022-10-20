@@ -8,7 +8,9 @@
         <div class="row">
             <div class="card">
                 {%for company in company_data%}
-                    <img src={{company.company_logo.url}} class="rounded mx-auto d-block" width="200" height="200"  alt="...">
+
+                <img src={{company.company_logo.url}} class="rounded mx-auto d-block" width="200" height="200"  alt="...">
+
                 <div class="card-body">
                     <h2 class="card-title">{{company.company_name}}</h2>
                     <p class="card-text">{{company.company_description}}.</p>
@@ -43,7 +45,7 @@
                 </ul>
                 {% endfor %}
                 <div class="card-body">
-                    <a href="#" class="card-link btn btn-danger">Back</a>
+                    <a href="{%url 'company-dash'%}" class="card-link btn btn-danger">Back</a>
                 </div>
             </div>
         </div>

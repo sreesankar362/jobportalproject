@@ -51,9 +51,9 @@
                     <div class="card-body">
                         <!-- Job Category Listing start -->
                         
-                            <form method = 'get'>
+                            <form method = 'get' >
                                 {{joblistingfilter.form.as_p}} <br>
-                                <input type="submit" />
+                                <button type="submit" class="btn btn-primary form-control" > Search</button>
                             </form>
                         
                         <!-- Job Category Listing End -->
@@ -93,7 +93,7 @@
 
 
                                             <div class="col-lg-3 col-md-6 text-secondary mt-4">
-                                                <p> <i class="ms-1 fa-solid fa-briefcase">  </i> {{ job.experience }} <br>
+                                                <p> <i class="ms-1 fa-solid fa-briefcase">  </i> {{ job.min_experience }} - {{ job.max_experience }} <br>
                                                 <i class="ms-1 fa-solid fa-building"></i> {{job.work_type}}</p>
                                            </div>
                                            <div class="col-lg-2 col-md-6">
@@ -114,8 +114,7 @@
 {% else %}
                                         <a href="{%url 'save-job' job.id %}"><button class="ms-auto side-btn2 "> Save <i class="fa-regular fa-bookmark bookmark-icon"></i> </button></a>
 {% endif %}
-
-                                         <button class="side-btn2 " onclick="window.location.href = '{%url 'job_detail' job.id %}';"> View <i class="fa-solid fa-angle-right"> </i></button>
+                                        <button class="side-btn2 " onclick="window.location.href = '{%url 'job_detail' job.id %}';"> View <i class="fa-solid fa-angle-right"> </i></button>
                                     </div>
                                 </div>
                             </div><!-- one job card end-->
@@ -125,8 +124,6 @@
                                 <h3>No Jobs Found! </h3>
                             </div>
                         {% endif %}
-
-
             </div>
 
         </div>
