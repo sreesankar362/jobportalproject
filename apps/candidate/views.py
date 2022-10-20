@@ -40,7 +40,8 @@ class AddCandidateView(TemplateView):
 
         if edu_formset.is_valid() and exp_formset.is_valid() and candidate_formset.is_valid():
             lat_education_form_obj = edu_formset.save()
-            candidate_profile_objs = candidate_formset.save(commit=False)  # need to insert some fields before committing
+            candidate_profile_objs = candidate_formset.save(
+                commit=False)  # need to insert some fields before committing
             exp_obj = exp_formset.save(commit=False)
             for profile in candidate_profile_objs:
                 profile.user = self.request.user
@@ -144,7 +145,6 @@ class ViewCandidateView(View):
 
 
 @method_decorator(login_required, name="dispatch")
-
 class CandidateProfileUpdateView(TemplateView):
     template_name = "jobseeker/update_profile.html"
 

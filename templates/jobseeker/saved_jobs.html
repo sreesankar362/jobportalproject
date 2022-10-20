@@ -48,7 +48,6 @@
             </div>
         </div>
         <button class="btn btn-primary" onclick="location.href='{% url 'job_detail' savedjob.job.id %}';" style="width:150px;">View Job</button>
-        <button class="btn btn-primary" onclick="location.href='{% url 'unsave-job' job.id %}';" style="width:150px;">Unsave</button>
         </div><!-- one job card end-->
     {% endfor %}
     {% else %}

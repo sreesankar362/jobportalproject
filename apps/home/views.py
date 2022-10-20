@@ -53,7 +53,7 @@ def inactive_job(request, *args, **kwargs):
     if job.is_active:
         job.is_active = False
         job.save()
-        messages.success(request, "job expired")
+        messages.success(request, "job status changed")
         return redirect("postedjob")
     else:
         job.is_active = True
@@ -108,6 +108,14 @@ def search(request):
 
 @method_decorator(login_company_required, name="dispatch")
 class JobModelView(FormView):
+    """
+    this class enables the company to post a job after the company approval and successful subscription on
+    clicking the 'Post Job' tab
+
+    in case any one of the condition is not satisfied company will be redirected to the dashboard
+
+    on successful post application a success message will be rendered.
+    """
     template_name = 'post_job.html'
     form_class = JobModelForm
 
