@@ -7,7 +7,6 @@
 
 <div class="col-9 mt-4">
             <h1 class="text-secondary text-center" >SAVED JOBS</h1>
-    <hr>
 
     {% if savedjobsobjects %}
     {% for savedjob in savedjobsobjects %}
@@ -49,10 +48,10 @@
             </div>
         </div>
         <button class="btn btn-primary" onclick="location.href='{% url 'job_detail' savedjob.job.id %}';" style="width:150px;">View Job</button>
-    </div><!-- one job card end-->
+        </div><!-- one job card end-->
     {% endfor %}
     {% else %}
-    <div class="card text-center">
+    <div class="text-center">
         <h3>You haven't saved any job yet. </h3>
     </div>
     {% endif %}

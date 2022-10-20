@@ -1,5 +1,5 @@
 from datetime import date
-from django.views.generic import FormView, TemplateView,View
+from django.views.generic import FormView, TemplateView, View
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from apps.candidate.models import SavedJobs, JobApplication
@@ -15,7 +15,8 @@ from .filters import JobListingFilter
 
 
 def handler400(request, exception):
-    return render(request,'error_handler/error_400.html', status=400)
+    return render(request, 'error_handler/error_400.html', status=400)
+
 
 
 def handler403(request, exception):
@@ -44,6 +45,29 @@ class HomeView(TemplateView):
         return context
 
 
+def inactive_job(request, *args, **kwargs):
+    """
+    this function tells if a job posted by the recruiter is active or not when clicked on the 'Active'button
+    in the 'Posted Jobs' tab
+    True indicates the job is active,
+    False indicates the job got expired
+
+    this function can change the status of the job and returns a message indicating so.
+    """
+    job_id = kwargs.get("job_id")
+    job = JobModel.objects.get(id=job_id)
+    if job.is_active:
+        job.is_active = False
+        job.save()
+        messages.success(request, "job status changed")
+        return redirect("postedjob")
+    else:
+        job.is_active = True
+        job.save()
+        messages.success(request, "job status changed")
+        return redirect("postedjob")
+
+
 class JobListingView(TemplateView):
     """
     Listing all Jobs
@@ -53,10 +77,10 @@ class JobListingView(TemplateView):
     and displays the filter for searching and filtering jobs.
     """
     template_name = "home/job_listing.html"
-    
+
     def get(self, request):
         search_form = JobSearchForm
-        all_jobs = JobModel.objects.filter().order_by("-published_date")
+        all_jobs = JobModel.objects.filter().order_by("-published_date").filter(is_active=True)
         joblistingfilter = JobListingFilter(request.GET, queryset=all_jobs)
 
         saved_jobs = None
@@ -69,7 +93,7 @@ class JobListingView(TemplateView):
         except :
             pass
         context = {
-            
+
             'joblistingfilter': joblistingfilter,
             "all_jobs": all_jobs,
             "saved_jobs": saved_jobs,
@@ -95,10 +119,19 @@ def search(request):
     return render(request, "home/job_listing.html", context)
 
 
-@method_decorator(login_company_required,name="dispatch")
+@method_decorator(login_company_required, name="dispatch")
 class JobModelView(FormView):
     """
+<<<<<<< HEAD
+    this class enables the company to post a job after the company approval and successful subscription on
+    clicking the 'Post Job' tab
+
+    in case any one of the condition is not satisfied company will be redirected to the dashboard
+
+    on successful post application a success message will be rendered.
+=======
     Allows company to post jobs if the company is approved by admin and subscribed to job hub plans.
+>>>>>>> main
     """
     template_name = 'post_job.html'
     form_class = JobModelForm
@@ -182,10 +215,14 @@ class EnquiryView(FormView):
 
 class JobPostView(View):
     def get(self, request, *args, **kwargs):
+        """
+        This class lists all the jobs posted by the recruiter when clicked on 'Posted Jobs' tab
+
+        renders a html page that lists all the jobs posted by the recruiter
+        """
         if request.user.is_authenticated:
             jobs = JobModel.objects.filter(company=request.user.user)
             context = {
                 "jobs": jobs,
             }
             return render(request, "company/posted_job.html", context)
-

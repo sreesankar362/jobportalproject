@@ -38,7 +38,8 @@ class AddCandidateView(TemplateView):
 
         if edu_formset.is_valid() and exp_formset.is_valid() and candidate_formset.is_valid():
             lat_education_form_obj = edu_formset.save()
-            candidate_profile_objs = candidate_formset.save(commit=False)  # need to insert some fields before committing
+            candidate_profile_objs = candidate_formset.save(
+                commit=False)  # need to insert some fields before committing
             exp_obj = exp_formset.save(commit=False)
             for profile in candidate_profile_objs:
                 profile.user = self.request.user
@@ -60,6 +61,12 @@ class AddCandidateView(TemplateView):
 
 
 def save_job(request, *args, **kwargs):
+    """
+    This function saves the job once the candidate clicks the save button after successful login, if not will
+    be asked to log-in
+
+    returns a successfully saved message
+    """
     try:
         if request.user.is_authenticated and request.user.profile:
             candidate = request.user.profile
@@ -78,6 +85,11 @@ def save_job(request, *args, **kwargs):
 
 
 def unsave_job(request, *args, **kwargs):
+    """
+    this function unsaves the job when clicked on the unsave button
+
+    returns an unsaved successfully message and displays the save button back
+    """
     candidate = request.user.profile
     job_id = kwargs.get("job_id")
     job = JobModel.objects.get(id=job_id)
@@ -91,6 +103,12 @@ def unsave_job(request, *args, **kwargs):
 @method_decorator(login_required, name="dispatch")
 class SavedJobsView(View):
     def get(self, request, *args, **kwargs):
+        """
+        This class lists the jobs saved by the candidate in Saved Jobs
+
+        Renders a template that displays all the jobs saved by the candidate if the candidate has created a
+        profile else will be asked to complete the profile creation
+        """
         try:
             candidate = request.user.profile
             savedjobsobjects = SavedJobs.objects.filter(candidate=candidate)
@@ -109,6 +127,11 @@ class SavedJobsView(View):
 @method_decorator(login_required, name="dispatch")
 class ViewCandidateView(View):
     def get(self, request, *args, **kwargs):
+        """
+        This Class displays the profile created by the candidate when clicked on 'Profile' tab
+
+        renders a template containing candidate profile details entered by the candidate
+        """
         slug = kwargs.get("slug")
         can = CandidateProfile.objects.get(slug=slug)
         exp = Experience.objects.filter(candidate=can)
@@ -157,6 +180,12 @@ def apply_job(request, *args, **kwargs):
 @method_decorator(login_required, name="dispatch")
 class JobApplicationView(View):
     def get(self, request, *args, **kwargs):
+        """
+        This class lists all the jobs applied by the candidate when clicked on the 'My Applications' tab if the
+        candidate has completed the profile creation,else will be asked to add the profile
+
+        renders a template listing all the jobs applied by the candidate
+        """
         try:
             candidate = request.user.profile
             jobapplicationobjects = JobApplication.objects.filter(candidate=candidate)

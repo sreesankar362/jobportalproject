@@ -101,15 +101,16 @@ AUTH_USER_MODEL = 'accounts.User'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env("DATABASE_NAME"),
-        'USER': env("DATABASE_USER"),
-        'PASSWORD': env("DATABASE_PASSWORD"),
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'job_hub_db',
+         'USER': 'jobhubuser',
+         'PASSWORD': 1234,
+         'HOST': 'localhost',
+         'PORT': '5432',
+     }
+ }
+
 
 
 # Password validation
