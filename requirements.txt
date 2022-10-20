@@ -37,3 +37,5 @@ types-cryptography==3.3.23
 typing_extensions==4.4.0
 urllib3==1.26.12
 whitenoise==6.2.0
+django-jquery-js==3.1.1
+django-formset-js==0.5.0

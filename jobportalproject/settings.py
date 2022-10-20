@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'apps.subscription',
     'apps.candidate',
     'storages',
-    'jquery',
+    # 'jquery',
     'djangoformsetjs',
 
 ]
