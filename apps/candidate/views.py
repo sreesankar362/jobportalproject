@@ -106,7 +106,7 @@ class ViewCandidateView(View):
     def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug")
         can = CandidateProfile.objects.get(slug=slug)
-        exp = Experience.objects.filter(candidate=request.user.profile)
+        exp = Experience.objects.filter(candidate=can)
         context = {
             "can": can,
             "exp": exp,
@@ -120,9 +120,10 @@ class CandidateProfileUpdateView(TemplateView):
     def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug")
         candidate_formset = CandidateFormSet(prefix="candidate", queryset=CandidateProfile.objects.filter(slug=slug))
-
         return self.render_to_response(
-            {"candidate_formset": candidate_formset})
+            {
+                "candidate_formset": candidate_formset
+            })
 
     def post(self, request, *args, **kwargs):
         candidate_formset = CandidateFormSet(self.request.POST, self.request.FILES, prefix="candidate")
