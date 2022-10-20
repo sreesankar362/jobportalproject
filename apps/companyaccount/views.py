@@ -153,19 +153,19 @@ class CompanyDashboardView(View):
         return render(request, 'company/company-dashboard.html', context)
 
 
-@method_decorator(login_company_required, name="dispatch")
-class CreateCompanyProfileView(CreateView):
-    form_class = CompanyProfileForm
-    model = CompanyProfile
-    template_name = 'profile/profile-create.html'
-    success_url = reverse_lazy('company-dash')
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.company_name = self.request.user.company_name
-        self.object = form.save()
-        messages.success(self.request, "Profile Added Successfully!")
-        return super().form_valid(form)
+# @method_decorator(login_company_required, name="dispatch")
+# class CreateCompanyProfileView(CreateView):
+#     form_class = CompanyProfileForm
+#     model = CompanyProfile
+#     template_name = 'profile/profile-create.html'
+#     success_url = reverse_lazy('company-dash')
+#
+#     def form_valid(self, form):
+#         form.instance.user = self.request.user
+#         form.instance.company_name = self.request.user.company_name
+#         self.object = form.save()
+#         messages.success(self.request, "Profile Added Successfully!")
+#         return super().form_valid(form)
 
 
 @method_decorator(login_company_required, name="dispatch")
