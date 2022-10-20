@@ -40,7 +40,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["latest_jobs"] = JobModel.objects.all().order_by("-published_date")[:5]
+        context["latest_jobs"] = JobModel.objects.all().order_by("-published_date").filter(is_active=True)[:5]
         return context
 
 
@@ -225,7 +225,7 @@ class JobPostView(View):
         renders a html page that lists all the jobs posted by the recruiter
         """
         if request.user.is_authenticated:
-            jobs = JobModel.objects.filter(company=request.user.user)
+            jobs = JobModel.objects.filter(company=request.user.user).order_by('-published_date')
             context = {
                 "jobs": jobs,
             }
