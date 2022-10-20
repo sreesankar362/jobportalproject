@@ -1,10 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
-
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-
 from .forms import EduFormSet, ExpFormSet, CandidateFormSet
 from apps.accounts.verified_access import login_required  # class auth decorator
 from .models import CandidateProfile, SavedJobs, Experience, JobModel, JobApplication, LatEducation
@@ -113,7 +111,7 @@ class ViewCandidateView(View):
     def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug")
         can = CandidateProfile.objects.get(slug=slug)
-        exp = Experience.objects.filter(candidate=request.user.profile)
+        exp = Experience.objects.filter(candidate=can)
         context = {
             "can": can,
             "exp": exp,
@@ -122,16 +120,16 @@ class ViewCandidateView(View):
 
 
 @method_decorator(login_required, name="dispatch")
-
 class CandidateProfileUpdateView(TemplateView):
     template_name = "jobseeker/update_profile.html"
 
     def get(self, request, *args, **kwargs):
         slug = kwargs.get("slug")
         candidate_formset = CandidateFormSet(prefix="candidate", queryset=CandidateProfile.objects.filter(slug=slug))
-
         return self.render_to_response(
-            {"candidate_formset": candidate_formset})
+            {
+                "candidate_formset": candidate_formset
+            })
 
     def post(self, request, *args, **kwargs):
         candidate_formset = CandidateFormSet(self.request.POST, self.request.FILES, prefix="candidate")
@@ -144,6 +142,7 @@ class CandidateProfileUpdateView(TemplateView):
             messages.error(request, "Error in updating")
             return self.render_to_response(
                 {"candidate_formset": candidate_formset})
+
 
 def apply_job(request, *args, **kwargs):
     job_id = kwargs.get("job_id")

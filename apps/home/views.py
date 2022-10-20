@@ -17,17 +17,25 @@ from .filters import JobListingFilter
 def handler400(request, exception):
     return render(request,'error_handler/error_400.html', status=400)
 
+
 def handler403(request, exception):
-    return render(request,'error_handler/error_403.html', status=403)
+    return render(request, 'error_handler/error_403.html', status=403)
+
 
 def handler404(request, exception):
-    return render(request,'error_handler/error_404.html', status=404)
+    return render(request, 'error_handler/error_404.html', status=404)
+
 
 def handler500(request):
-    return render(request,'error_handler/error_500.html', status=500)
+    return render(request, 'error_handler/error_500.html', status=500)
 
 
 class HomeView(TemplateView):
+    """
+    Displays the homepage.
+
+    Takes job model objects and slicing latest 5 jobs to list as recent jobs.
+    """
     template_name = "home/home.html"
 
     def get_context_data(self, **kwargs):
@@ -37,12 +45,19 @@ class HomeView(TemplateView):
 
 
 class JobListingView(TemplateView):
+    """
+    Listing all Jobs
+
+    All jobs are listed here in their posted date order(latest comes first).
+    This view checks if the listing job is in the candidates saved jobs list
+    and displays the filter for searching and filtering jobs.
+    """
     template_name = "home/job_listing.html"
     
     def get(self, request):
         search_form = JobSearchForm
         all_jobs = JobModel.objects.filter().order_by("-published_date")
-        joblistingfilter = JobListingFilter(request.GET, queryset = all_jobs)
+        joblistingfilter = JobListingFilter(request.GET, queryset=all_jobs)
 
         saved_jobs = None
         try:
@@ -51,7 +66,7 @@ class JobListingView(TemplateView):
                 saved_jobs = []
                 for sj in saved_job_obj:
                     saved_jobs.append(sj.job)
-        except:
+        except :
             pass
         context = {
             
@@ -82,6 +97,9 @@ def search(request):
 
 @method_decorator(login_company_required,name="dispatch")
 class JobModelView(FormView):
+    """
+    Allows company to post jobs if the company is approved by admin and subscribed to job hub plans.
+    """
     template_name = 'post_job.html'
     form_class = JobModelForm
 
@@ -111,15 +129,10 @@ class JobModelView(FormView):
             return render(request, "post_job.html", {'form': form})
 
 
-# class JobDetailView(DetailView):
-#     model = JobModel
-#     context_object_name = "job"
-#     template_name = "home/job_detail.html"
-
 class JobDetailView(TemplateView):
     template_name = "home/job_detail.html"
 
-    def get(self, request, *args,**kwargs):
+    def get(self, request, *args, **kwargs):
         job_id = kwargs.get("pk")
         print(job_id)
         job = JobModel.objects.get(id=job_id)

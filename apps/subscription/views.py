@@ -11,13 +11,13 @@ from.models import Membership, Payment, CompanySubscription
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-YOUR_DOMAIN = 'https://jobhubonline.herokuapp.com'
+YOUR_DOMAIN = 'https://jobhubonline.herokuapp.com/'
 
 
 @method_decorator(login_company_required, name="dispatch")
 class Subscription(TemplateView):
     """
-    Lists all available subscriptions as cards.
+    Lists all available plans as cards.
 
     on card subscribe button click subscription id is passed to javascript function.
     checkout fn is called passing the id to fn
@@ -59,36 +59,35 @@ def create_checkout_session(request, **kwargs):
                 'name': 'Subscription',
                 'description': mem.description,
              },
-             'unit_amount': mem.price*100,
+            'unit_amount': mem.price*100,
             },
-            'quantity': 1,
+          'quantity': 1,
             }],
         mode='payment',
+        metadata={"mem_id": mem.id},
         success_url=YOUR_DOMAIN + '/subscribe/payment/success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url=YOUR_DOMAIN + '/subscribe/payment/failed',
     )
-    print("session_id",session.id)
     return JsonResponse({'id': session.id})
 
 
 def success(request, **kwargs):
     """
-    Creating company subscription & Payment
+    Creating company subscription & payment
 
     If stripe checkout is successful session id collected via url
     session is retrieved with session ID and payment details are taken to create Payment and Company Subscription.
     Success template with payment details are rendered in html .
     """
     if "session_id" in request.GET:
+
         session_id = request.GET['session_id']
-
         session = stripe.checkout.Session.retrieve(session_id)
-
-        amount = session.amount_total/100
+        mem_id = session.metadata["mem_id"]
         email = session.customer_details["email"]
         name = session.customer_details["name"]
 
-        membership = Membership.objects.get(price=amount)
+        membership = Membership.objects.get(id=mem_id)
         payment = Payment(company=request.user.user,
                           payment_id=session.payment_intent,
                           amount_paid=membership.price,
@@ -107,7 +106,7 @@ def success(request, **kwargs):
         context = {
             "payment": payment,
             "session": session,
-            "amount": amount,
+            "amount": membership.price,
             "email": email,
             "name": name
         }
