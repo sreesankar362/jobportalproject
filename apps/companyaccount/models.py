@@ -1,14 +1,24 @@
+import os
+import time
 from django.db import models
 from apps.accounts.models import User
 from django.core.validators import FileExtensionValidator
 from.utils import send_approve_notification
 
 
+def get_upload_path(instance, filename):
+    epoch_time = str((time.time()))
+    filename, file_extension = os.path.splitext(filename)
+    final_filename = f"{instance.id}_{epoch_time}_{file_extension}"
+    final_path = os.path.join("company_images/%s" % type, final_filename)
+    return final_path
+
+
 class CompanyProfile(models.Model):
     user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE)
     company_name = models.CharField(max_length=100, blank=False)
     company_logo = models.ImageField(
-        upload_to="company_images",
+        upload_to=get_upload_path,
         validators=[FileExtensionValidator(allowed_extensions=["jpg", "png", "jpeg"])],
         null=True,blank=True,
         default='company/default_logo.png'

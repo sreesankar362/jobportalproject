@@ -8,7 +8,7 @@ class JobModel(models.Model):
     skills = models.TextField(max_length=200)
     company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, related_name='employer')
     job_type = (
-        ("Full Time", "full time"),
+        ("Full Time", "Full time"),
         ("Part Time", 'Part Time'),
         ("Temporary", 'Temporary'),
         ("Contract", 'Contract'),

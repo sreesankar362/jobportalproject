@@ -18,6 +18,7 @@ def handler400(request, exception):
     return render(request, 'error_handler/error_400.html', status=400)
 
 
+
 def handler403(request, exception):
     return render(request, 'error_handler/error_403.html', status=403)
 
@@ -31,6 +32,11 @@ def handler500(request):
 
 
 class HomeView(TemplateView):
+    """
+    Displays the homepage.
+
+    Takes job model objects and slicing latest 5 jobs to list as recent jobs.
+    """
     template_name = "home/home.html"
 
     def get_context_data(self, **kwargs):
@@ -63,6 +69,13 @@ def inactive_job(request, *args, **kwargs):
 
 
 class JobListingView(TemplateView):
+    """
+    Listing all Jobs
+
+    All jobs are listed here in their posted date order(latest comes first).
+    This view checks if the listing job is in the candidates saved jobs list
+    and displays the filter for searching and filtering jobs.
+    """
     template_name = "home/job_listing.html"
 
     def get(self, request):
@@ -77,7 +90,7 @@ class JobListingView(TemplateView):
                 saved_jobs = []
                 for sj in saved_job_obj:
                     saved_jobs.append(sj.job)
-        except:
+        except :
             pass
         context = {
 
@@ -109,12 +122,16 @@ def search(request):
 @method_decorator(login_company_required, name="dispatch")
 class JobModelView(FormView):
     """
+<<<<<<< HEAD
     this class enables the company to post a job after the company approval and successful subscription on
     clicking the 'Post Job' tab
 
     in case any one of the condition is not satisfied company will be redirected to the dashboard
 
     on successful post application a success message will be rendered.
+=======
+    Allows company to post jobs if the company is approved by admin and subscribed to job hub plans.
+>>>>>>> main
     """
     template_name = 'post_job.html'
     form_class = JobModelForm
@@ -144,11 +161,6 @@ class JobModelView(FormView):
             messages.error(request, "Job Not posted")
             return render(request, "post_job.html", {'form': form})
 
-
-# class JobDetailView(DetailView):
-#     model = JobModel
-#     context_object_name = "job"
-#     template_name = "home/job_detail.html"
 
 class JobDetailView(TemplateView):
     template_name = "home/job_detail.html"

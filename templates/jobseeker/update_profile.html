@@ -19,7 +19,8 @@
                             {{ candidate_formset.management_form }}
                             <div data-formset-body>
                                 <!-- New forms will be inserted in here -->
-                                {% for form in candidate_formset %}
+                                {% for form in candidate_formset  %}
+                                 {% if forloop.counter < 2 %}
                                 <div data-formset-form>
                                     <table>
                                         <h6 class="card-subtitle mb-5 text-muted">Basic Info</h6>
@@ -27,7 +28,7 @@
                                         {{ form }}
                                     </table>
                                 </div>
-
+                            {% endif %}
                                 {% endfor %}
                             </div>
 
@@ -37,8 +38,8 @@
                             <button class="btn btn-success mt-4 mb-5 " type="submit">SUBMIT</button>
                         </div>
                            <div class="card-body mt-5">
-                    <a href="{%url 'myaccount'%}" class="card-link btn btn-danger">Back</a>
-                </div>
+                                <a href="{%url 'myaccount'%}" class="card-link btn btn-danger">Back</a>
+                           </div>
 
                     </form>
                 </div>
