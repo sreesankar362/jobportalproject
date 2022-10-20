@@ -18,7 +18,6 @@ def handler400(request, exception):
     return render(request, 'error_handler/error_400.html', status=400)
 
 
-
 def handler403(request, exception):
     return render(request, 'error_handler/error_403.html', status=403)
 
@@ -122,16 +121,13 @@ def search(request):
 @method_decorator(login_company_required, name="dispatch")
 class JobModelView(FormView):
     """
-<<<<<<< HEAD
-    this class enables the company to post a job after the company approval and successful subscription on
+    This class enables the company to post a job after the company approval and successful subscription on
     clicking the 'Post Job' tab
 
     in case any one of the condition is not satisfied company will be redirected to the dashboard
 
     on successful post application a success message will be rendered.
-=======
-    Allows company to post jobs if the company is approved by admin and subscribed to job hub plans.
->>>>>>> main
+
     """
     template_name = 'post_job.html'
     form_class = JobModelForm
