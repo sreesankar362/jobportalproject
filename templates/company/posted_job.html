@@ -16,6 +16,8 @@
                     <th scope="col">Job Type</th>
                     <th scope="col">Application end-date</th>
                     <th scope="col">No. of openings</th>
+                    <th scope="col">Active</th>
+
                 </tr>
                 </thead>
 
@@ -29,6 +31,7 @@
                     <td>{{ job.job_type }}</td>
                     <td>{{job.application_end_date}}</td>
                     <td>{{job.No_of_openings}}</td>
+                    <td><a  href="{%url 'inactive-job' job.id%}">{{job.is_active}}</a></td>
 
                 </tr>
 

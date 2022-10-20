@@ -7,7 +7,7 @@
 
     <div class="col-9 mt-4">
         <h1 class="text-secondary text-center">APPLIED JOBS</h1>
-        <hr>
+
 
         {% if jobapplicationobjects %}
         {% for jobapplication in jobapplicationobjects %}
@@ -49,7 +49,7 @@
     </div>
     {% endfor %}
     {% else %}
-    <div class="card text-center">
+    <div class="text-center">
         <h3>You haven't applied any job yet. </h3>
     </div>
     {% endif %}
