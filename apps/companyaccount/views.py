@@ -69,6 +69,12 @@ class CompanyRegistrationView(View):
 
 
 def activate(request, uidb64, token):
+    """
+    verifying token send to registered company email.
+
+    if token is valid setting is_active status of user to true and is_activated, is_mail_verified
+    status of company profile to True.Then only company can login.
+    """
     User = get_user_model()
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))

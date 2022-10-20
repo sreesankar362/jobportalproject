@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
-from apps.user import forms
-from apps.accounts.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from apps.accounts.verified_access import login_required
 from django.utils.decorators import method_decorator
+
+from apps.user import forms
+from apps.accounts.models import User
+from apps.accounts.verified_access import login_required
 
 
 class RegistrationView(View):
