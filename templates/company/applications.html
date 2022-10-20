@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-3">
                         <p>Skills : {{ app.candidate.skills }}</p>
-                        <p>Resume : File <a href="{{app.candidate.resume.url}}"><i class="fa-solid fa-file-pdf"></i></a> </p>
+                        {% if app.candidate.resume %}<p>Resume : File <a href="{{app.candidate.resume.url}}"><i class="fa-solid fa-file-pdf"></i></a> </p>{% endif %}
                     </div>
                     <div class="col-2 text-center" style="">
                         {% if app.job_status == 'applied' %}

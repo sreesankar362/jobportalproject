@@ -7,10 +7,12 @@
     <div class="container" style="padding:90px;">
 
         <div class="row">
-            <div class="card ms-5 ">
+            <div class="card ms-5  m-3 ">
+                {% if can.candidate_image %}
                 <img src={{can.candidate_image.url}} class="rounded mx-auto d-block mt-3" width="200" height="200"
                      alt="...">
-                <div class="card-header">
+                {% endif %}
+                <div class="card-header mt-3">
                     Name :
                 </div>
                 <ul class="list-group list-group-flush">
