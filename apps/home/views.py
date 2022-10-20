@@ -121,13 +121,11 @@ def search(request):
 @method_decorator(login_company_required, name="dispatch")
 class JobModelView(FormView):
     """
-    this class enables the company to post a job after the company approval and successful subscription on
+    This class enables the company to post a job after the company approval and successful subscription on
     clicking the 'Post Job' tab
 
     in case any one of the condition is not satisfied company will be redirected to the dashboard
     on successful post application a success message will be rendered.
-
-    Allows company to post jobs if the company is approved by admin and subscribed to job hub plans.
     """
     template_name = 'post_job.html'
     form_class = JobModelForm
