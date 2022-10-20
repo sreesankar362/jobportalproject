@@ -1,6 +1,7 @@
-from .models import CandidateProfile, LatEducation, Experience
-from django.forms import modelformset_factory, DateInput, TextInput, NumberInput,FileInput,ClearableFileInput
 
+from django.forms import modelformset_factory, DateInput, TextInput, NumberInput,ClearableFileInput
+
+from .models import CandidateProfile, LatEducation, Experience
 
 class DateInput(DateInput):
     input_type = 'date'
