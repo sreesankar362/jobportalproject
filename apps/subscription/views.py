@@ -11,7 +11,7 @@ from.models import Membership, Payment, CompanySubscription
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-YOUR_DOMAIN = 'https://jobhubonline.herokuapp.com/'
+YOUR_DOMAIN = 'https://jobhubonline.herokuapp.com'
 
 
 @method_decorator(login_company_required, name="dispatch")
