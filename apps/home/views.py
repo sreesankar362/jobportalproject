@@ -26,8 +26,8 @@ def handler404(request, exception):
     return render(request, 'error_handler/error_404.html', status=404)
 
 
-# def handler500(request):
-#     return render(request, 'error_handler/error_500.html', status=500)
+def handler500(request):
+    return render(request, 'error_handler/error_500.html', status=500)
 
 
 class HomeView(TemplateView):
