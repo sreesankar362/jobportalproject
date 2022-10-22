@@ -12,6 +12,7 @@ from django.utils.decorators import method_decorator
 from django.core.mail import send_mail
 from django.conf import settings
 from .filters import JobListingFilter
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 def handler400(request, exception):
@@ -79,10 +80,16 @@ class JobListingView(TemplateView):
 
     def get(self, request):
         search_form = JobSearchForm
-        all_jobs = JobModel.objects.filter().order_by("-published_date").filter(is_active=True)
-        joblistingfilter = JobListingFilter(request.GET, queryset=all_jobs)
-
+        all_jobs = JobModel.objects.all().order_by("-published_date").filter(is_active=True)
+        jobfilattr = JobListingFilter(request.GET, queryset=all_jobs)
+        joblistingfilter = jobfilattr.qs
+        paginator = Paginator(joblistingfilter, 10)
+        page = request.GET.get('page')
+        paged_jobs = paginator.get_page(page)
+        if "position" and "min_experience" and "work_type" and "job_type" in request.GET:
+            print(request.GET.get("position"))
         saved_jobs = None
+        all_jobs_count = joblistingfilter.count()
         try:
             if request.user.profile:
                 saved_job_obj = SavedJobs.objects.filter(candidate=self.request.user.profile)
@@ -94,8 +101,10 @@ class JobListingView(TemplateView):
         context = {
 
             'joblistingfilter': joblistingfilter,
-            "all_jobs": all_jobs,
+            "jobfilattr" : jobfilattr,
+            "all_jobs": paged_jobs,
             "saved_jobs": saved_jobs,
+            "all_jobs_count": all_jobs_count,
             "form": search_form
         }
         return render(request, "home/job_listing.html", context)

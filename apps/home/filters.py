@@ -5,7 +5,7 @@ from django import forms
 
 
 class JobListingFilter(django_filters.FilterSet):
-    position = django_filters.CharFilter(lookup_expr='gte',
+    position = django_filters.CharFilter(lookup_expr='icontains',
                                          label='Position',
                                          widget=forms.TextInput(attrs={"class": "form-control "}))
     # job_type = django_filters.CharFilter(lookup_expr= 'exact')
