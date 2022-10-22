@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'apps.subscription',
     'apps.candidate',
     'storages',
-    # 'jquery',
+    'jquery',
     'djangoformsetjs',
 
 ]
@@ -150,12 +150,12 @@ USE_TZ = True
 
 
 #STATIC_URL = 'static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 #MEDIA_URL = '/media/'
-#MEDIA_ROOT = BASE_DIR/'media'
+MEDIA_ROOT = BASE_DIR/'media'
 
 
 # Default primary key field type
