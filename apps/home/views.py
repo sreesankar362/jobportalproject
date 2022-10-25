@@ -71,7 +71,6 @@ def inactive_job(request, *args, **kwargs):
 class JobListingView(TemplateView):
     """
     Listing all Jobs
-
     All jobs are listed here in their posted date order(latest comes first).
     This view checks if the listing job is in the candidates saved jobs list
     and displays the filter for searching and filtering jobs.
@@ -80,10 +79,34 @@ class JobListingView(TemplateView):
 
     def get(self, request):
         search_form = JobSearchForm
+        all_jobs = JobModel.objects.filter().order_by("-published_date").filter(is_active=True)
+        joblistingfilter = JobListingFilter(request.GET, queryset=all_jobs)
+
+        saved_jobs = None
+        try:
+            if request.user.profile:
+                saved_job_obj = SavedJobs.objects.filter(candidate=self.request.user.profile)
+                saved_jobs = []
+                for sj in saved_job_obj:
+                    saved_jobs.append(sj.job)
+        except :
+            pass
+        context = {
+
+            'joblistingfilter': joblistingfilter,
+            "all_jobs": all_jobs,
+            "saved_jobs": saved_jobs,
+            "form": search_form
+        }
+        return render(request, "home/job_listing.html", context)
+
+    def post(self,request,**kwargs):
+        print("hi")
+        search_form = JobSearchForm
         all_jobs = JobModel.objects.all().order_by("-published_date").filter(is_active=True)
         jobfilattr = JobListingFilter(request.GET, queryset=all_jobs)
         joblistingfilter = jobfilattr.qs
-        paginator = Paginator(joblistingfilter, 10)
+        paginator = Paginator(joblistingfilter, 2)
         page = request.GET.get('page')
         paged_jobs = paginator.get_page(page)
         if "position" and "min_experience" and "work_type" and "job_type" in request.GET:
