@@ -81,7 +81,7 @@ class JobListingView(TemplateView):
         all_jobs = JobModel.objects.filter().order_by("-published_date").filter(is_active=True)
         joblistingfilter = JobListingFilter(request.GET, queryset=all_jobs)
 
-        paginator = Paginator(joblistingfilter.qs, 2)
+        paginator = Paginator(joblistingfilter.qs, 6)
         page = request.GET.get('page')
         paged_jobs = paginator.get_page(page)
         saved_jobs = None
